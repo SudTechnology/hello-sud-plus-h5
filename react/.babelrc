@@ -1,0 +1,16 @@
+{
+  "plugins": [
+    ["import"] // `style: true` 会加载 less 文件
+  ],
+  "presets": [
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "chrome": "49",
+          "ios": "10"
+        }
+      }
+    ]
+  ]
+}

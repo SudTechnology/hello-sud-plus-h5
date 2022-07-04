@@ -1,0 +1,65 @@
+body {
+  margin: 0;
+  font-family: PingFangSC-Medium, PingFang SC;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;  
+}
+.app {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.max-width {
+  max-width: 1440px;
+  min-width: 960px;
+  margin: auto;
+}
+
+@media screen and (min-width: 1080px) {
+  body {
+    min-width: 1200px;
+  }
+}
+
+@media screen and (max-width: 1580px) {
+  .max-width {
+    max-width: 1200px;
+  }
+}
+.ant-modal {
+  .ant-modal-content {
+    border-radius: 20px;
+  }
+}
+
+.global-info-modal {
+  .ant-modal-confirm-btns {
+    display: none !important;
+  }
+}
+
+.global-m-info-modal {
+  opacity: 0.96;
+  .adm-modal-footer {
+    display: none !important;
+  }
+}
+
+// 超出一行 省略号
+.one-line-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.three-line-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+
+
