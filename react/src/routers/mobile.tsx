@@ -9,6 +9,12 @@ const mobileRoutes: RouteProp[] = [
     exact: true,
     title: '首页',
     loader: lazy(() => import('mobile/Home'))
+  },
+  {
+    path: '/game/:id',
+    exact: true,
+    title: '游戏详情',
+    loader: lazy(() => import('mobile/GameDetail'))
   }
 
 ]

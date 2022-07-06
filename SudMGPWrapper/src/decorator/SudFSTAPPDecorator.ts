@@ -3,7 +3,7 @@
  * https://sud.tech
  */
 
-import { ISudFSTAPP, ISudListenerNotifyStateChange } from "SudMGP/core"
+import { ISudFSTAPP, ISudListenerNotifyStateChange } from "../type/core"
 import { SudMGPAPPState, Ludo, AIPlayers } from "../state/SudMGPAPPState"
 
 const notifyStateChangeFun = {
@@ -18,17 +18,13 @@ export class SudFSTAPPDecorator {
   /**
    * APP调用游戏的接口
    */
-  private iSudFSTAPP: ISudFSTAPP
+  private iSudFSTAPP: ISudFSTAPP | undefined
 
   /**
    * 设置app调用sdk的对象
    *
    * @param iSudFSTAPP
    */
-
-  constructor(iSudFSTAPP: ISudFSTAPP) {
-    this.iSudFSTAPP = iSudFSTAPP
-  }
 
   public setISudFSTAPP(iSudFSTAPP: ISudFSTAPP): void {
     this.iSudFSTAPP = iSudFSTAPP

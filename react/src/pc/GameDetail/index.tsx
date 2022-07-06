@@ -1,23 +1,51 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styles from './index.module.less'
 import classnames from 'classnames/bind'
 import Close from 'assets/close.png'
+import { Modal } from 'antd'
 import { useGameDetail } from 'hooks/useGameDetail'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
+
 const cx = classnames.bind(styles)
 
-const GameDetail = () => {
-  const { initGame } = useGameDetail()
-  useEffect(() => {
-    initGame()
-  }, [])
+const GameDetail = (props: RouteComponentProps) => {
+  console.log(props)
+  const params: { id?: string } = props.match.params
+  console.log(params)
+  useGameDetail(params.id || '')
+
+  const destory = () => {
+    Modal.confirm({
+      centered: true,
+      width: 400,
+      bodyStyle: {
+        textAlign: 'center'
+      },
+      okType: 'ghost',
+      className: 'quit-game',
+      title: '',
+      content: '确定要退出吗？',
+      okText: '确认',
+      cancelText: '取消',
+      icon: '',
+      onOk() {
+        // TODO: 销毁游戏
+        setTimeout(() => {
+          location.href = '/'
+        }, 1000)
+      }
+    })
+  }
 
   return (
     <div className={cx('container')}>
-      {/* game 容器 */}
-      <img src={Close} alt="" className={cx('close')} />
-      <div id='game' className={cx('game-wrap')}></div>
+      <div className={cx('game-container')}>
+        {/* game 容器 */}
+        <img src={Close} onClick={destory} alt="" className={cx('close')} />
+        <div id='game' className={cx('game-wrap')}></div>
+      </div>
     </div>
   )
 }
 
-export default GameDetail
+export default withRouter(GameDetail)

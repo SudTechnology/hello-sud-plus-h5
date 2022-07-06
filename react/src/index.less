@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  position: relative;
   font-family: PingFangSC-Medium, PingFang SC;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;  
@@ -16,35 +17,80 @@ body {
   margin: auto;
 }
 
-@media screen and (min-width: 1080px) {
-  body {
-    min-width: 1200px;
+.quit-game {
+  .ant-modal-content {   
+    background: rgba(0, 0, 0, 0.7);
+    .ant-modal-body {
+      height: 220px;
+    }
+    .ant-modal-confirm-content {
+      color: #fff;
+      font-size: 24px;
+      font-family: PingFangSC-Semibold, PingFang SC;
+    }
   }
-}
 
-@media screen and (max-width: 1580px) {
-  .max-width {
-    max-width: 1200px;
-  }
-}
-.ant-modal {
-  .ant-modal-content {
-    border-radius: 20px;
-  }
-}
-
-.global-info-modal {
   .ant-modal-confirm-btns {
-    display: none !important;
+    text-align: center !important;
+    margin-top: 52px !important;
+    button {
+      font-size: 16px;
+      font-family: PingFangSC-Medium, PingFang SC;
+      width: 120px;
+      height: 44px;
+      background: #FFFFFF;
+      border-radius: 56px;
+      border: 4px solid rgba(255, 255, 255, 0.4);
+      margin-right: 30px;
+    }
+    button:last-child {
+      margin-right: 0;
+      margin-left: 0;
+    }
+  }
+}
+.adm-center-popup-wrap {
+  max-width: unset !important;
+}
+.global-m-info-modal {
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  padding: 18px 15px;
+
+  border-radius: 13px !important;
+  .adm-modal-content {
+    color: #fff;
+  }
+  .adm-modal-content {
+    padding-top: 17px;
+    padding-bottom: 18px;
+  }
+  .adm-space {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+  .adm-space-item {
+    width: 111px;
+    height: 41px;
+    background: #FFFFFF;
+    border-radius: 26px;
+    margin-bottom: 0 !important;
+    margin-left: 28px;
+    button {
+      font-size: 15px;
+      color: #000;
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      background: #FFFFFF;
+      padding: 0;
+      height: 41px;
+      line-height: 41px;
+      border-radius: 26px;
+    }
+  }
+  .adm-space-item:last-child {
+    margin-left: 0;
   }
 }
 
-.global-m-info-modal {
-  opacity: 0.96;
-  .adm-modal-footer {
-    display: none !important;
-  }
-}
 
 // 超出一行 省略号
 .one-line-ellipsis {

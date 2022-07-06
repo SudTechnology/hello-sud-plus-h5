@@ -3,7 +3,7 @@
  * https://sud.tech
  */
 
-import { ISudFSMMG, ISudFSMStateHandle } from 'SudMGP/core'
+import { ISudFSMMG, ISudFSMStateHandle } from '../type/core'
 import { SudMGPMGState } from '../state/SudMGPMGState'
 import {
   IMGCommonAPPCommonSelfXResp,
@@ -58,14 +58,11 @@ function parseJson<T>(dataJson: string): T {
 
 export class SudFSMMGDecorator implements ISudFSMMG {
   // 回调
+  // @ts-ignore
   private sudFSMMGListener: SudFSMMGListener
 
   // 数据状态封装
   private sudFSMMGCache = new SudFSMMGCache()
-
-  constructor(listener: SudFSMMGListener) {
-    this.sudFSMMGListener = listener
-  }
 
   /**
    * 设置回调

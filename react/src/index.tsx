@@ -5,6 +5,10 @@ import './styles/reset.css'
 import './styles/antd-mobile.less'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+// import VConsole from 'vconsole'
+
+// eslint-disable-next-line no-unused-vars
+// const vConsole = new VConsole()
 
 ReactDOM.render(
   <App />,

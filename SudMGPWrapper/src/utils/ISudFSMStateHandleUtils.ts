@@ -3,8 +3,8 @@
  * https://sud.tech
  */
 
-import { ISudFSMStateHandle } from "SudMGP/core"
 import { MGStateResponse } from "../state/MGStateResponse"
+import { ISudFSMStateHandle } from '../type/core'
 
 export class ISudFSMStateHandleUtils {
   /**

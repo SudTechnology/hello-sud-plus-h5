@@ -1,0 +1,41 @@
+.container {
+  width: 100%;
+}
+.title {
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  font-family: PingFangSC-Semibold, PingFang SC;
+  font-weight: 600;
+  color: #000000;
+  border-bottom: 1px solid  #E0E0E0;
+  text-align: center;
+}
+
+.game-list {
+  padding: 0 4.2vw;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 40px;
+  .game-item {
+    // display: inline-block;
+    margin-right: 1.6vw;
+    margin-top: 20px;
+  }
+  .game-item:nth-child(2n) {
+    margin-right: 0;
+  }
+  .game-logo {
+    width: 44.8vw;
+    height: 44.8vw;
+    border-radius: 10px;
+    object-fit: cover;
+  }
+  .game-title {
+    font-size: 14px;
+    font-family: PingFangSC-Semibold, PingFang SC;
+    font-weight: 600;
+    color: #000000;
+    padding-top: 8px;
+  }
+}
