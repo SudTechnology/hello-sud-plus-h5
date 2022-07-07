@@ -1,8 +1,8 @@
-import { SudFSMMGDecorator, SudFSTAPPDecorator } from '../SudMGP/SudMGPWrapper'
+import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator } from '../SudMGP/SudMGPWrapper'
 import { SudMGP } from '../SudMGP/SudMGP'
 import { getCode } from 'api/login' // 短期令牌code接口
-import { IMGCommonPublicMessage, IMGCommonKeyWordToHit, IMGCommonGameSettle, IMGCommonSelfClickJoinBtn, IMGCommonSelfClickCancelJoinBtn, IMGCommonSelfClickReadyBtn, IMGCommonSelfClickCancelReadyBtn, IMGCommonSelfClickStartBtn, IMGCommonSelfClickShareBtn, IMGCommonGameState, IMGCommonSelfClickGameSettleCloseBtn, IMGCommonSelfClickGameSettleAgainBtn, IMGCommonGameSoundList, IMGCommonGameSound, IMGCommonGameBgMusicState, IMGCommonGameSoundState, IMGCommonGameASR, IMGCommonSelfMicrophone, IMGCommonSelfHeadphone, IMGCommonAPPCommonSelfXResp, IMGCommonGameAddAIPlayers, IMGCommonPlayerIn, IMGCommonPlayerReady, IMGCommonPlayerCaptain, IMGCommonPlayerPlaying, IMGCommonPlayerOnline, IMGCommonPlayerChangeSeat, IMGCommonSelfClickGamePlayerIcon, IMGCommonSelfDieStatus, IMGCommonSelfTurnStatus, IMGCommonSelfSelectStatus, IMGCommonGameCountdownTime, IMGDGSelecting, IMGDGPainting, IMGDGErroranswer, IMGDGTotalscore, IMGDGScore } from 'SudMGP/SudMGPWrapper/state/ISudMGPMGState'
 import { ISudFSMStateHandle } from 'SudMGP/SudMGPWrapper/type/core'
+console.log(SudMGP, 'SudMGP')
 
 interface IInitSDKParam {
   userId: string,
@@ -123,28 +123,23 @@ export class SDKGameView {
     const gameRoomId = this.gameRoomId
     const gameId = this.gameId
     const language = this.language
-
+    const self = this
     this.sudFSMMGDecorator.setSudFSMMGListener({
       onGameStarted() {
-        console.log('game-start')
-      },
-      onGameLog: function (str: string): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameDestroyed: function (): void {
-        throw new Error('Function not implemented.')
-      },
-      onExpireCode: function (handle: ISudFSMStateHandle, dataJson: string): void {
-        throw new Error('Function not implemented.')
+        console.log('start')
       },
       onGetGameViewInfo: function (handle: ISudFSMStateHandle, dataJson: string): void {
+        const width = self.root.clientWidth
+        const height = self.root.clientHeight
+        console.log(width, height, 'height')
+
         // TODO: 修改数据
         var gameViewInfo = {
           ret_code: 0,
           ret_msg: "success",
           view_size: {
-            width: 750,
-            height: 1334
+            width,
+            height
           },
           view_game_rect: {
             left: 0,
@@ -157,118 +152,10 @@ export class SDKGameView {
         handle.success(JSON.stringify(gameViewInfo))
       },
       onGetGameCfg: function (handle: ISudFSMStateHandle, dataJson: string): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonPublicMessage: function (handle: ISudFSMStateHandle, model: IMGCommonPublicMessage): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonKeyWordToHit: function (handle: ISudFSMStateHandle, model: IMGCommonKeyWordToHit): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonGameSettle: function (handle: ISudFSMStateHandle, model: IMGCommonGameSettle): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonSelfClickJoinBtn: function (handle: ISudFSMStateHandle, model: IMGCommonSelfClickJoinBtn): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonSelfClickCancelJoinBtn: function (handle: ISudFSMStateHandle, model: IMGCommonSelfClickCancelJoinBtn): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonSelfClickReadyBtn: function (handle: ISudFSMStateHandle, model: IMGCommonSelfClickReadyBtn): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonSelfClickCancelReadyBtn: function (handle: ISudFSMStateHandle, model: IMGCommonSelfClickCancelReadyBtn): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonSelfClickStartBtn: function (handle: ISudFSMStateHandle, model: IMGCommonSelfClickStartBtn): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonSelfClickShareBtn: function (handle: ISudFSMStateHandle, model: IMGCommonSelfClickShareBtn): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonGameState: function (handle: ISudFSMStateHandle, model: IMGCommonGameState): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonSelfClickGameSettleCloseBtn: function (handle: ISudFSMStateHandle, model: IMGCommonSelfClickGameSettleCloseBtn): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonSelfClickGameSettleAgainBtn: function (handle: ISudFSMStateHandle, model: IMGCommonSelfClickGameSettleAgainBtn): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonGameSoundList: function (handle: ISudFSMStateHandle, model: IMGCommonGameSoundList): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonGameSound: function (handle: ISudFSMStateHandle, model: IMGCommonGameSound): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonGameBgMusicState: function (handle: ISudFSMStateHandle, model: IMGCommonGameBgMusicState): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonGameSoundState: function (handle: ISudFSMStateHandle, model: IMGCommonGameSoundState): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonGameASR: function (handle: ISudFSMStateHandle, model: IMGCommonGameASR): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonSelfMicrophone: function (handle: ISudFSMStateHandle, model: IMGCommonSelfMicrophone): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonSelfHeadphone: function (handle: ISudFSMStateHandle, model: IMGCommonSelfHeadphone): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonAPPCommonSelfXResp: function (handle: ISudFSMStateHandle, model: IMGCommonAPPCommonSelfXResp): void {
-        throw new Error('Function not implemented.')
-      },
-      onGameMGCommonGameAddAIPlayers: function (handle: ISudFSMStateHandle, model: IMGCommonGameAddAIPlayers): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGCommonPlayerIn: function (handle: ISudFSMStateHandle, userId: string, model: IMGCommonPlayerIn): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGCommonPlayerReady: function (handle: ISudFSMStateHandle, userId: string, model: IMGCommonPlayerReady): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGCommonPlayerCaptain: function (handle: ISudFSMStateHandle, userId: string, model: IMGCommonPlayerCaptain): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGCommonPlayerPlaying: function (handle: ISudFSMStateHandle, userId: string, model: IMGCommonPlayerPlaying): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGCommonPlayerOnline: function (handle: ISudFSMStateHandle, userId: string, model: IMGCommonPlayerOnline): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGCommonPlayerChangeSeat: function (handle: ISudFSMStateHandle, userId: string, model: IMGCommonPlayerChangeSeat): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGCommonSelfClickGamePlayerIcon: function (handle: ISudFSMStateHandle, userId: string, model: IMGCommonSelfClickGamePlayerIcon): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGCommonSelfDieStatus: function (handle: ISudFSMStateHandle, userId: string, model: IMGCommonSelfDieStatus): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGCommonSelfTurnStatus: function (handle: ISudFSMStateHandle, userId: string, model: IMGCommonSelfTurnStatus): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGCommonSelfSelectStatus: function (handle: ISudFSMStateHandle, userId: string, model: IMGCommonSelfSelectStatus): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGCommonGameCountdownTime: function (handle: ISudFSMStateHandle, userId: string, model: IMGCommonGameCountdownTime): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGDGSelecting: function (handle: ISudFSMStateHandle, userId: string, model: IMGDGSelecting): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGDGPainting: function (handle: ISudFSMStateHandle, userId: string, model: IMGDGPainting): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGDGErroranswer: function (handle: ISudFSMStateHandle, userId: string, model: IMGDGErroranswer): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGDGTotalscore: function (handle: ISudFSMStateHandle, userId: string, model: IMGDGTotalscore): void {
-        throw new Error('Function not implemented.')
-      },
-      onPlayerMGDGScore: function (handle: ISudFSMStateHandle, userId: string, model: IMGDGScore): void {
-        throw new Error('Function not implemented.')
+        console.log("onGetGameCfg")
+        const config = new GameConfigModel()
+        console.log(config)
+        handle.success(JSON.stringify(config))
       }
     })
     this.sudFSMMGDecorator.onGameLoadingProgress = function (stage: number, retCode: number, progress: number) {
@@ -279,13 +166,27 @@ export class SDKGameView {
     // 调用游戏sdk加载游戏
     // @ts-ignore
     // eslint-disable-next-line no-unused-vars
-    const iSudFSTAPP = SudMGP.loadMG(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator)
+    const iSudFSTAPP = SudMGP.loadMG(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator, this.root)
     // APP调用游戏接口的装饰类设置
-    // this.sudFSTAPPDecorator.setISudFSTAPP(iSudFSTAPP)
+    this.sudFSTAPPDecorator.setISudFSTAPP(iSudFSTAPP)
+  }
+
+  // region 生命周期相关
+
+  /** 页面销毁的时候调用 */
+  public onDestroy() {
+    this.destroyMG()
+  }
+  // endregion 生命周期相关
+
+  /** 销毁游戏 */
+  private destroyMG() {
+    this.sudFSTAPPDecorator.destroyMG()
+    this.sudFSMMGDecorator.destroyMG()
   }
 
   // 根据域名生成bundleId
   public getBundleId() {
-    return 'tech.sud.mgp.hello'
+    return location.hostname
   }
 }

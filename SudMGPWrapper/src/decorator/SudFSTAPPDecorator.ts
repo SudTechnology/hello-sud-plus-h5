@@ -276,7 +276,10 @@ export class SudFSTAPPDecorator {
   }
 
   public destroyMG() {
-
+    const iSudFSTAPP = this.iSudFSTAPP
+    if (iSudFSTAPP != null) {
+      iSudFSTAPP.destroyMG()
+    }
   }
 
   // endregion 生命周期

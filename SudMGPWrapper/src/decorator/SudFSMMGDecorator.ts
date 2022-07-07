@@ -59,7 +59,7 @@ function parseJson<T>(dataJson: string): T {
 export class SudFSMMGDecorator implements ISudFSMMG {
   // 回调
   // @ts-ignore
-  private sudFSMMGListener: SudFSMMGListener
+  private sudFSMMGListener: Partial<SudFSMMGListener>
 
   // 数据状态封装
   private sudFSMMGCache = new SudFSMMGCache()
@@ -69,7 +69,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    *
    * @param listener 监听器
    */
-  public setSudFSMMGListener(listener: SudFSMMGListener) {
+  public setSudFSMMGListener(listener: Partial<SudFSMMGListener>) {
     this.sudFSMMGListener = listener
   }
 
@@ -78,7 +78,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    * 最低版本：v1.1.30.xx
    */
   public onGameLog(dataJson: string) {
-    const listener = this.sudFSMMGListener
+    const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
     if (listener != null) {
       listener.onGameLog(dataJson)
     }
@@ -102,7 +102,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
   public onGameStarted() {
     const listener = this.sudFSMMGListener
     if (listener != null) {
-      listener.onGameStarted()
+      listener.onGameStarted && listener.onGameStarted()
     }
   }
 
@@ -111,7 +111,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    * 最低版本：v1.1.30.xx
    */
   public onGameDestroyed() {
-    const listener = this.sudFSMMGListener
+    const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
     if (listener != null) {
       listener.onGameDestroyed()
     }
@@ -124,7 +124,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    * @param dataJson {"code":"value"}
    */
   public onExpireCode(handle: ISudFSMStateHandle, dataJson: string) {
-    const listener = this.sudFSMMGListener
+    const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
     if (listener != null) {
       listener.onExpireCode(handle, dataJson)
     }
@@ -138,7 +138,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    * @param dataJson {}
    */
   public onGetGameViewInfo(handle: ISudFSMStateHandle, dataJson: string) {
-    const listener = this.sudFSMMGListener
+    const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
     if (listener != null) {
       listener.onGetGameViewInfo(handle, dataJson)
     }
@@ -153,7 +153,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    *                 最低版本：v1.1.30.xx
    */
   public onGetGameCfg(handle: ISudFSMStateHandle, dataJson: string) {
-    const listener = this.sudFSMMGListener
+    const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
     if (listener != null) {
       listener.onGetGameCfg(handle, dataJson)
     }
@@ -168,7 +168,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    * @param dataJson 状态值
    */
   public onGameStateChange(handle: ISudFSMStateHandle, state: string, dataJson: string) {
-    const listener = this.sudFSMMGListener
+    const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
     switch (state) {
       case SudMGPMGState.MG_COMMON_PUBLIC_MESSAGE: { // 1. 公屏消息
         const res = parseJson<IMGCommonPublicMessage>(dataJson)
@@ -384,7 +384,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    * @param dataJson 状态值
    */
   public onPlayerStateChange(handle: ISudFSMStateHandle, userId: string, state: string, dataJson: string) {
-    const listener = this.sudFSMMGListener
+    const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
     // const parseJson = JSON.parse(dataJson)
 
     switch (state) {

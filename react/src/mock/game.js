@@ -6,7 +6,7 @@ const game = [
     url: '/v1/gamelist',
     type: 'get',
     response: config => {
-      return { code: 0, data: data.data.sceneVOList }
+      return { ret_code: 0, data: data.data.sceneVOList }
     }
   }
 ]

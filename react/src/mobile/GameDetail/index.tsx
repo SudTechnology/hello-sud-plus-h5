@@ -16,7 +16,7 @@ const GameDetail = (props: IProps) => {
   console.log(props)
   const params: { id?: string } = props.match.params
   console.log(params)
-  useGameDetail(params.id || '')
+  const { SudSDk } = useGameDetail(params.id || '')
 
   useEffect(() => {
     rotateScreen()
@@ -57,9 +57,11 @@ const GameDetail = (props: IProps) => {
       content: '确定要退出吗？',
       onConfirm() {
         // TODO: 销毁游戏
+        console.log(SudSDk)
+        SudSDk && SudSDk.onDestroy()
         setTimeout(() => {
           location.href = '/'
-        }, 1000)
+        }, 500)
       }
     })
   }

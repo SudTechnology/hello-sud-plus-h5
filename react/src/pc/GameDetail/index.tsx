@@ -12,7 +12,7 @@ const GameDetail = (props: RouteComponentProps) => {
   console.log(props)
   const params: { id?: string } = props.match.params
   console.log(params)
-  useGameDetail(params.id || '')
+  const { SudSDk } = useGameDetail(params.id || '')
 
   const destory = () => {
     Modal.confirm({
@@ -30,9 +30,11 @@ const GameDetail = (props: RouteComponentProps) => {
       icon: '',
       onOk() {
         // TODO: 销毁游戏
+        console.log(SudSDk)
+        SudSDk && SudSDk.onDestroy()
         setTimeout(() => {
           location.href = '/'
-        }, 1000)
+        }, 500)
       }
     })
   }
