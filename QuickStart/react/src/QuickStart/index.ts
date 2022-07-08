@@ -1,7 +1,9 @@
-import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator } from '../SudMGP/SudMGPWrapper'
+import { GameConfigModel, SudFSMMGDecorator, SudFSMMGListener, SudFSTAPPDecorator } from 'sudmgp-sdk-js-wrapper'
+
 import { SudMGP } from '../SudMGP/SudMGP'
 import { getCode } from 'api/login' // 短期令牌code接口
-import { ISudFSMStateHandle } from 'SudMGP/SudMGPWrapper/type/core'
+import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
+
 console.log(SudMGP, 'SudMGP')
 
 interface IInitSDKParam {
@@ -27,13 +29,12 @@ interface IBaseGameViewModelConstru {
 
 export class SDKGameView {
   private gameRoomId: string // 游戏房间id，房间隔离，同一房间才能一起游戏
-  private language: string = "zh-CN"
-  private gameId: string
-  private bundleId: string = ''
+  private language: string = "zh-CN" /** 游戏的语言代码 */
+  private gameId: string // 游戏id
 
   public root: HTMLElement // 绑定到个个元素上
- /** 使用的UserId。这里随机生成作演示，开发者将其修改为业务使用的唯一userId */
- public userId = Math.floor((Math.random() + 1) * 10000).toString()
+  /** 使用的UserId。这里随机生成作演示，开发者将其修改为业务使用的唯一userId */
+  public userId = Math.floor((Math.random() + 1) * 10000).toString()
   /** Sud平台申请的appId */
   // eslint-disable-next-line camelcase
   public SudMGP_APP_ID = "1461564080052506636"
@@ -48,6 +49,9 @@ export class SDKGameView {
   public sudFSTAPPDecorator = new SudFSTAPPDecorator()
   // 用于处理游戏SDK部分回调业务
   public sudFSMMGDecorator = new SudFSMMGDecorator()
+
+  public customListener: Partial<SudFSMMGListener> | undefined
+  // 初始化数据
 
   // 初始化数据
   constructor({ root, gameRoomId, language = 'zh-CN', gameId, userId }: IBaseGameViewModelConstru) {
@@ -64,26 +68,33 @@ export class SDKGameView {
    * 参考文档时序图：sud-mgp-doc(https://docs.sud.tech/zh-CN/app/Client/StartUp-Android.html)
    *
    * @param userId
-   * @param appId
    */
   public login(userId: string) {
-    // 获取code
     return new Promise(() => {
       const data = {
         user_id: userId,
         app_id: this.SudMGP_APP_ID
       }
-      getCode(data).then((res) => {
+      // 获取code
+      getCode(data).then(async (res) => {
         console.log(res, 'dddd')
         const code = res.data.code
+        await this.beforeInitSdk && this.beforeInitSdk(SudMGP)
         this.initSdk({
           userId,
           code,
           appId: this.SudMGP_APP_ID,
           appKey: this.SudMGP_APP_KEY,
-          isTestEnv: false
+          isTestEnv: this.GAME_IS_TEST_ENV
         })
       })
+    })
+  }
+
+  // before init生命周期
+  public beforeInitSdk(SudMGP: any) {
+    return new Promise<void>((resolve) => {
+      resolve()
     })
   }
 
@@ -110,7 +121,6 @@ export class SDKGameView {
         if (isTestEnv) {
           console.error(`${bundleId}, initSDK onFailure:${errMsg} (${errCode})`)
         }
-        // TODO:
       }
     })
   }
@@ -124,7 +134,9 @@ export class SDKGameView {
     const gameId = this.gameId
     const language = this.language
     const self = this
+    const customListener = this.customListener || {}
     this.sudFSMMGDecorator.setSudFSMMGListener({
+      // 默认监听事件
       onGameStarted() {
         console.log('start')
       },
@@ -134,7 +146,7 @@ export class SDKGameView {
         console.log(width, height, 'height')
 
         // TODO: 修改数据
-        var gameViewInfo = {
+        const gameViewInfo = {
           ret_code: 0,
           ret_msg: "success",
           view_size: {
@@ -156,11 +168,9 @@ export class SDKGameView {
         const config = new GameConfigModel()
         console.log(config)
         handle.success(JSON.stringify(config))
-      }
+      },
+      ...customListener// 外部传入自定义listener可覆盖
     })
-    this.sudFSMMGDecorator.onGameLoadingProgress = function (stage: number, retCode: number, progress: number) {
-      console.log(stage, retCode, progress, 'progress')
-    }
     console.log(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator)
 
     // 调用游戏sdk加载游戏
@@ -177,7 +187,12 @@ export class SDKGameView {
   public onDestroy() {
     this.destroyMG()
   }
-  // endregion 生命周期相关
+
+  public setSudFSMMGListener(listener: Partial<SudFSMMGListener>) {
+    this.customListener = listener
+  }
+
+  // end region 生命周期相关
 
   /** 销毁游戏 */
   private destroyMG() {

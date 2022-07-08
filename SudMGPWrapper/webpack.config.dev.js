@@ -5,11 +5,20 @@ module.exports = merge([webpackBase, {
   plugins: [
     ...webpackBase.plugins
   ],
-  devServer: {
-    static: path.join(__dirname, './dist'),
-    compress: true,
-    port: 9001,
-    hot: true
-    // https: true,
+  output: {
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'SudMGPWrapper'),
+    library: {
+      name: 'SudMGPWrapper',
+      type: 'umd'
+    },
+    globalObject: 'this'
   }
+  // devServer: {
+  //   static: path.join(__dirname, './dist'),
+  //   compress: true,
+  //   port: 9001,
+  //   hot: true
+  //   // https: true,
+  // }
 }])

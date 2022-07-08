@@ -4,7 +4,7 @@ const base = {
   entry: './src/index.ts',
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, 'SudMGPWrapper'),
+    path: path.resolve(__dirname, 'lib'),
     library: {
       name: 'SudMGPWrapper',
       type: 'umd'

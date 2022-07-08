@@ -1,12 +1,13 @@
 {
-  "name": "sudmgpwrapper",
+  "name": "sudmgp-sdk-js-wrapper",
   "version": "0.0.1",
   "description": "",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --config webpack.config.dev.js",
-    "local": "webpack --mode development",
+    "local": "webpack --mode production --config webpack.config.dev.js",
     "build": "webpack --mode production",
+    "pub": "npm publish ./lib",
     "lint": "eslint --ext .js,.ts,.tsx src/"
   },
   "keywords": [

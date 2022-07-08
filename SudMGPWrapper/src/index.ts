@@ -7,7 +7,6 @@ import { SudMGPMGState } from "./state/SudMGPMGState"
 import { SudMGPAPPState } from "./state/SudMGPAPPState"
 import { GameCommonStateUtils } from "./utils/GameCommonStateUtils"
 import { ISudFSMStateHandleUtils } from "./utils/ISudFSMStateHandleUtils"
-console.log(111)
 
 export const SudMGPWrapper = {
   decorator: {
