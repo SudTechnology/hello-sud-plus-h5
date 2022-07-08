@@ -1,6 +1,6 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSMMGListener, SudFSTAPPDecorator } from 'sudmgp-sdk-js-wrapper'
 
-import { SudMGP } from '../SudMGP/SudMGP'
+import { SudMGP } from 'sudmgp-sdk-js'
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
 
