@@ -9,5 +9,15 @@ module.exports = {
   },
   plugins: [
     '@babel/plugin-transform-modules-umd'
+  ],
+  presets: [
+    [
+      "@babel/preset-env", // 将ES6语法转成ES5
+      {
+        // 低版本浏览器中只补充项目中使用到的ES6语法
+        useBuiltIns: "usage",
+        corejs: "3" // 声明corejs版本
+      }
+    ]
   ]
 }

@@ -1,11 +1,11 @@
-import { GameConfigModel, SudFSMMGDecorator, SudFSMMGListener, SudFSTAPPDecorator } from 'sudmgp-sdk-js-wrapper'
+import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
 
 import { SudMGP } from 'sudmgp-sdk-js'
+import { ISudMGP } from 'sudmgp-sdk-js/type'
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
 
-console.log(SudMGP, 'SudMGP')
-
+const SudMGPSDK = SudMGP as ISudMGP
 interface IInitSDKParam {
   userId: string,
   code: string
@@ -43,7 +43,7 @@ export class SDKGameView {
   public SudMGP_APP_KEY = "03pNxK2lEXsKiiwrBQ9GbH541Fk2Sfnc"
 
   /** true 加载游戏时为测试环境 false 加载游戏时为生产环境 */
-  public GAME_IS_TEST_ENV = true
+  public GAME_IS_TEST_ENV = false
 
   // app调用sdk的封装类
   public sudFSTAPPDecorator = new SudFSTAPPDecorator()
@@ -111,8 +111,7 @@ export class SDKGameView {
   }: IInitSDKParam) {
     const bundleId = this.getBundleId()
     const self = this
-    // @ts-ignore
-    SudMGP.initSDK(appId, appKey, bundleId, isTestEnv, {
+    SudMGPSDK.initSDK(appId, appKey, bundleId, isTestEnv, {
       onSuccess() {
         self.loadGame({ userId, code })
       },
@@ -174,11 +173,11 @@ export class SDKGameView {
     console.log(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator)
 
     // 调用游戏sdk加载游戏
-    // @ts-ignore
-    // eslint-disable-next-line no-unused-vars
-    const iSudFSTAPP = SudMGP.loadMG(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator, this.root)
+    const iSudFSTAPP = SudMGPSDK.loadMG(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator, this.root)
     // APP调用游戏接口的装饰类设置
-    this.sudFSTAPPDecorator.setISudFSTAPP(iSudFSTAPP)
+    if (iSudFSTAPP) {
+      this.sudFSTAPPDecorator.setISudFSTAPP(iSudFSTAPP)
+    }
   }
 
   // region 生命周期相关
