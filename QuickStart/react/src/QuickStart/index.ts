@@ -1,10 +1,7 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
 
-import { SudMGP } from 'sudmgp-sdk-js'
-import { ISudMGP } from 'sudmgp-sdk-js/type'
-
-// import { SudMGP } from '../SudMGP/SudMGP/lib'
-// import { ISudMGP } from '../SudMGP/SudMGP/lib/type'
+import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
+import { ISudMGP } from 'sudmgp-sdk-js/type' // SudMGP类型
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
 
@@ -83,6 +80,7 @@ export class SDKGameView {
         console.log(res, 'dddd')
         const code = res.data.code
         await this.beforeInitSdk && this.beforeInitSdk(SudMGP)
+        ISudAPPD.e(4)
         this.initSdk({
           userId,
           code,
