@@ -1,3 +1,1 @@
-# Game Website
-
-sud官网（https://www.sud.tech）
+# hello sud h5
