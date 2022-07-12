@@ -4,7 +4,6 @@ import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
 import { ISudMGP } from 'sudmgp-sdk-js/type' // SudMGP类型
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
-
 const SudMGPSDK = SudMGP as ISudMGP
 interface IInitSDKParam {
   userId: string,
