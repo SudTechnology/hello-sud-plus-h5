@@ -74,7 +74,7 @@
   </details>
 
 
-- 第二步：在Demo里面已经有一个成型的[QuickStart](https://github.com/SudTechnology/hello-sud-plus-h5/blob/master/QuickStart/react/src/QuickStart/index.ts)个文件，可以直接复制该代码到项目中导入使用
+- 第三步：在Demo里面已经有一个成型的[QuickStart](https://github.com/SudTechnology/hello-sud-plus-h5/blob/master/QuickStart/react/src/QuickStart/index.ts)个文件，可以直接复制该代码到项目中导入使用
   <details>
   <summary>详细描述</summary>
 
@@ -98,7 +98,7 @@
   </details>
 
 
-- 第三步：在页面上添加挂在元素
+- 第四步：在页面上添加挂在元素
     <details>
     <summary>详细描述 /react/src/pc/GameDetail.tsx</summary>
 
@@ -111,7 +111,7 @@
     </details>
 
 
-- 第四步：加载游戏
+- 第五步：加载游戏
     <details>
     <summary>详细描述 /react/src/hooks/useGameDetail.ts</summary>
 
@@ -181,7 +181,7 @@
     <summary>代码框架 class SudFSTAPPDecorator</summary>
 
     ``` javascript
-    public class SudFSTAPPDecorator {
+    class SudFSTAPPDecorator {
         // iSudFSTAPP = SudMGP.loadMG(AppAudioRoomActivity, userId, roomId, code, gameId, language, sudFSMMGDecorator);
         public setISudFSTAPP(ISudFSTAPP iSudFSTAPP);
         // 1. 加入状态
@@ -251,7 +251,7 @@
     <summary>代码框架 class SudFSMMGDecorator</summary>
 
     ``` javascript
-    public class SudFSMMGDecorator implements ISudFSMMG {
+    class SudFSMMGDecorator implements ISudFSMMG {
         // 设置回调
         public setSudFSMMGListener(listener: Partial<SudFSMMGListener>)
         // 游戏日志
