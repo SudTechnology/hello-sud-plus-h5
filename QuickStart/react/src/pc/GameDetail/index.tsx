@@ -34,7 +34,7 @@ const GameDetail = (props: RouteComponentProps) => {
         SudSDk && SudSDk.onDestroy()
         setTimeout(() => {
           location.href = '/'
-        }, 500)
+        }, 1000)
       }
     })
   }

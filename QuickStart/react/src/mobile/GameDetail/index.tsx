@@ -61,7 +61,7 @@ const GameDetail = (props: IProps) => {
         SudSDk && SudSDk.onDestroy()
         setTimeout(() => {
           location.href = '/'
-        }, 500)
+        }, 1000)
       }
     })
   }

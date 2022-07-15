@@ -2,7 +2,7 @@ import { SDKGameView } from "QuickStart"
 import { useEffect, useState } from "react"
 
 export const useGameDetail = (gameId: string) => {
-  const gameRoomId = `90114` // 房间id
+  const gameRoomId = gameId// `90114` // 房间id
   const [SudSDk, setSudSDk] = useState<SDKGameView>()
   // 页面挂载后进行sdk初始化
   useEffect(() => {
@@ -14,7 +14,7 @@ export const useGameDetail = (gameId: string) => {
 
       nsdk.setSudFSMMGListener({
         onGameStarted() {
-          console.log('-========自定义的game start=====')
+          console.log('========自定义的game start=====')
         }
       })
       // 自定义loading
