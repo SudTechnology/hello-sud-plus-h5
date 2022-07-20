@@ -172,10 +172,10 @@ export class SudFSMMGDecorator implements ISudFSMMG {
     switch (state) {
       case SudMGPMGState.MG_COMMON_PUBLIC_MESSAGE: { // 1. 公屏消息
         const res = parseJson<IMGCommonPublicMessage>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonPublicMessage(handle, res)
+          listener.onGameMGCommonPublicMessage && listener.onGameMGCommonPublicMessage(handle, res)
         }
         break
       }
@@ -183,161 +183,161 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         const res = parseJson<IMGCommonKeyWordToHit>(dataJson)
 
         this.sudFSMMGCache.onGameMGCommonKeyWordToHit(res)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonKeyWordToHit(handle, res)
+          listener.onGameMGCommonKeyWordToHit && listener.onGameMGCommonKeyWordToHit(handle, res)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_GAME_SETTLE: { // 3. 游戏结算状态
         const res = parseJson<IMGCommonGameSettle>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonGameSettle(handle, res)
+          listener.onGameMGCommonGameSettle && listener.onGameMGCommonGameSettle(handle, res)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_SELF_CLICK_JOIN_BTN: { // 4. 加入游戏按钮点击状态
         const res = parseJson<IMGCommonSelfClickJoinBtn>(dataJson)
 
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonSelfClickJoinBtn(handle, res)
+          listener.onGameMGCommonSelfClickJoinBtn && listener.onGameMGCommonSelfClickJoinBtn(handle, res)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_SELF_CLICK_CANCEL_JOIN_BTN: { // 5. 取消加入(退出)游戏按钮点击状态
         const res = parseJson<IMGCommonSelfClickCancelJoinBtn>(dataJson)
 
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonSelfClickCancelJoinBtn(handle, res)
+          listener.onGameMGCommonSelfClickCancelJoinBtn && listener.onGameMGCommonSelfClickCancelJoinBtn(handle, res)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_SELF_CLICK_READY_BTN: { // 6. 准备按钮点击状态
         const res = parseJson<IMGCommonSelfClickReadyBtn>(dataJson)
 
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonSelfClickReadyBtn(handle, res)
+          listener.onGameMGCommonSelfClickReadyBtn && listener.onGameMGCommonSelfClickReadyBtn(handle, res)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_SELF_CLICK_CANCEL_READY_BTN:{ // 7. 取消准备按钮点击状态
         const res = parseJson<IMGCommonSelfClickCancelReadyBtn>(dataJson)
 
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonSelfClickCancelReadyBtn(handle, res)
+          listener.onGameMGCommonSelfClickCancelReadyBtn && listener.onGameMGCommonSelfClickCancelReadyBtn(handle, res)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_SELF_CLICK_START_BTN: { // 8. 开始游戏按钮点击状态
         const res = parseJson<IMGCommonSelfClickCancelReadyBtn>(dataJson)
 
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonSelfClickStartBtn(handle, res)
+          listener.onGameMGCommonSelfClickStartBtn && listener.onGameMGCommonSelfClickStartBtn(handle, res)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_SELF_CLICK_SHARE_BTN: { // 9. 分享按钮点击状态
         const mgCommonSelfClickShareBtn = parseJson<IMGCommonSelfClickShareBtn>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonSelfClickShareBtn(handle, mgCommonSelfClickShareBtn)
+          listener.onGameMGCommonSelfClickShareBtn && listener.onGameMGCommonSelfClickShareBtn(handle, mgCommonSelfClickShareBtn)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_GAME_STATE: { // 10. 游戏状态
         const mgCommonGameState = parseJson<IMGCommonGameState>(dataJson)
         this.sudFSMMGCache.onGameMGCommonGameState(mgCommonGameState)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonGameState(handle, mgCommonGameState)
+          listener.onGameMGCommonGameState && listener.onGameMGCommonGameState(handle, mgCommonGameState)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_SELF_CLICK_GAME_SETTLE_CLOSE_BTN: { // 11. 结算界面关闭按钮点击状态（2021-12-27新增）
         const mgCommonSelfClickGameSettleCloseBtn = parseJson<IMGCommonSelfClickGameSettleCloseBtn>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonSelfClickGameSettleCloseBtn(handle, mgCommonSelfClickGameSettleCloseBtn)
+          listener.onGameMGCommonSelfClickGameSettleCloseBtn && listener.onGameMGCommonSelfClickGameSettleCloseBtn(handle, mgCommonSelfClickGameSettleCloseBtn)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_SELF_CLICK_GAME_SETTLE_AGAIN_BTN: { // 12. 结算界面再来一局按钮点击状态（2021-12-27新增）
         const mgCommonSelfClickGameSettleAgainBtn = parseJson<IMGCommonSelfClickGameSettleAgainBtn>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonSelfClickGameSettleAgainBtn(handle, mgCommonSelfClickGameSettleAgainBtn)
+          listener.onGameMGCommonSelfClickGameSettleAgainBtn && listener.onGameMGCommonSelfClickGameSettleAgainBtn(handle, mgCommonSelfClickGameSettleAgainBtn)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_GAME_SOUND_LIST: { // 13. 游戏上报游戏中的声音列表（2021-12-30新增，现在只支持碰碰我最强）
         const mgCommonGameSoundList = parseJson<IMGCommonGameSoundList>(dataJson)
 
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonGameSoundList(handle, mgCommonGameSoundList)
+          listener.onGameMGCommonGameSoundList && listener.onGameMGCommonGameSoundList(handle, mgCommonGameSoundList)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_GAME_SOUND:{ // 14. 游通知app层播放声音（2021-12-30新增，现在只支持碰碰我最强）
         const mgCommonGameSound = parseJson<IMGCommonGameSound>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonGameSound(handle, mgCommonGameSound)
+          listener.onGameMGCommonGameSound && listener.onGameMGCommonGameSound(handle, mgCommonGameSound)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_GAME_BG_MUSIC_STATE: { // 15. 游戏通知app层播放背景音乐状态（2022-01-07新增，现在只支持碰碰我最强）
         const mgCommonGameBgMusicState = parseJson<IMGCommonGameBgMusicState>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonGameBgMusicState(handle, mgCommonGameBgMusicState)
+          listener.onGameMGCommonGameBgMusicState && listener.onGameMGCommonGameBgMusicState(handle, mgCommonGameBgMusicState)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_GAME_SOUND_STATE: { // 16. 游戏通知app层播放音效的状态（2022-01-07新增，现在只支持碰碰我最强）
         const mgCommonGameSoundState = parseJson<IMGCommonGameSoundState>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonGameSoundState(handle, mgCommonGameSoundState)
+          listener.onGameMGCommonGameSoundState && listener.onGameMGCommonGameSoundState(handle, mgCommonGameSoundState)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_GAME_ASR: { // 17. ASR状态(开启和关闭语音识别状态，v1.1.45.xx 版本新增)
         const mgCommonGameASR = parseJson<IMGCommonGameASR>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonGameASR(handle, mgCommonGameASR)
+          listener.onGameMGCommonGameASR && listener.onGameMGCommonGameASR(handle, mgCommonGameASR)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_SELF_MICROPHONE: { // 18. 麦克风状态（2022-02-08新增）
         const mgCommonSelfMicrophone = parseJson<IMGCommonSelfMicrophone>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonSelfMicrophone(handle, mgCommonSelfMicrophone)
+          listener.onGameMGCommonSelfMicrophone && listener.onGameMGCommonSelfMicrophone(handle, mgCommonSelfMicrophone)
         }
         break
       }
@@ -346,7 +346,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         if (listener == null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonSelfHeadphone(handle, mgCommonSelfHeadphone)
+          listener.onGameMGCommonSelfHeadphone && listener.onGameMGCommonSelfHeadphone(handle, mgCommonSelfHeadphone)
         }
         break
       }
@@ -355,7 +355,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         if (listener == null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonAPPCommonSelfXResp(handle, mgCommonAPPCommonSelfXResp)
+          listener.onGameMGCommonAPPCommonSelfXResp && listener.onGameMGCommonAPPCommonSelfXResp(handle, mgCommonAPPCommonSelfXResp)
         }
         break
       }
@@ -364,7 +364,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         if (listener == null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onGameMGCommonGameAddAIPlayers(handle, mgCommonGameAddAIPlayers)
+          listener.onGameMGCommonGameAddAIPlayers && listener.onGameMGCommonGameAddAIPlayers(handle, mgCommonGameAddAIPlayers)
         }
         break
       }
@@ -391,49 +391,49 @@ export class SudFSMMGDecorator implements ISudFSMMG {
       case SudMGPMGState.MG_COMMON_PLAYER_IN: { // 1.加入状态（已修改）
         const mgCommonPlayerIn = parseJson<IMGCommonPlayerIn>(dataJson)
         this.sudFSMMGCache.onPlayerMGCommonPlayerIn(userId, mgCommonPlayerIn)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGCommonPlayerIn(handle, userId, mgCommonPlayerIn)
+          listener.onPlayerMGCommonPlayerIn && listener.onPlayerMGCommonPlayerIn(handle, userId, mgCommonPlayerIn)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_PLAYER_READY: { // 2.准备状态（已修改）
         const mgCommonPlayerReady = parseJson<IMGCommonPlayerReady>(dataJson)
         this.sudFSMMGCache.onPlayerMGCommonPlayerReady(userId, mgCommonPlayerReady)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGCommonPlayerReady(handle, userId, mgCommonPlayerReady)
+          listener.onPlayerMGCommonPlayerReady && listener.onPlayerMGCommonPlayerReady(handle, userId, mgCommonPlayerReady)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_PLAYER_CAPTAIN: { // 3.队长状态（已修改）
         const mgCommonPlayerCaptain = parseJson<IMGCommonPlayerCaptain>(dataJson)
         this.sudFSMMGCache.onPlayerMGCommonPlayerCaptain(userId, mgCommonPlayerCaptain)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGCommonPlayerCaptain(handle, userId, mgCommonPlayerCaptain)
+          listener.onPlayerMGCommonPlayerCaptain && listener.onPlayerMGCommonPlayerCaptain(handle, userId, mgCommonPlayerCaptain)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_PLAYER_PLAYING: { // 4.游戏状态（已修改）
         const mgCommonPlayerPlaying = parseJson<IMGCommonPlayerPlaying>(dataJson)
         this.sudFSMMGCache.onPlayerMGCommonPlayerPlaying(userId, mgCommonPlayerPlaying)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGCommonPlayerPlaying(handle, userId, mgCommonPlayerPlaying)
+          listener.onPlayerMGCommonPlayerPlaying && listener.onPlayerMGCommonPlayerPlaying(handle, userId, mgCommonPlayerPlaying)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_PLAYER_ONLINE: { // 5.玩家在线状态
         const mgCommonPlayerOnline = parseJson<IMGCommonPlayerOnline>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGCommonPlayerOnline(handle, userId, mgCommonPlayerOnline)
+          listener.onPlayerMGCommonPlayerOnline && listener.onPlayerMGCommonPlayerOnline(handle, userId, mgCommonPlayerOnline)
         }
         break
       }
@@ -442,97 +442,97 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         if (listener == null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGCommonPlayerChangeSeat(handle, userId, mgCommonPlayerChangeSeat)
+          listener.onPlayerMGCommonPlayerChangeSeat && listener.onPlayerMGCommonPlayerChangeSeat(handle, userId, mgCommonPlayerChangeSeat)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_SELF_CLICK_GAME_PLAYER_ICON: { // 7. 游戏通知app点击玩家头像（2022-02-09新增，现在只支持飞行棋ludo，仅用于游戏场景中的玩家头像）
         const mgCommonSelfClickGamePlayerIcon = parseJson<IMGCommonSelfClickGamePlayerIcon>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGCommonSelfClickGamePlayerIcon(handle, userId, mgCommonSelfClickGamePlayerIcon)
+          listener.onPlayerMGCommonSelfClickGamePlayerIcon && listener.onPlayerMGCommonSelfClickGamePlayerIcon(handle, userId, mgCommonSelfClickGamePlayerIcon)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_SELF_DIE_STATUS: { // 8. 游戏通知app玩家死亡状态（2022-04-24新增）
         const mgCommonSelfDieStatus = parseJson<IMGCommonSelfDieStatus>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGCommonSelfDieStatus(handle, userId, mgCommonSelfDieStatus)
+          listener.onPlayerMGCommonSelfDieStatus && listener.onPlayerMGCommonSelfDieStatus(handle, userId, mgCommonSelfDieStatus)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_SELF_TURN_STATUS:{ // 9. 游戏通知app轮到玩家出手状态（2022-04-24新增）
         const mgCommonSelfTurnStatus = parseJson<IMGCommonSelfTurnStatus>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGCommonSelfTurnStatus(handle, userId, mgCommonSelfTurnStatus)
+          listener.onPlayerMGCommonSelfTurnStatus && listener.onPlayerMGCommonSelfTurnStatus(handle, userId, mgCommonSelfTurnStatus)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_SELF_SELECT_STATUS: { // 10. 游戏通知app玩家选择状态（2022-04-24新增）
         const mgCommonSelfSelectStatus = parseJson<IMGCommonSelfSelectStatus>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGCommonSelfSelectStatus(handle, userId, mgCommonSelfSelectStatus)
+          listener.onPlayerMGCommonSelfSelectStatus && listener.onPlayerMGCommonSelfSelectStatus(handle, userId, mgCommonSelfSelectStatus)
         }
         break
       }
       case SudMGPMGState.MG_COMMON_GAME_COUNTDOWN_TIME: { // 11. 游戏通知app层当前游戏剩余时间（2022-05-23新增，目前UMO生效）
         const mgCommonGameCountdownTime = parseJson<IMGCommonGameCountdownTime>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGCommonGameCountdownTime(handle, userId, mgCommonGameCountdownTime)
+          listener.onPlayerMGCommonGameCountdownTime && listener.onPlayerMGCommonGameCountdownTime(handle, userId, mgCommonGameCountdownTime)
         }
         break
       }
       case SudMGPMGState.MG_DG_SELECTING:{ // 1. 选词中状态（已修改）
         const mgdgSelecting = parseJson<IMGDGSelecting>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGDGSelecting(handle, userId, mgdgSelecting)
+          listener.onPlayerMGDGSelecting && listener.onPlayerMGDGSelecting(handle, userId, mgdgSelecting)
         }
         break
       }
       case SudMGPMGState.MG_DG_PAINTING: { // 2. 作画中状态（已修改）
         const mgdgPainting = parseJson<IMGDGPainting>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGDGPainting(handle, userId, mgdgPainting)
+          listener.onPlayerMGDGPainting && listener.onPlayerMGDGPainting(handle, userId, mgdgPainting)
         }
         break
       }
       case SudMGPMGState.MG_DG_ERRORANSWER: { // 3. 显示错误答案状态（已修改）
         const mgdgErroranswer = parseJson<IMGDGErroranswer>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGDGErroranswer(handle, userId, mgdgErroranswer)
+          listener.onPlayerMGDGErroranswer && listener.onPlayerMGDGErroranswer(handle, userId, mgdgErroranswer)
         }
         break
       }
       case SudMGPMGState.MG_DG_TOTALSCORE: { // 4. 显示总积分状态（已修改）
         const mgdgTotalscore = parseJson<IMGDGTotalscore>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGDGTotalscore(handle, userId, mgdgTotalscore)
+          listener.onPlayerMGDGTotalscore && listener.onPlayerMGDGTotalscore(handle, userId, mgdgTotalscore)
         }
         break
       }
       case SudMGPMGState.MG_DG_SCORE: { // 5. 本次获得积分状态（已修改）
         const mgdgScore = parseJson<IMGDGScore>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
-          listener.onPlayerMGDGScore(handle, userId, mgdgScore)
+          listener.onPlayerMGDGScore && listener.onPlayerMGDGScore(handle, userId, mgdgScore)
         }
         break
       }
