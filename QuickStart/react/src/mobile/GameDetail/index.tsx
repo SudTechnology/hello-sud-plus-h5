@@ -4,7 +4,7 @@ import classnames from 'classnames/bind'
 import Close from 'assets/close.png'
 import { useGameDetail } from 'hooks/useGameDetail'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-
+import { getQueryParam } from 'utils'
 import { Modal } from 'antd-mobile'
 interface IProps extends RouteComponentProps {
 
@@ -15,13 +15,17 @@ const cx = classnames.bind(styles)
 const GameDetail = (props: IProps) => {
   console.log(props)
   const params: { id?: string } = props.match.params
-  console.log(params)
+  const orientation = getQueryParam('orientation')
+  console.log(params, orientation, 'paramsparamsparams')
   const { SudSDk } = useGameDetail(params.id || '')
 
   useEffect(() => {
-    rotateScreen()
-    window.onresize = function () {
+    // 横屏处理
+    if (orientation && orientation === '0') {
       rotateScreen()
+      window.onresize = function () {
+        rotateScreen()
+      }
     }
   }, [])
 
