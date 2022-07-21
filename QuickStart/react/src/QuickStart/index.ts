@@ -190,7 +190,7 @@ export class SDKGameView {
       ...customListener// 外部传入自定义listener可覆盖
     })
     this.sudFSMMGDecorator.onPlayerStateChange = function (handle, userId, state, dataJson) {
-      console.log(state, '=======app onPlayerStateChange=======')
+      console.log(`=======sud h5 onPlayerStateChange======= userId:${userId}--state:${state}--dataJson:${dataJson}`)
 
       handle.success(dataJson)
     }
