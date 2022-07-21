@@ -147,7 +147,7 @@ export class SDKGameView {
       onGetGameViewInfo: function (handle: ISudFSMStateHandle, dataJson: string): void {
         const width = self.root.clientWidth
         const height = self.root.clientHeight
-        console.log(width, height, 'height')
+        console.log(width, height, 'width,height')
 
         // TODO: 修改数据
         const gameViewInfo = {
@@ -166,6 +166,9 @@ export class SDKGameView {
         }
 
         handle.success(JSON.stringify(gameViewInfo))
+      },
+      onGameMGCommonSelfClickJoinBtn(handle, res) {
+        handle.success(JSON.stringify(res))
       },
       onGetGameCfg: function (handle: ISudFSMStateHandle, dataJson: string): void {
         console.log("onGetGameCfg")
