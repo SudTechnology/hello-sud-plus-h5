@@ -1,5 +1,8 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
-import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
+// import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
+// @ts-ignore
+import { SudMGP, ISudAPPD } from 'SudMGP/SudMGP/lib'
+
 import { ISudMGP } from 'sudmgp-sdk-js/type' // SudMGP类型
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
@@ -157,8 +160,8 @@ export class SDKGameView {
           view_game_rect: {
             left: 0,
             right: 0,
-            top: 0,
-            bottom: 0
+            top: 100,
+            bottom: 100
           }
         }
 
