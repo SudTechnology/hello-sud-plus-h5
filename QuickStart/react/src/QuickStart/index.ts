@@ -160,8 +160,8 @@ export class SDKGameView {
           view_game_rect: {
             left: 0,
             right: 0,
-            top: 100,
-            bottom: 100
+            top: 20,
+            bottom: 20
           }
         }
 
@@ -169,8 +169,13 @@ export class SDKGameView {
       },
       onGetGameCfg: function (handle: ISudFSMStateHandle, dataJson: string): void {
         console.log("onGetGameCfg")
-        const config = new GameConfigModel()
-        console.log(config)
+        let config = new GameConfigModel()
+        const gameConf = localStorage.getItem('gameconfig')
+        if (gameConf) {
+          // @ts-ignore
+          config = gameConf
+        }
+        console.log(config, 'GameConfigModel')
         handle.success(JSON.stringify(config))
       },
       ...customListener// 外部传入自定义listener可覆盖
