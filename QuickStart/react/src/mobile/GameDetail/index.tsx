@@ -16,8 +16,9 @@ const GameDetail = (props: IProps) => {
   console.log(props)
   const params: { id?: string } = props.match.params
   const orientation = getQueryParam('orientation')
+  const roomId = getQueryParam('roomId')
   console.log(params, orientation, 'paramsparamsparams')
-  const { SudSDk } = useGameDetail(params.id || '')
+  const { SudSDk } = useGameDetail(params.id || '', roomId || (params.id || ''))
 
   useEffect(() => {
     // 横屏处理
