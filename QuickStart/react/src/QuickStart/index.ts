@@ -194,6 +194,11 @@ export class SDKGameView {
 
       handle.success(dataJson)
     }
+
+    this.sudFSMMGDecorator.onGameStateChange = function (handle, state, dataJson) {
+      console.log(`=======sud h5 onGameStateChange======= state:${state}--dataJson:${dataJson}`)
+      handle.success(dataJson)
+    }
     console.log(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator)
 
     // 调用游戏sdk加载游戏
