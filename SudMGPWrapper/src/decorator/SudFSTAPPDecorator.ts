@@ -30,6 +30,17 @@ export class SudFSTAPPDecorator {
     this.iSudFSTAPP = iSudFSTAPP
   }
 
+  public notifyAPPCommon() {
+    const iSudFSTAPP = this.iSudFSTAPP
+    if (iSudFSTAPP != null) {
+      const args = arguments
+      console.log(args, 'args')
+
+      // @ts-ignore
+      iSudFSTAPP.notifyStateChange(...args)
+    }
+  }
+
   // region 状态通知，ISudFSTAPP.notifyStateChange
 
   /**

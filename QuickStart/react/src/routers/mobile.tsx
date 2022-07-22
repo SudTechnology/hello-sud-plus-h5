@@ -1,7 +1,6 @@
 // import { lazy } from 'react'
 import { lazy } from 'react'
 import { RouteProp } from './index.d'
-
 // 移动端路由
 const mobileRoutes: RouteProp[] = [
   {

@@ -12,7 +12,7 @@ const GameDetail = (props: RouteComponentProps) => {
   console.log(props)
   const params: { id?: string } = props.match.params
   console.log(params)
-  const { SudSDk } = useGameDetail(params.id || '')
+  const { SudSDk } = useGameDetail(params.id || '', params.id || '')
 
   const destory = () => {
     Modal.confirm({
@@ -34,7 +34,7 @@ const GameDetail = (props: RouteComponentProps) => {
         SudSDk && SudSDk.onDestroy()
         setTimeout(() => {
           location.href = '/'
-        }, 500)
+        }, 1000)
       }
     })
   }

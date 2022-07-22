@@ -1,6 +1,5 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
-
-import { SudMGP } from 'sudmgp-sdk-js'
+import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
 import { ISudMGP } from 'sudmgp-sdk-js/type' // SudMGP类型
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
@@ -33,16 +32,16 @@ export class SDKGameView {
 
   public root: HTMLElement // 绑定到个个元素上
   /** 使用的UserId。这里随机生成作演示，开发者将其修改为业务使用的唯一userId */
-  public userId = Math.floor((Math.random() + 1) * 10000).toString()
+  public userId = '100668' // Math.floor((Math.random() + 1) * 10000).toString()
   /** Sud平台申请的appId */
   // eslint-disable-next-line camelcase
-  public SudMGP_APP_ID = "1461564080052506636"
+  public SudMGP_APP_ID = '1461564080052506636' // "1498868666956988417"
   /** Sud平台申请的appKey */
   // eslint-disable-next-line camelcase
-  public SudMGP_APP_KEY = "03pNxK2lEXsKiiwrBQ9GbH541Fk2Sfnc"
+  public SudMGP_APP_KEY = '03pNxK2lEXsKiiwrBQ9GbH541Fk2Sfnc'// '1461564080052506636' //"E9Lj2Cg61pUgiSESou6WDtxntoTXH7Gf"
 
   /** true 加载游戏时为测试环境 false 加载游戏时为生产环境 */
-  public GAME_IS_TEST_ENV = false
+  public GAME_IS_TEST_ENV = true
 
   // app调用sdk的封装类
   public sudFSTAPPDecorator = new SudFSTAPPDecorator()
@@ -76,9 +75,11 @@ export class SDKGameView {
       }
       // 获取code
       getCode(data).then(async (res) => {
-        console.log(res, 'dddd')
         const code = res.data.code
+        console.log(code)
+
         await this.beforeInitSdk && this.beforeInitSdk(SudMGP)
+        ISudAPPD.e(4)
         this.initSdk({
           userId,
           code,
@@ -141,7 +142,7 @@ export class SDKGameView {
       onGetGameViewInfo: function (handle: ISudFSMStateHandle, dataJson: string): void {
         const width = self.root.clientWidth
         const height = self.root.clientHeight
-        console.log(width, height, 'height')
+        console.log(width, height, 'width,height')
 
         // TODO: 修改数据
         const gameViewInfo = {
@@ -154,21 +155,45 @@ export class SDKGameView {
           view_game_rect: {
             left: 0,
             right: 0,
-            top: 0,
-            bottom: 0
+            top: 10,
+            bottom: 10
           }
         }
 
         handle.success(JSON.stringify(gameViewInfo))
       },
+      onGameMGCommonSelfClickJoinBtn(handle, res) {
+        handle.success(JSON.stringify(res))
+      },
       onGetGameCfg: function (handle: ISudFSMStateHandle, dataJson: string): void {
         console.log("onGetGameCfg")
-        const config = new GameConfigModel()
-        console.log(config)
+        let config = new GameConfigModel()
+        const gameConf = localStorage.getItem('gameconfig')
+
+        if (gameConf) {
+          // @ts-ignore
+          config = gameConf
+          console.log(config, 'GameConfigModel')
+          // @ts-ignore
+          handle.success(config)
+          return
+        }
+        console.log(JSON.stringify(config), 'GameConfigModel')
+        // config.ui.version.hide = true
         handle.success(JSON.stringify(config))
       },
       ...customListener// 外部传入自定义listener可覆盖
     })
+    this.sudFSMMGDecorator.onPlayerStateChange = function (handle, userId, state, dataJson) {
+      console.log(`=======sud h5 onPlayerStateChange======= userId:${userId}--state:${state}--dataJson:${dataJson}`)
+
+      handle.success(dataJson)
+    }
+
+    this.sudFSMMGDecorator.onGameStateChange = function (handle, state, dataJson) {
+      console.log(`=======sud h5 onGameStateChange======= state:${state}--dataJson:${dataJson}`)
+      handle.success(dataJson)
+    }
     console.log(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator)
 
     // 调用游戏sdk加载游戏
@@ -183,6 +208,15 @@ export class SDKGameView {
 
   /** 页面销毁的时候调用 */
   public onDestroy() {
+    // @ts-ignore
+    this.sudFSTAPPDecorator.notifyAPPCommon('app_common_self_exit_game', JSON.stringify({}), {
+      onSuccess() {
+
+      },
+      onFailure() {
+
+      }
+    })
     this.destroyMG()
   }
 

@@ -16,7 +16,7 @@ const Home = () => {
         {
           list.map((item: any) => {
             return (
-              <a href={`/game/${item.sceneId}`} key={item.sceneId} className={cx('game-item')}>
+              <a href={`/game/${item.sceneId}?orientation=${item.orientation}`} key={item.sceneId} className={cx('game-item')}>
                 <img className={cx('game-logo')} src={item.scenePic} alt="" />
                 <div className={cx('game-title')}>{item.sceneName}</div>
               </a>

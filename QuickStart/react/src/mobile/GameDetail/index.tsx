@@ -4,8 +4,9 @@ import classnames from 'classnames/bind'
 import Close from 'assets/close.png'
 import { useGameDetail } from 'hooks/useGameDetail'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
-
+import { getQueryParam } from 'utils'
 import { Modal } from 'antd-mobile'
+import useCustomApi from 'hooks/useCustomApi'
 interface IProps extends RouteComponentProps {
 
 }
@@ -15,13 +16,20 @@ const cx = classnames.bind(styles)
 const GameDetail = (props: IProps) => {
   console.log(props)
   const params: { id?: string } = props.match.params
-  console.log(params)
-  const { SudSDk } = useGameDetail(params.id || '')
+  const orientation = getQueryParam('orientation')
+  const roomId = getQueryParam('roomId')
+  console.log(params, orientation, 'paramsparamsparams')
+  const { SudSDk } = useGameDetail(params.id || '', roomId || (params.id || ''))
+
+  const { joinGame, quitGame, readyGame, cancelReadyGame, startGame } = useCustomApi(SudSDk)
 
   useEffect(() => {
-    rotateScreen()
-    window.onresize = function () {
+    // 横屏处理
+    if (orientation && orientation === '0') {
       rotateScreen()
+      window.onresize = function () {
+        rotateScreen()
+      }
     }
   }, [])
 
@@ -61,7 +69,7 @@ const GameDetail = (props: IProps) => {
         SudSDk && SudSDk.onDestroy()
         setTimeout(() => {
           location.href = '/'
-        }, 500)
+        }, 1000)
       }
     })
   }
@@ -72,6 +80,13 @@ const GameDetail = (props: IProps) => {
         {/* game 容器 */}
         <img src={Close} onClick={destory} alt="" className={cx('close')} />
         <div id='game' className={cx('game-wrap')}></div>
+        <div>
+          <button className={cx('btns', 'quit')} onClick={quitGame}>退出游戏</button>
+          <button className={cx('btns', 'join')} onClick={joinGame}>加入游戏</button>
+          <button className={cx('btns', 'ready')} onClick={readyGame}>准备</button>
+          <button className={cx('btns', 'remove-ready')} onClick={cancelReadyGame}>取消准备</button>
+          <button className={cx('btns', 'start')} onClick={startGame}>开始游戏</button>
+        </div>
       </div>
     </div>
   )
