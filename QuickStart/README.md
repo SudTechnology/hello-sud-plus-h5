@@ -149,7 +149,7 @@
     </details>
 
 ## 注意事项
-  1. web的通信机制基于window.onmessage事件，如果web页面本身也使用了window.onmessage事件，需要添加以下代码，SudSDk不会对web自身的定义的window.onmessage方法进行任何修改，仍然会有对应的监听执行
+  1. web的通信机制基于window.onmessage事件，如果web页面本身也使用了window.onmessage事件，需要添加以下代码，SudSDk不会对web自身定义的window.onmessage方法进行任何修改，仍然会有对应的监听执行
   ```javascript
       // 页面中定义的onmessage
       window.onmessage = function (data) {
