@@ -82,7 +82,7 @@ export class SDKGameView {
         console.log(code)
 
         await this.beforeInitSdk && this.beforeInitSdk(SudMGP)
-        ISudAPPD.e(4)
+        ISudAPPD.e(3)
         this.initSdk({
           userId,
           code,
