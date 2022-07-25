@@ -82,7 +82,9 @@ export class SDKGameView {
         console.log(code)
 
         await this.beforeInitSdk && this.beforeInitSdk(SudMGP)
-        ISudAPPD.e(3)
+        const env = process.env.REACT_APP_ENV
+        console.log('[ env ] >', env)
+        env !== 'production' && ISudAPPD.e(env === 'development' ? 4 : 3)
         this.initSdk({
           userId,
           code,
