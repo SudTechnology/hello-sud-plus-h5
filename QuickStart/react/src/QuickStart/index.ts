@@ -1,5 +1,5 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
-import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
+import { SudMGP } from 'sudmgp-sdk-js'
 import { ISudMGP } from 'sudmgp-sdk-js/type' // SudMGP类型
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
@@ -30,7 +30,7 @@ export class SDKGameView {
   private language: string = "zh-CN" /** 游戏的语言代码 */
   private gameId: string // 游戏id
 
-  public root: HTMLElement // 绑定到个个元素上
+  public root: HTMLElement // 绑定到元素上
   /** 使用的UserId。这里随机生成作演示，开发者将其修改为业务使用的唯一userId */
   public userId = '100668' // Math.floor((Math.random() + 1) * 10000).toString()
   /** Sud平台申请的appId */
@@ -79,7 +79,6 @@ export class SDKGameView {
         console.log(code)
 
         await this.beforeInitSdk && this.beforeInitSdk(SudMGP)
-        ISudAPPD.e(4)
         this.initSdk({
           userId,
           code,
@@ -96,6 +95,11 @@ export class SDKGameView {
     return new Promise<void>((resolve) => {
       resolve()
     })
+  }
+
+  // 注册通信桥接，页面自身有window.onmessage事件时，需要在定义window.onmessage后执行该方法
+  public _registerCustomCommandEvent() {
+    SudMGPSDK._registerCustomCommandEvent()
   }
 
   /**
@@ -179,7 +183,6 @@ export class SDKGameView {
           return
         }
         console.log(JSON.stringify(config), 'GameConfigModel')
-        // config.ui.version.hide = true
         handle.success(JSON.stringify(config))
       },
       ...customListener// 外部传入自定义listener可覆盖

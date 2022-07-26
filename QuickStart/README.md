@@ -19,9 +19,9 @@
   <details>
   <summary>详细描述</summary>
   
-      1.APP服务端实现了5个HTTP API；（接入信息表填的）
+      1.APP服务端实现4个HTTP API；（接入信息表填的）
       2.请使用Web端自己的appId、appKey、isTestEnv=true、bundleId(iOS)、applicationId(Android)；
-      3.请使用Web自己的服务端login/getCode接口，获取短期令牌code；
+      3.APP服务端实现login/getCode接口，获取短期令牌code；
       4.Web端和APP服务端联调5个HTTP API；
       5.完成HTTP API联调；
   </details>
@@ -127,7 +127,7 @@
 
         nsdk.setSudFSMMGListener({
           onGameStarted() {
-            console.log('========自定义的game start=====')
+            console.log('========onGameStarted事件=====')
           }
         })
         // 调用login 获取code
@@ -147,6 +147,19 @@
       nsdk.onDestroy()
     ```
     </details>
+
+## 注意事项
+  1. web的通信机制基于window.onmessage事件，如果web页面本身也使用了window.onmessage事件，需要添加以下代码，SudSDk不会对web自身定义的window.onmessage方法进行任何修改，仍然会有对应的监听执行
+  ```javascript
+      // 页面中定义的onmessage
+      window.onmessage = function (data) {
+        console.log('[ web自己的监听方法执行了 ] >', data)
+      }
+      // 添加下面一行代码即可
+      // SudSDk 是SDKGameView（src/QuickStart中的class）的实例
+      SudSDk && SudSDk._registerCustomCommandEvent()
+
+  ```
 
 # QuickStart 架构图
 
