@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from './index.module.less'
 import classnames from 'classnames/bind'
 import { useHome } from 'hooks/useHome'
@@ -6,6 +6,7 @@ import { Input, Form } from 'antd-mobile'
 const cx = classnames.bind(styles)
 
 const Home = () => {
+  const [env, setEnv] = useState(Number(localStorage.getItem('env')) || 4)
   const { list } = useHome()
   const [form] = Form.useForm()
 
@@ -19,6 +20,13 @@ const Home = () => {
 
     location.href = url
   }
+
+  const changeEnv = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    console.log('[ e ] >', e.target.value)
+    const value = Number(e.target.value)
+    setEnv(value)
+    localStorage.setItem('env', e.target.value)
+  }
   return (
     <div className={cx('container')}>
       <div className={cx('title')}>Sud元宇宙互动升级</div>
@@ -28,6 +36,14 @@ const Home = () => {
             <Input type="number" placeholder='请输入房间号ID' clearable />
           </Form.Item>
         </Form>
+      </div>
+      <div>
+        <select value={env} onChange={(e) => changeEnv(e)}>
+          <option value={4}>开发环境dev</option>
+          <option value={3}>测试环境fat</option>
+          <option value={2}>sim环境</option>
+          <option value={1}>pro环境</option>
+        </select>
       </div>
       {/* 游戏列表 */}
       <div className={cx('game-list')}>
