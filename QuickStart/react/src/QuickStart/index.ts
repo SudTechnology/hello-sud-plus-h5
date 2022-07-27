@@ -1,6 +1,5 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
 import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
-
 import { ISudMGP } from 'sudmgp-sdk-js/type' // SudMGP类型
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
@@ -78,7 +77,7 @@ export class SDKGameView {
       getCode(data).then(async (res) => {
         const code = res.data.code
         console.log(code)
-
+        // @ts-ignore
         await this.beforeInitSdk && this.beforeInitSdk(SudMGP)
         const env = Number(localStorage.getItem('env')) || 3
         console.log('[ env ] >', env)
@@ -241,6 +240,6 @@ export class SDKGameView {
 
   // 根据域名生成bundleId
   public getBundleId() {
-    return location.hostname
+    return 'localhost' // location.hostname
   }
 }
