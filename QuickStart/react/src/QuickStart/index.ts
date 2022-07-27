@@ -82,7 +82,7 @@ export class SDKGameView {
         console.log(code)
 
         await this.beforeInitSdk && this.beforeInitSdk(SudMGP)
-        const env = Number(localStorage.getItem('env')) || 2
+        const env = Number(localStorage.getItem('env')) || 3
         console.log('[ env ] >', env)
         ISudAPPD.e(env)
         this.initSdk({
