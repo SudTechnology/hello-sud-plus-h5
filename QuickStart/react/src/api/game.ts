@@ -8,3 +8,11 @@ export const getList = (params?: any) => {
     params
   })
 }
+
+export const getGameList = (params?: any) => {
+  return request({
+    url: `/game/list/v1`,
+    method: 'post',
+    params
+  })
+}
