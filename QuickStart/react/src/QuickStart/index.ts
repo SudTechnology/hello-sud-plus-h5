@@ -76,9 +76,7 @@ export class SDKGameView {
       }
       // 获取code
       getCode(data).then(async (res) => {
-        console.log(res, 'dddd')
         const code = res.data.code
-        // const code = res.data.code.substring(7)
         console.log(code)
 
         await this.beforeInitSdk && this.beforeInitSdk(SudMGP)
@@ -97,7 +95,7 @@ export class SDKGameView {
   }
 
   // before init生命周期
-  public beforeInitSdk(SudMGP: any) {
+  public beforeInitSdk(SudMGP: ISudMGP) {
     return new Promise<void>((resolve) => {
       resolve()
     })
