@@ -6,7 +6,7 @@ import { Input, Form } from 'antd-mobile'
 const cx = classnames.bind(styles)
 
 const Home = () => {
-  const [env, setEnv] = useState(Number(localStorage.getItem('env')) || 4)
+  const [env, setEnv] = useState(Number(localStorage.getItem('env')) || 3)
   const { list } = useHome()
   const [form] = Form.useForm()
 
