@@ -146,6 +146,9 @@ export class SDKGameView {
       onGameStarted() {
         console.log('start')
       },
+      onGameLog(dataJson) {
+        console.log('=======sud h5 onGameLog======= ', dataJson)
+      },
       onGetGameViewInfo: function (handle: ISudFSMStateHandle, dataJson: string): void {
         const width = self.root.clientWidth
         const height = self.root.clientHeight
