@@ -152,23 +152,25 @@ export class SDKGameView {
       onGetGameViewInfo: function (handle: ISudFSMStateHandle, dataJson: string): void {
         const width = self.root.clientWidth
         const height = self.root.clientHeight
-        console.log(width, height, 'width,height')
-
+        console.log(width, height, 'width,height', dataJson, 'dataJson')
+        const data = JSON.parse(dataJson)
+        const dpr = data.ratio || 1
         // TODO: 修改数据
         const gameViewInfo = {
           ret_code: 0,
           ret_msg: "success",
           view_size: {
-            width,
-            height
+            width: width * dpr,
+            height: height * dpr
           },
           view_game_rect: {
             left: 0,
             right: 0,
-            top: 10,
-            bottom: 10
+            top: 50,
+            bottom: 50
           }
         }
+        console.log(gameViewInfo, 'gameViewInfo')
 
         handle.success(JSON.stringify(gameViewInfo))
       },
@@ -243,6 +245,6 @@ export class SDKGameView {
 
   // 根据域名生成bundleId
   public getBundleId() {
-    return 'localhost' // location.hostname
+    return location.hostname
   }
 }

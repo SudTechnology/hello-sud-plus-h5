@@ -149,7 +149,33 @@
     </details>
 
 ## 注意事项
-  1. web的通信机制基于window.onmessage事件，如果web页面本身也使用了window.onmessage事件，需要添加以下代码，SudSDk不会对web自身定义的window.onmessage方法进行任何修改，仍然会有对应的监听执行
+   1. onGetGameViewInfo 需要将游戏返回的dpr值对宽高进行处理， 代码如下
+  ``` javascript
+    onGetGameViewInfo: function (handle: ISudFSMStateHandle, dataJson: string): void {
+        const width = self.root.clientWidth
+        const height = self.root.clientHeight
+        const data = JSON.parse(dataJson)
+        const dpr = data.ratio || 1 //部分游戏可能会没有ratio， 需要设置默认值：1
+        const gameViewInfo = {
+          ret_code: 0,
+          ret_msg: "success",
+          view_size: {
+            width: width * dpr, // 对宽高进行dpr的计算
+            height: height * dpr
+          },
+          view_game_rect: {
+            left: 0,
+            right: 0,
+            top: 50,
+            bottom: 50
+          }
+        }
+        handle.success(JSON.stringify(gameViewInfo))
+      },
+
+  ```
+
+  2. web的通信机制基于window.onmessage事件，如果web页面本身也使用了window.onmessage事件，需要添加以下代码，SudSDk不会对web自身定义的window.onmessage方法进行任何修改，仍然会有对应的监听执行
   ```javascript
       // 页面中定义的onmessage
       window.onmessage = function (data) {
@@ -160,6 +186,8 @@
       SudSDk && SudSDk._registerCustomCommandEvent()
 
   ```
+
+
 
 # QuickStart 架构图
 
@@ -296,6 +324,15 @@
 # 3. QuickStart
 
 - 请使用QuickStart项目运行；
+ QuickStart/react Development Setup
+ ```
+  npm install
+
+  npm start
+ ```
+
+-  Node版本 Node >= 14.0.0 和 npm >= 5.6
+
 - QuickStart使用SudMGPWrapper、SudMGPSDK实现快速接入游戏；
 - 快速接入文档：[StartUp-Android](https://docs.sud.tech/zh-CN/app/Client/StartUp-Android.html)
   、 [StartUp-iOS](https://docs.sud.tech/zh-CN/app/Client/StartUp-iOS.html) 、[StartUp-Web](https://docs.sud.tech/zh-CN/app/Client/StartUp-Web.html)
