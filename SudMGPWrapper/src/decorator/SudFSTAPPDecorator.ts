@@ -52,7 +52,7 @@ export class SudFSTAPPDecorator {
    * @param isSeatRandom 默认为ture, 带有游戏位(座位号)的时候，如果游戏位(座位号)已经被占用，是否随机分配一个空位坐下 isSeatRandom=true 随机分配空位坐下，isSeatRandom=false 不随机分配
    * @param teamId       不支持分队的游戏：数值填1；支持分队的游戏：数值填1或2（两支队伍）；
    */
-  public notifyAPPCommonSelfIn(isIn: boolean, seatIndex: number, isSeatRandom: boolean, teamId: number) {
+  public notifyAPPCommonSelfIn(isIn: boolean, seatIndex?: number, isSeatRandom?: boolean, teamId?: number) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
       const state = SudMGPAPPState.APPCommonSelfIn({ isIn, seatIndex, isSeatRandom, teamId })
@@ -89,7 +89,7 @@ export class SudFSTAPPDecorator {
    * @param isPlaying            true 开始游戏，false 结束游戏
    * @param reportGameInfoExtras string类型，Https服务回调report_game_info参数，最大长度1024字节，超过则截断（2022-01-21）
    */
-  public notifyAPPCommonSelfPlaying(isPlaying: boolean, reportGameInfoExtras: string) {
+  public notifyAPPCommonSelfPlaying(isPlaying: boolean, reportGameInfoExtras?: string) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
       const state = SudMGPAPPState.APPCommonSelfPlaying(isPlaying, reportGameInfoExtras)

@@ -77,7 +77,6 @@ export class SDKGameView {
       getCode(data).then(async (res) => {
         const code = res.data.code
         console.log(code)
-
         await this.beforeInitSdk && this.beforeInitSdk(SudMGP)
         this.initSdk({
           userId,
@@ -91,7 +90,7 @@ export class SDKGameView {
   }
 
   // before init生命周期
-  public beforeInitSdk(SudMGP: any) {
+  public beforeInitSdk(SudMGP: ISudMGP) {
     return new Promise<void>((resolve) => {
       resolve()
     })
@@ -143,26 +142,31 @@ export class SDKGameView {
       onGameStarted() {
         console.log('start')
       },
+      onGameLog(dataJson) {
+        console.log('=======sud h5 onGameLog======= ', dataJson)
+      },
       onGetGameViewInfo: function (handle: ISudFSMStateHandle, dataJson: string): void {
         const width = self.root.clientWidth
         const height = self.root.clientHeight
-        console.log(width, height, 'width,height')
-
+        console.log(width, height, 'width,height', dataJson, 'dataJson')
+        const data = JSON.parse(dataJson)
+        const dpr = data.ratio || 1
         // TODO: 修改数据
         const gameViewInfo = {
           ret_code: 0,
           ret_msg: "success",
           view_size: {
-            width,
-            height
+            width: width * dpr,
+            height: height * dpr
           },
           view_game_rect: {
             left: 0,
             right: 0,
-            top: 10,
-            bottom: 10
+            top: 50,
+            bottom: 50
           }
         }
+        console.log(gameViewInfo, 'gameViewInfo')
 
         handle.success(JSON.stringify(gameViewInfo))
       },

@@ -24,13 +24,13 @@ interface APPCommonSelfIn {
   isIn: boolean
 
   // 加入的游戏位(座位号) 默认传seatIndex = -1 随机加入，seatIndex 从0开始，不可大于座位数
-  seatIndex: number
+  seatIndex?: number
 
   // 默认为ture, 带有游戏位(座位号)的时候，如果游戏位(座位号)已经被占用，是否随机分配一个空位坐下 isSeatRandom=true 随机分配空位坐下，isSeatRandom=false 不随机分配
-  isSeatRandom: boolean
+  isSeatRandom?: boolean
 
   // 不支持分队的游戏：数值填1；支持分队的游戏：数值填1或2（两支队伍）；
-  teamId: number
+  teamId?: number
 }
 
 interface APPCommonSelfTextHitStateParams {
@@ -110,7 +110,7 @@ export class SudMGPAPPState {
    * 收缩麦位；
    * 如果不在游戏中，则恢复。
    */
-  public static APPCommonSelfPlaying = function (isPlaying: boolean, reportGameInfoExtras: string) {
+  public static APPCommonSelfPlaying = function (isPlaying: boolean, reportGameInfoExtras?: string) {
     // true 开始游戏，false 结束游戏
     // isPlaying: boolean;
     // string类型，Https服务回调report_game_info参数，最大长度1024字节，超过则截断（2022-01-21）

@@ -1,27 +1,32 @@
+import { SDKGameView } from '../QuickStart' // SudMGP类型
 
-const useCustomApi = (SudSDk: any) => {
+const useCustomApi = (SudSDK: SDKGameView | undefined) => {
+  if (!SudSDK) {
+    return {}
+  }
+  const nSudSDK: SDKGameView = SudSDK
   // 加入游戏
   function joinGame() {
-    SudSDk.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true, -1, true)
+    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true, -1, true)
   }
 
   // 退出游戏
   function quitGame() {
-    SudSDk.sudFSTAPPDecorator.notifyAPPCommonSelfIn(false)
+    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfIn(false)
   }
 
   // 准备游戏
   function readyGame() {
-    SudSDk.sudFSTAPPDecorator.notifyAPPCommonSelfReady(true)
+    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfReady(true)
   }
   // 取消准备
   function cancelReadyGame() {
-    SudSDk.sudFSTAPPDecorator.notifyAPPCommonSelfReady(false)
+    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfReady(false)
   }
 
   // 开始游戏
   function startGame() {
-    SudSDk.sudFSTAPPDecorator.notifyAPPCommonSelfPlaying(true)
+    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfPlaying(true)
   }
   return {
     joinGame,

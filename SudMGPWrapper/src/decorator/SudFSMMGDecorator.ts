@@ -80,7 +80,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
   public onGameLog(dataJson: string) {
     const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
     if (listener != null) {
-      listener.onGameLog(dataJson)
+      listener.onGameLog && listener.onGameLog(dataJson)
     }
   }
 
@@ -113,7 +113,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
   public onGameDestroyed() {
     const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
     if (listener != null) {
-      listener.onGameDestroyed()
+      listener.onGameDestroyed && listener.onGameDestroyed()
     }
   }
 
@@ -126,7 +126,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
   public onExpireCode(handle: ISudFSMStateHandle, dataJson: string) {
     const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
     if (listener != null) {
-      listener.onExpireCode(handle, dataJson)
+      listener.onExpireCode && listener.onExpireCode(handle, dataJson)
     }
   }
 
@@ -140,7 +140,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
   public onGetGameViewInfo(handle: ISudFSMStateHandle, dataJson: string) {
     const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
     if (listener != null) {
-      listener.onGetGameViewInfo(handle, dataJson)
+      listener.onGetGameViewInfo && listener.onGetGameViewInfo(handle, dataJson)
     }
   }
 
@@ -155,7 +155,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
   public onGetGameCfg(handle: ISudFSMStateHandle, dataJson: string) {
     const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
     if (listener != null) {
-      listener.onGetGameCfg(handle, dataJson)
+      listener.onGetGameCfg && listener.onGetGameCfg(handle, dataJson)
     }
   }
 
@@ -385,7 +385,6 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    */
   public onPlayerStateChange(handle: ISudFSMStateHandle, userId: string, state: string, dataJson: string) {
     const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
-    // const parseJson = JSON.parse(dataJson)
 
     switch (state) {
       case SudMGPMGState.MG_COMMON_PLAYER_IN: { // 1.加入状态（已修改）
