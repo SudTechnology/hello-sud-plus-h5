@@ -29,7 +29,7 @@ const Home = () => {
   }
   return (
     <div className={cx('container')}>
-      <div className={cx('title')}>Sud元宇宙互动升级</div>
+      {/* <div className={cx('title')}>Sud元宇宙互动升级</div> */}
       <div>
         <Form form={form} layout='horizontal'>
           <Form.Item label='房间号ID' name='roomId'>

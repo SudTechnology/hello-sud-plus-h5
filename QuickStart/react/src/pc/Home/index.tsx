@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <div className={cx('container')}>
-      <div className={cx('title')}>Sud元宇宙互动升级</div>
+      {/* <div className={cx('title')}>Sud元宇宙互动升级</div> */}
       {/* 游戏列表 */}
       <div className={cx('game-list')}>
         {
