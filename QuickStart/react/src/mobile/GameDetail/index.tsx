@@ -7,6 +7,8 @@ import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { getQueryParam } from 'utils'
 import { Modal } from 'antd-mobile'
 import useCustomApi from 'hooks/useCustomApi'
+import { IMGCommonGameBackLobby } from "sudmgp-sdk-js-wrapper/state/ISudMGPMGState"
+
 interface IProps extends RouteComponentProps {
 
 }
@@ -19,7 +21,19 @@ const GameDetail = (props: IProps) => {
   const orientation = getQueryParam('orientation')
   const roomId = getQueryParam('roomId')
   console.log(params, orientation, 'paramsparamsparams')
-  const { SudSDk } = useGameDetail(params.id || '', roomId || (params.id || ''))
+
+  // 返回大厅
+  const goBack = (data?: IMGCommonGameBackLobby) => {
+    if (data && data.leaveGame) {
+      // 销毁游戏
+      SudSDk && SudSDk.onDestroy()
+    }
+    setTimeout(() => {
+      location.href = '/'
+    }, 1000)
+  }
+
+  const { SudSDk } = useGameDetail(params.id || '', roomId || (params.id || ''), goBack)
 
   const { joinGame, quitGame, readyGame, cancelReadyGame, startGame } = useCustomApi(SudSDk)
 
@@ -64,12 +78,7 @@ const GameDetail = (props: IProps) => {
       bodyClassName: 'global-m-info-modal',
       content: '确定要退出吗？',
       onConfirm() {
-        // TODO: 销毁游戏
-        console.log(SudSDk)
-        SudSDk && SudSDk.onDestroy()
-        setTimeout(() => {
-          location.href = '/'
-        }, 1000)
+        goBack({ leaveGame: 1 })
       }
     })
   }

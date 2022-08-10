@@ -309,6 +309,13 @@ export interface IMGCommonGameAddAIPlayers {
   userIds: string[]// 加入成功的playerId列表
 }
 
+/**
+ * 22. 游戏通知app层添加陪玩机器人是否成功（2022-08-10新增） 模型
+ */
+export interface IMGCommonGameBackLobby {
+  leaveGame: number, // 0, 1: 需要调用退出游戏的方法
+}
+
 // endregion 通用状态-游戏
 
 /**
