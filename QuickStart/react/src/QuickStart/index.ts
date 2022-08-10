@@ -151,7 +151,7 @@ export class SDKGameView {
       onPlayerMGCommonPlayerIn(handle, userId, model) {
         // 获取游戏人数
         const size = self.sudFSMMGDecorator.getPlayerInNumber()
-        console.log(size, userId, model, 'getPlayerInNumber')
+        console.log(`=======sud h5 getPlayerInNumber======= size: ${size}, userId: ${userId}, model: ${model}`)
         handle.success(JSON.stringify({ res_code: 0, msg: '' }))
       },
       onGameMGCommonGameBackLobby(handle, dataJson) { // 游戏通知app回到大厅
