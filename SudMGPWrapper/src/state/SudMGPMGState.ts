@@ -112,6 +112,11 @@ export class SudMGPMGState {
    */
   public static MG_COMMON_GAME_ADD_AI_PLAYERS = "mg_common_game_add_ai_players"
 
+  /**
+   * 22. 游戏通知app层回到大厅（2022-08-10新增）
+   */
+  public static MG_COMMON_BACK_LOBBY = "mg_common_back_lobby"
+
   // endregion 通用状态-游戏
 
   // region MG状态机-通用状态-玩家

@@ -24,6 +24,7 @@ import {
   IMGCommonPlayerPlaying,
   IMGCommonPlayerReady,
   IMGCommonPublicMessage,
+  IMGCommonGameBackLobby,
   IMGCommonSelfClickCancelJoinBtn,
   IMGCommonSelfClickCancelReadyBtn,
   IMGCommonSelfClickGamePlayerIcon,
@@ -368,6 +369,15 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
+      case SudMGPMGState.MG_COMMON_BACK_LOBBY: { // 22. 游戏通知app层回到大厅（2022-08-10新增）
+        const mgCommonGameBackLobby = parseJson<IMGCommonGameBackLobby>(dataJson)
+        if (listener == null) {
+          ISudFSMStateHandleUtils.handleSuccess(handle)
+        } else {
+          listener.onGameMGCommonGameBackLobby && listener.onGameMGCommonGameBackLobby(handle, mgCommonGameBackLobby)
+        }
+        break
+      }
       default:
         ISudFSMStateHandleUtils.handleSuccess(handle)
         break
@@ -385,7 +395,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    */
   public onPlayerStateChange(handle: ISudFSMStateHandle, userId: string, state: string, dataJson: string) {
     const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
-
+    console.log('[ state onPlayerStateChange ] >', state, listener)
     switch (state) {
       case SudMGPMGState.MG_COMMON_PLAYER_IN: { // 1.加入状态（已修改）
         const mgCommonPlayerIn = parseJson<IMGCommonPlayerIn>(dataJson)

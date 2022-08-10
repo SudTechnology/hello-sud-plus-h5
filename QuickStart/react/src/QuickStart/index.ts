@@ -1,4 +1,5 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
+
 import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
 import { ISudMGP } from 'sudmgp-sdk-js/type' // SudMGP类型
 import { getCode } from 'api/login' // 短期令牌code接口
@@ -48,7 +49,7 @@ export class SDKGameView {
   // 用于处理游戏SDK部分回调业务
   public sudFSMMGDecorator = new SudFSMMGDecorator()
 
-  public customListener: Partial<SudFSMMGListener> | undefined
+  public customSudFSMMGListener: Partial<SudFSMMGListener> | undefined
   // 初始化数据
 
   // 初始化数据
@@ -140,11 +141,22 @@ export class SDKGameView {
     const gameId = this.gameId
     const language = this.language
     const self = this
-    const customListener = this.customListener || {}
+    const customSudFSMMGListener = this.customSudFSMMGListener || {}
     this.sudFSMMGDecorator.setSudFSMMGListener({
       // 默认监听事件
       onGameStarted() {
         console.log('start')
+      },
+      // 监听玩家状态改变
+      onPlayerMGCommonPlayerIn(handle, userId, model) {
+        // 获取游戏人数
+        const size = self.sudFSMMGDecorator.getPlayerInNumber()
+        console.log(size, userId, model, 'getPlayerInNumber')
+        handle.success(JSON.stringify({ res_code: 0, msg: '' }))
+      },
+      onGameMGCommonGameBackLobby(handle, dataJson) { // 游戏通知app回到大厅
+        // 自定义实现页面跳转或者回到大厅的操作
+
       },
       onGameLog(dataJson) {
         console.log('=======sud h5 onGameLog======= ', dataJson)
@@ -193,18 +205,8 @@ export class SDKGameView {
         console.log(JSON.stringify(config), 'GameConfigModel')
         handle.success(JSON.stringify(config))
       },
-      ...customListener// 外部传入自定义listener可覆盖
+      ...customSudFSMMGListener// 外部传入自定义listener可覆盖
     })
-    this.sudFSMMGDecorator.onPlayerStateChange = function (handle, userId, state, dataJson) {
-      console.log(`=======sud h5 onPlayerStateChange======= userId:${userId}--state:${state}--dataJson:${dataJson}`)
-
-      handle.success(dataJson)
-    }
-
-    this.sudFSMMGDecorator.onGameStateChange = function (handle, state, dataJson) {
-      console.log(`=======sud h5 onGameStateChange======= state:${state}--dataJson:${dataJson}`)
-      handle.success(dataJson)
-    }
     console.log(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator)
 
     // 调用游戏sdk加载游戏
@@ -232,7 +234,7 @@ export class SDKGameView {
   }
 
   public setSudFSMMGListener(listener: Partial<SudFSMMGListener>) {
-    this.customListener = listener
+    this.customSudFSMMGListener = listener
   }
 
   // end region 生命周期相关

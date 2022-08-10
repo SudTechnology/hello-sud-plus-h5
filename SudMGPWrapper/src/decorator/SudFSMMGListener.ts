@@ -7,6 +7,7 @@ import { ISudFSMStateHandle } from "../type/core"
 import {
   IMGCommonAPPCommonSelfXResp,
   IMGCommonGameAddAIPlayers,
+  IMGCommonGameBackLobby,
   IMGCommonGameASR,
   IMGCommonGameBgMusicState,
   IMGCommonGameCountdownTime,
@@ -217,6 +218,13 @@ export class SudFSMMGListener implements Partial<ISudFSMMGListener> {
    * 21. 游戏通知app层添加陪玩机器人是否成功（2022-05-17新增）
    */
   onGameMGCommonGameAddAIPlayers?(handle: ISudFSMStateHandle, model: IMGCommonGameAddAIPlayers) {
+    ISudFSMStateHandleUtils.handleSuccess(handle)
+  }
+
+  /**
+   * 22. 游戏通知app层添加陪玩机器人是否成功（2022-08-10新增）
+   */
+  onGameMGCommonGameBackLobby?(handle: ISudFSMStateHandle, model: IMGCommonGameBackLobby) {
     ISudFSMStateHandleUtils.handleSuccess(handle)
   }
   // endregion 游戏回调APP 通用状态
