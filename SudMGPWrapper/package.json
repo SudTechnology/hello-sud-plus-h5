@@ -1,8 +1,8 @@
 {
   "name": "sudmgp-sdk-js-wrapper",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "",
-  "main": "lib/index.js",
+  "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --config webpack.config.dev.js",
     "local": "webpack --mode production --config webpack.config.dev.js",
