@@ -3,7 +3,7 @@ import styles from './index.module.less'
 import classnames from 'classnames/bind'
 import Close from 'assets/close.png'
 import { useGameDetail } from 'hooks/useGameDetail'
-import { withRouter, RouteComponentProps, useHistory } from 'react-router-dom'
+import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { getQueryParam } from 'utils'
 import { Modal } from 'antd-mobile'
 import useCustomApi from 'hooks/useCustomApi'
@@ -18,7 +18,6 @@ const cx = classnames.bind(styles)
 const GameDetail = (props: IProps) => {
   console.log(props)
   const params: { id?: string } = props.match.params
-  const history = useHistory()
   const orientation = getQueryParam('orientation')
   const roomId = getQueryParam('roomId')
   console.log(params, orientation, 'paramsparamsparams')
@@ -29,10 +28,9 @@ const GameDetail = (props: IProps) => {
       // 销毁游戏
       SudSDk && SudSDk.onDestroy()
     }
-    // setTimeout(() => {
-    // location.href = '/'
-    history.push('/')
-    // }, 1000)
+    setTimeout(() => {
+      location.href = '/'
+    }, 1000)
   }
 
   const { SudSDk } = useGameDetail(params.id || '', roomId || (params.id || ''), goBack)
