@@ -1,8 +1,6 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
 
-import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
-// @ts-ignore
-// import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
+import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
 
 import { ISudMGP } from 'sudmgp-sdk-js/type' // SudMGP类型
 import { getCode } from 'api/login' // 短期令牌code接口
@@ -39,13 +37,13 @@ export class SDKGameView {
   public userId = '100668' // Math.floor((Math.random() + 1) * 10000).toString()
   /** Sud平台申请的appId */
   // eslint-disable-next-line camelcase
-  public SudMGP_APP_ID = '1461564080052506636' // "1498868666956988417"
+  public SudMGP_APP_ID = '1461564080052506636' // '1461564080052506636' // "1498868666956988417"
   /** Sud平台申请的appKey */
   // eslint-disable-next-line camelcase
   public SudMGP_APP_KEY = '03pNxK2lEXsKiiwrBQ9GbH541Fk2Sfnc'// '1461564080052506636' //"E9Lj2Cg61pUgiSESou6WDtxntoTXH7Gf"
 
   /** true 加载游戏时为测试环境 false 加载游戏时为生产环境 */
-  public GAME_IS_TEST_ENV = false
+  public GAME_IS_TEST_ENV = true
 
   // app调用sdk的封装类
   public sudFSTAPPDecorator = new SudFSTAPPDecorator()
