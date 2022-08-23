@@ -82,6 +82,9 @@ export class SDKGameView {
         // @ts-ignore
         await this.beforeInitSdk && this.beforeInitSdk(SudMGP)
         const env = Number(localStorage.getItem('env')) || 3
+        if (env === 1) { // 切换到生产环境
+          this.GAME_IS_TEST_ENV = false
+        }
         console.log('[ env ] >', env)
         ISudAPPD.e(env)
         this.initSdk({
