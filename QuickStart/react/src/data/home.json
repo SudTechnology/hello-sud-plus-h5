@@ -34,22 +34,6 @@
 				"gmtCreated": "2022-07-22 15:28:03",
 				"gmtModify": "2022-07-22 15:28:03"
 			},
-      {
-				"sceneName": "换装",
-				"sceneId": "1560939199401668609",
-				"scenePic": "https://fat-sud-static.sudden.ltd/game/umo/332.png?u=2e9e9f7668d4e022",
-				"code": "opensceneescape",
-				"gameAppId": "tech.sud.mgp.opensceneescape",
-				"description": "",
-				"orientation": 0,
-				"screenMode": 0,
-				"price": "0.00",
-				"durationPrice": "0.0000",
-				"lastModifyId": "1528932377258201090",
-				
-				"gmtCreated": "2022-07-22 15:28:03",
-				"gmtModify": "2022-07-22 15:28:03"
-			},
 			{
 				"sceneName": "密室逃脱",
 				"sceneId": "1550382145758941186",
