@@ -151,6 +151,15 @@ export class SDKGameView {
       onGameStarted() {
         console.log('start')
       },
+      onGameCustomerStateChange(handle, state, dataJson) {
+        console.log('======onGameCustomerStateChange====', 'state', state, dataJson)
+        switch (state) {
+          case 'mg_common_click_user_profile':
+            console.log('handle mg_common_click_user_profile')
+
+            break
+        }
+      },
       // 监听玩家状态改变
       onPlayerMGCommonPlayerIn(handle, userId, model) {
         // 获取游戏人数

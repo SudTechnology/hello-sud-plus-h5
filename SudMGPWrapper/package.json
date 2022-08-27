@@ -1,6 +1,6 @@
 {
   "name": "sudmgp-sdk-js-wrapper",
-  "version": "0.1.10",
+  "version": "0.1.13",
   "description": "",
   "main": "index.js",
   "scripts": {

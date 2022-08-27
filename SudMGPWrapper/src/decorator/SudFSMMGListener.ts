@@ -74,6 +74,11 @@ export class SudFSMMGListener implements Partial<ISudFSMMGListener> {
     throw new Error("Method not implemented.")
   }
 
+  // 自定义处理游戏状态
+  onGameCustomerStateChange?(handle: ISudFSMStateHandle, state: string, dataJson: string):void {
+    ISudFSMStateHandleUtils.handleSuccess(handle)
+  }
+
   /**
    * 1.游戏公屏消息
    */
