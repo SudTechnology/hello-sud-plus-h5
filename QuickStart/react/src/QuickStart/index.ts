@@ -156,6 +156,11 @@ export class SDKGameView {
         switch (state) {
           case 'mg_common_click_user_profile':
             console.log('handle mg_common_click_user_profile')
+            break
+          case 'mg_avatar_get_avatar':
+            console.log('mg_avatar_get_avatar', 'zhixing')
+            // handle.success(JSON.stringify({ gender: "Male", avatar: "Role_Male_T19_Hair_01_M_Face_01_T_T19_UB_01_M_T19_LB_01_M_T19_Shoe_01_M" }))
+            handle.success(JSON.stringify({ gender: "Male", avatar: "" }))
 
             break
         }
