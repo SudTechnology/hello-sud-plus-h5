@@ -41,7 +41,7 @@ export class SDKGameView {
   public SudMGP_APP_KEY = '03pNxK2lEXsKiiwrBQ9GbH541Fk2Sfnc'// '1461564080052506636' //"E9Lj2Cg61pUgiSESou6WDtxntoTXH7Gf"
 
   /** true 加载游戏时为测试环境 false 加载游戏时为生产环境 */
-  public GAME_IS_TEST_ENV = true
+  public GAME_IS_TEST_ENV = process.env.REACT_APP_ENV !== 'proction'
 
   // app调用sdk的封装类
   public sudFSTAPPDecorator = new SudFSTAPPDecorator()
