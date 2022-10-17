@@ -205,13 +205,15 @@ export class SDKGameView {
         handle.success(JSON.stringify(gameViewInfo))
       },
       onGameMGCommonSelfClickJoinBtn(handle, res) {
+        console.log('[ onGameMGCommonSelfClickJoinBtn ] >', handle, res)
         handle.success(JSON.stringify(res))
+        self.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true)
       },
       onGetGameCfg: function (handle: ISudFSMStateHandle, dataJson: string): void {
         console.log("onGetGameCfg")
         let config = new GameConfigModel()
         const gameConf = localStorage.getItem('gameconfig')
-
+        config.ui.join_btn.custom = true
         if (gameConf) {
           // @ts-ignore
           config = gameConf
@@ -239,7 +241,6 @@ export class SDKGameView {
 
   /** 页面销毁的时候调用 */
   public onDestroy() {
-    // @ts-ignore
     this.sudFSTAPPDecorator.notifyAPPCommon('app_common_self_exit_game', JSON.stringify({}), {
       onSuccess() {
 

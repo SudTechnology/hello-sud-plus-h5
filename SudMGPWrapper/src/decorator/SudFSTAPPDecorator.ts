@@ -30,7 +30,7 @@ export class SudFSTAPPDecorator {
     this.iSudFSTAPP = iSudFSTAPP
   }
 
-  public notifyAPPCommon() {
+  public notifyAPPCommon(...args: any) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
       const args = arguments
