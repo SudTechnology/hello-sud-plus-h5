@@ -216,7 +216,6 @@ export class SDKGameView {
 
   /** 页面销毁的时候调用 */
   public onDestroy() {
-    // @ts-ignore
     this.sudFSTAPPDecorator.notifyAPPCommon('app_common_self_exit_game', JSON.stringify({}), {
       onSuccess() {
 
