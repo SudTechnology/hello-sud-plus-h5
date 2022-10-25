@@ -266,6 +266,6 @@ export class SDKGameView {
 
   // 根据域名生成bundleId
   public getBundleId() {
-    return location.hostname
+    return 'localhost' // location.hostname
   }
 }
