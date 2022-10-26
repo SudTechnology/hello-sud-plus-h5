@@ -2,7 +2,7 @@ import { SDKGameView } from "QuickStart"
 import { useEffect, useState } from "react"
 
 export const useGameDetail = (gameId: string, roomId: string, goBack?: (data: any) => void) => {
-  const [SudSDk, setSudSDk] = useState<SDKGameView>()
+  const [SudSDK, setSudSDK] = useState<SDKGameView>()
   // 页面挂载后进行sdk初始化
   useEffect(() => {
     // 要挂载的元素
@@ -31,12 +31,12 @@ export const useGameDetail = (gameId: string, roomId: string, goBack?: (data: an
       // nsdk.sudFSMMGDecorator.onGameLoadingProgress = function (stage: number, retCode: number, progress: number) {
       //   console.log(stage, retCode, progress, '自定义进度')
       // }
-      setSudSDk(nsdk)
+      setSudSDK(nsdk)
       nsdk.login(userId)
     }
   }
   , [])
   return {
-    SudSDk
+    SudSDK
   }
 }

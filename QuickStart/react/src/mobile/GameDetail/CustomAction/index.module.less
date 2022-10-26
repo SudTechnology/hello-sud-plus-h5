@@ -1,0 +1,45 @@
+
+.action-control {
+  position: absolute;
+  bottom: 0;
+  left: 4px;
+  z-index: 100;
+}
+.info {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  color: #fff;
+}
+button {
+  border-radius: 8px;
+  border: 0;
+  color: #fff;
+  background-color: hsl(37, 87%, 58%);
+  margin-bottom: 10px;
+  margin-left: auto;
+  font-size: 12px;
+  margin-right: 4px;
+}
+.action-btn {
+  position: absolute;
+  bottom: 10px;
+  right: 5px;
+  z-index: 100;
+
+  button {
+    display: block;
+    width: 60px;
+    margin-right: 0;
+  }
+}
+
+.form {
+  :global {
+    .adm-list-item-content-prefix {
+      --prefix-width: 80px;
+
+    }
+  }
+}

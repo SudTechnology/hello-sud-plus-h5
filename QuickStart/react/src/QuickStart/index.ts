@@ -182,9 +182,10 @@ export class SDKGameView {
       onGetGameViewInfo: function (handle: ISudFSMStateHandle, dataJson: string): void {
         const width = self.root.clientWidth
         const height = self.root.clientHeight
-        console.log(width, height, 'width,height', dataJson, 'dataJson')
         const data = JSON.parse(dataJson)
         const dpr = data.ratio || 1
+        console.log(width, height, 'width,height', dataJson, 'dataJson', 'dpr', dpr)
+
         // TODO: 修改数据
         const gameViewInfo = {
           ret_code: 0,
@@ -217,7 +218,8 @@ export class SDKGameView {
         if (gameConf) {
           // @ts-ignore
           config = gameConf
-          console.log(config, 'GameConfigModel')
+          // @ts-ignore
+          console.log(JSON.parse(config), 'GameConfigModel')
           // @ts-ignore
           handle.success(config)
           return

@@ -32,8 +32,8 @@ const useCustomApi = (SudSDK: SDKGameView | undefined) => {
   function userSelfQuickGame() {
     nSudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfPlaying(false)
   }
-  // 设置AI玩家
-  function setAIPlayer() {
+  // 添加AI玩家
+  function pushAIPlayer() {
     const id = Math.floor((Math.random() + 1) * 10000).toString()
     nSudSDK.sudFSTAPPDecorator.notifyAPPCommonGameAddAIPlayers([{ userId: id, avatar: 'https://dev-sud-static.sudden.ltd/avatar/6.jpg', name: `AI${id}`, gender: "male" }], 1)
   }
@@ -54,7 +54,7 @@ const useCustomApi = (SudSDK: SDKGameView | undefined) => {
     cancelReadyGame,
     startGame,
     userSelfQuickGame,
-    setAIPlayer,
+    pushAIPlayer,
     closeBgMusic,
     closeMusic
   }
