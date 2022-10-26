@@ -10,7 +10,7 @@ const cx = classnames.bind(styles)
 const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
   const SudSDK = props.SudSDK as SDKGameView
   const customActionHook = useCustomApi(SudSDK)
-  const [showAction, setShowAction] = useState(false) // 显示隐藏自定义的操作按钮
+  const [showAction, setShowAction] = useState(true) // 显示隐藏自定义的操作按钮
   const [visible, setVisible] = useState(false)
   const [visibleGameInfo, setVisibleGameInfo] = useState(false)
   const [visibleShiftUser, setVisibleShiftUser] = useState(false)
