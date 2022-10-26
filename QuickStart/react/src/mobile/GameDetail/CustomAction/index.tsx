@@ -16,7 +16,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
   const [visibleShiftUser, setVisibleShiftUser] = useState(false)
   const [visibleVolume, setvisibleVolume] = useState(false)
   const [volum, setVolum] = useState(100) // 音量
-  const [visibleGameSetting, setVisibleGameSetting] = useState(true)
+  const [visibleGameSetting, setVisibleGameSetting] = useState(false)
 
   const aiDefaultSettingList = [1, 2, 3]
 
