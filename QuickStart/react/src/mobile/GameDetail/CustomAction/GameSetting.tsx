@@ -6,6 +6,91 @@ interface IProp {
   onClose: () => void
   onFinish: (value: any) => void
 }
+
+const gameConfig = JSON.stringify({
+  gameMode: 1,
+  gameCPU: 0,
+  gameSoundControl: 0,
+  gameSoundVolume: 100,
+  ui: {
+    gameSettle: {
+      hide: false
+    },
+    ping: {
+      hide: false
+    },
+    version: {
+      hide: false
+    },
+    level: {
+      hide: false
+    },
+    lobby_setting_btn: {
+      hide: false
+    },
+    lobby_help_btn: {
+      hide: false
+    },
+    lobby_players: {
+      custom: false,
+      hide: false
+    },
+    lobby_player_captain_icon: {
+      hide: false
+    },
+    lobby_player_kickout_icon: {
+      hide: false
+    },
+    lobby_rule: {
+      hide: false
+    },
+    lobby_game_setting: {
+      hide: false
+    },
+    join_btn: {
+      custom: false,
+      hide: false
+    },
+    cancel_join_btn: {
+      custom: false,
+      hide: false
+    },
+    ready_btn: {
+      custom: false,
+      hide: false
+    },
+    cancel_ready_btn: {
+      custom: false,
+      hide: false
+    },
+    start_btn: {
+      custom: false,
+      hide: false
+    },
+    share_btn: {
+      custom: false,
+      hide: true
+    },
+    game_setting_btn: {
+      hide: false
+    },
+    game_help_btn: {
+      hide: false
+    },
+    game_settle_close_btn: {
+      custom: false
+    },
+    game_settle_again_btn: {
+      custom: false
+    },
+    game_bg: {
+      hide: false
+    },
+    block_change_seat: {
+      custom: false
+    }
+  }
+}, null, 2)
 const GameSetting: React.FC<IProp> = (props) => {
   return (
     <Popup
@@ -22,7 +107,7 @@ const GameSetting: React.FC<IProp> = (props) => {
             </Button>
           }
         >
-          <Form.Item name="value" label="json配置">
+          <Form.Item initialValue={gameConfig} name="value" label="默认配置">
             <TextArea rows={20} />
           </Form.Item>
           {/* <Form.Item name="gameMode" initialValue={1} label="gameMode">

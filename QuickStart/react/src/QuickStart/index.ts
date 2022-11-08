@@ -213,18 +213,24 @@ export class SDKGameView {
       onGetGameCfg: function (handle: ISudFSMStateHandle, dataJson: string): void {
         console.log("onGetGameCfg")
         let config = new GameConfigModel()
+        console.log('[ config ] >', config)
         const gameConf = localStorage.getItem('gameconfig')
-        config.ui.join_btn.custom = true
+        // config.ui.join_btn.custom = true
+        // config.ui.join_btn.hide = true
+
         if (gameConf) {
+          console.log('[ gameConf ] >', gameConf)
+
           // @ts-ignore
           config = gameConf
           // @ts-ignore
-          console.log(JSON.parse(config), 'GameConfigModel')
+          console.log(config, 'GameConfigModel')
           // @ts-ignore
           handle.success(config)
           return
         }
-        console.log(JSON.stringify(config), 'GameConfigModel')
+        const test = JSON.stringify(config)
+        console.log(test, 'GameConfigModel')
         handle.success(JSON.stringify(config))
       },
       ...customSudFSMMGListener// 外部传入自定义listener可覆盖
