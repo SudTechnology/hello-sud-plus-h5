@@ -24,7 +24,6 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
 
   useEffect(() => {
     const gameViewSize = localStorage.getItem('viewSize')
-    console.log('[ gameViewSize ] >', gameViewSize)
     if (gameViewSize) {
       const localData = JSON.parse(gameViewSize)
       const game = document.getElementById('game')
@@ -47,7 +46,6 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
         gender: values[`gender${item}`]
       })
     })
-    console.log('[ list ] >', list)
     SudSDK.sudFSTAPPDecorator.notifyAPPCommonGameAddAIPlayers(list, values.isReady)
     setVisible(false)
   }
