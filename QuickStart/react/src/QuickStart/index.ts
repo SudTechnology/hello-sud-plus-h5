@@ -217,19 +217,13 @@ export class SDKGameView {
         self.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true)
       },
       onGetGameCfg: function (handle: ISudFSMStateHandle, dataJson: string): void {
-        console.log("onGetGameCfg")
         let config = new GameConfigModel()
-        console.log('[ config ] >', config)
         const gameConf = localStorage.getItem('gameconfig')
         // config.ui.join_btn.custom = true
         // config.ui.join_btn.hide = true
         if (gameConf) {
-          console.log('[ gameConf ] >', gameConf)
-
           // @ts-ignore
           config = gameConf
-          // @ts-ignore
-          console.log(config, 'GameConfigModel')
           // @ts-ignore
           handle.success(config)
           return
