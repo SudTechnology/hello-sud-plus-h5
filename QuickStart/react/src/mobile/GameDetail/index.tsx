@@ -19,7 +19,6 @@ const GameDetail = (props: IProps) => {
   const params: { id?: string } = props.match.params
   const orientation = getQueryParam('orientation')
   const roomId = getQueryParam('roomId')
-  console.log(params, orientation, 'paramsparamsparams')
 
   // 返回大厅
   const goBack = (data?: IMGCommonGameBackLobby) => {
