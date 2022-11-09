@@ -180,12 +180,18 @@ export class SDKGameView {
         console.log('=======sud h5 onGameLog======= ', dataJson)
       },
       onGetGameViewInfo: function (handle: ISudFSMStateHandle, dataJson: string): void {
-        const width = self.root.clientWidth
-        const height = self.root.clientHeight
+        let width = self.root.clientWidth
+        let height = self.root.clientHeight
         const data = JSON.parse(dataJson)
         const dpr = data.ratio || 1
         console.log(width, height, 'width,height', dataJson, 'dataJson', 'dpr', dpr)
-
+        const gameViewSize = localStorage.getItem('viewSize')
+        console.log('[ gameViewSize ] >', gameViewSize)
+        if (gameViewSize) {
+          const localData = JSON.parse(gameViewSize)
+          width = localData.width
+          height = localData.height
+        }
         // TODO: 修改数据
         const gameViewInfo = {
           ret_code: 0,
@@ -228,8 +234,6 @@ export class SDKGameView {
           handle.success(config)
           return
         }
-        const test = JSON.stringify(config)
-        console.log(test, 'GameConfigModel')
         handle.success(JSON.stringify(config))
       },
       ...customSudFSMMGListener// 外部传入自定义listener可覆盖

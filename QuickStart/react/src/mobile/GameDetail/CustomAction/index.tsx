@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useCustomApi from 'hooks/useCustomApi'
 import styles from './index.module.less'
 import classnames from 'classnames/bind'
@@ -17,8 +17,23 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
   const [visibleVolume, setvisibleVolume] = useState(false)
   const [volum, setVolum] = useState(100) // 音量
   const [visibleGameSetting, setVisibleGameSetting] = useState(false)
-
+  const [visibleViewSize, setVisibleViewSize] = useState(false) // 游戏容器宽高设置
+  const width = document.body.clientWidth
+  const height = document.body.clientHeight
   const aiDefaultSettingList = [1, 2, 3]
+
+  useEffect(() => {
+    const gameViewSize = localStorage.getItem('viewSize')
+    console.log('[ gameViewSize ] >', gameViewSize)
+    if (gameViewSize) {
+      const localData = JSON.parse(gameViewSize)
+      const game = document.getElementById('game')
+      if (game) {
+        game.style.width = localData.width + 'px'
+        game.style.height = localData.height + 'px'
+      }
+    }
+  }, [])
 
   // 设置AI玩家
   const onFinishAIPlayer = (values: any) => {
@@ -58,13 +73,20 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
     localStorage.setItem('gameconfig', JSON.stringify(values))
     location.reload()
   }
+
+  const onFinishGameViewSize = (values: any) => {
+    console.log('[ value ] >', values)
+    localStorage.setItem('viewSize', JSON.stringify(values))
+    location.reload()
+  }
   return (
     <div>
-      <div className={cx('info')}>屏幕参数 view_size: width: {window.innerWidth} ,height:{window.innerHeight}</div>
+      <div className={cx('info')}>屏幕参数 view_size: width: {window.innerWidth}px ,height:{window.innerHeight}px</div>
       {
         showAction && <>
           <div className={cx('action-btn')}>
             <button onClick={() => setVisibleGameSetting(true)}>Game Cfg 配置</button>
+            <button onClick={() => setVisibleViewSize(true)}>设置容器宽高</button>
 
             <button onClick={() => setVisibleGameInfo(true)}>设置游戏玩法</button>
             <button onClick={() => setVisible(true)}>设置AI玩家</button>
@@ -208,6 +230,38 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
             }}/>
           <div style={{ textAlign: 'center' }}>{volum}</div>
         </div>
+        }
+      />
+
+      <Modal
+        visible={visibleViewSize}
+        closeOnAction
+        closeOnMaskClick
+        title="设置容器宽高"
+        onClose={() => {
+          setVisibleViewSize(false)
+        }}
+        content={
+          <div>
+            <Form
+              onFinish={onFinishGameViewSize}
+              footer={
+              <Button block type='submit' color='primary' size="middle">
+                确定
+              </Button>
+              }
+              className={cx('form')}
+              layout='horizontal'>
+              <Form.Item name="width" rules={[{ required: true }]} required initialValue={width} label="宽" extra={<span>px</span>}>
+                <Input type="number" placeholder="请输入" />
+              </Form.Item>
+              <Form.Item name="height"
+                rules={[{ required: true }]}
+                required initialValue={height} label="高" extra={<span>px</span>}>
+                <Input type="number" placeholder="请输入" />
+              </Form.Item>
+            </Form>
+          </div>
         }
       />
 
