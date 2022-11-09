@@ -54,7 +54,8 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
   }
 
   const onFinishGameSetting = (values: any) => {
-    localStorage.setItem('gameconfig', values.value)
+    console.log('[ value ] >', values)
+    localStorage.setItem('gameconfig', JSON.stringify(values))
     location.reload()
   }
   return (

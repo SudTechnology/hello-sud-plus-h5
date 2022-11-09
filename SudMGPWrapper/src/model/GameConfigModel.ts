@@ -32,6 +32,17 @@ export class GameUi {
   public game_settle_again_btn = new GameSettleAgainBtn() // 游戏结算界面中的再来一局按钮
   public game_bg = new GameBg()// 是否隐藏背景图，包括大厅和战斗
   public block_change_seat = new BlockChangeSeat() // 自定义阻止换座位
+
+  public game_setting_select_pnl = new GameSettingSelectPnl() // 大厅中的玩法选择设置面板
+  public game_managed_image = new GameManagedImage() // 游戏中的托管图标
+  public game_table_image = new GameTableImage() // 游戏中牌桌背景图 （注：只对某些带牌桌类游戏有作用）
+  public game_countdown_time = new GameCountdownTime() // 游戏中游戏倒计时显示 （注：现在只针对umo生效）
+  public game_selected_tips = new GameSelectedTips() // 游戏中所选择的玩法提示文字 （注：现在只针对ludo生效）
+  public nft_avatar = new NFTAvatar() // 控制NFT头像的开关
+  public game_opening = new GameOpening() // 控制开场动画的开关
+  public game_mvp = new GameMvp() // 游戏结算前的mvp动画
+  public umo_icon = new UmoIcon() // 游戏中动画和头像右上角的UMO图标
+  public logo = new Logo() // 大厅中的logo
 }
 
 // 结算界面
@@ -159,6 +170,66 @@ class GameBg {
 class BlockChangeSeat {
   // （false: 可以换座位； true: 不可以换座位；默认为false）
   public custom = false
+}
+
+// 大厅中的玩法选择设置面板
+class GameSettingSelectPnl {
+  // 是否隐藏大厅中的玩法选择设置面板（false: 显示； true: 隐藏，默认为false）
+  public hide = false
+}
+
+// 游戏中的托管图标
+class GameManagedImage {
+  // 是否隐藏游戏中的托管图标（false: 显示； true: 隐藏，默认为false）
+  public hide = false
+}
+
+// 游戏中牌桌背景图 （注：只对某些带牌桌类游戏有作用）
+class GameTableImage {
+  // 是否隐藏游戏牌桌背景图（false: 显示； true: 隐藏，默认为false）
+  public hide = false
+}
+
+// 游戏中游戏倒计时显示 （注：现在只针对umo生效）
+class GameCountdownTime {
+  // 是否隐藏游戏中游戏倒计时显示（false: 显示； true: 隐藏，默认为false）
+  public hide = false
+}
+
+// 游戏中所选择的玩法提示文字 （注：现在只针对ludo生效）
+class GameSelectedTips {
+  // 是否隐藏游戏中所选择的玩法提示文字显示（false: 显示； true: 隐藏，默认为false）
+  public hide = false
+}
+
+// 控制NFT头像的开关
+class NFTAvatar {
+  // true隐藏 false显示
+  public hide = true
+}
+
+// 控制开场动画的开关
+class GameOpening {
+  // true隐藏 false显示
+  public hide = true
+}
+
+// 游戏结算前的mvp动画
+class GameMvp {
+  // true隐藏 false显示
+  public hide = true
+}
+
+// 游戏中动画和头像右上角的UMO图标
+class UmoIcon {
+  // 是否隐藏游戏中动画和头像右上角的UMO图标并改为UNO（false: 不隐藏，依然显示UMO； true: 隐藏，改为显示UNO，默认为false）
+  public hide = false
+}
+
+// 大厅中的logo
+class Logo {
+  // 是否隐藏大厅中的logo（false: 不隐藏； true: 隐藏，默认为false）
+  public hide = false
 }
 
 export class GameConfigModel {

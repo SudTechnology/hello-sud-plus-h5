@@ -217,7 +217,6 @@ export class SDKGameView {
         const gameConf = localStorage.getItem('gameconfig')
         // config.ui.join_btn.custom = true
         // config.ui.join_btn.hide = true
-
         if (gameConf) {
           console.log('[ gameConf ] >', gameConf)
 
