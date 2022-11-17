@@ -91,6 +91,22 @@
 				"screenMode": 0
 			},
       {
+				"sceneName": "狼人杀",
+				"sceneId": "1472142747708284929",
+				"scenePic": "https://sim-sud-static.sudden.ltd/game/werewolf/332.png",
+				"description": "",
+				"orientation": 1,
+				"screenMode": 0
+			},
+      {
+				"sceneName": "五子棋",
+				"sceneId": "1461297734886621238",
+				"scenePic": "https://sim-sud-static.sudden.ltd/game/gobang/332.png",
+				"description": "",
+				"orientation": 1,
+				"screenMode": 0
+			},
+      {
 				"sceneName": "元宇宙砂砂舞",
 				"sceneId": "1518058459630743553",
 				"scenePic": "https://sim-sud-static.sudden.ltd/game/disco/332.png",
