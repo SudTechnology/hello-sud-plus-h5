@@ -315,6 +315,15 @@ export interface IMGCommonGameAddAIPlayers {
 export interface IMGCommonGameBackLobby {
   leaveGame: number, // 0, 1: 需要调用退出游戏的方法
 }
+/**
+ * 26. 游戏通知app玩家角色(仅对狼人杀有效) 模型
+ */
+export interface IMGCommonPlayerRoleId {
+  uid: string // 玩家id
+  roleId: number // 角色id
+}
+
+export type IMGCommonPlayerRoleIdList = IMGCommonPlayerRoleId[]
 
 // endregion 通用状态-游戏
 

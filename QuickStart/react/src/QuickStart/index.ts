@@ -176,6 +176,9 @@ export class SDKGameView {
         // 自定义实现页面跳转或者回到大厅的操作
 
       },
+      onGameMGCommonPlayerRoleId(handle, dataJson) {
+        console.log('[ onGameMGCommonPlayerRoleId ] >', dataJson)
+      },
       onGameLog(dataJson) {
         console.log('=======sud h5 onGameLog======= ', dataJson)
       },

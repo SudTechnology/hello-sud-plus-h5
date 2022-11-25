@@ -42,7 +42,8 @@ import {
   IMGDGPainting,
   IMGDGScore,
   IMGDGSelecting,
-  IMGDGTotalscore
+  IMGDGTotalscore,
+  IMGCommonPlayerRoleIdList
 } from '../state/ISudMGPMGState'
 import { ISudFSMStateHandleUtils } from '../utils/ISudFSMStateHandleUtils'
 import { SudFSMMGCache } from './SudFSMMGCache'
@@ -379,6 +380,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
+
       default:
         // 自定义处理剩下的事件
         if (listener.onGameCustomerStateChange) {
@@ -401,7 +403,6 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    */
   public onPlayerStateChange(handle: ISudFSMStateHandle, userId: string, state: string, dataJson: string) {
     const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
-    console.log('[ state onPlayerStateChange ] >', state, listener)
     switch (state) {
       case SudMGPMGState.MG_COMMON_PLAYER_IN: { // 1.加入状态（已修改）
         const mgCommonPlayerIn = parseJson<IMGCommonPlayerIn>(dataJson)
@@ -548,6 +549,15 @@ export class SudFSMMGDecorator implements ISudFSMMG {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
           listener.onPlayerMGDGScore && listener.onPlayerMGDGScore(handle, userId, mgdgScore)
+        }
+        break
+      }
+      case SudMGPMGState.MG_COMMON_PLAYER_ROLE_ID: { // 26. 游戏通知app玩家角色(仅对狼人杀有效)
+        const mgCommonPlayerRoleIdList = parseJson<IMGCommonPlayerRoleIdList>(dataJson)
+        if (listener == null) {
+          ISudFSMStateHandleUtils.handleSuccess(handle)
+        } else {
+          listener.onGameMGCommonPlayerRoleId && listener.onGameMGCommonPlayerRoleId(handle, mgCommonPlayerRoleIdList)
         }
         break
       }
