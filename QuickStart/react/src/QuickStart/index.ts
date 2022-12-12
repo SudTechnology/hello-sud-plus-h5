@@ -190,10 +190,20 @@ export class SDKGameView {
         console.log(width, height, 'width,height', dataJson, 'dataJson', 'dpr', dpr)
         const gameViewSize = localStorage.getItem('viewSize')
         console.log('[ gameViewSize ] >', gameViewSize)
+        let viewGameRect = {
+          left: 0,
+          right: 0,
+          top: 50,
+          bottom: 50
+        }
         if (gameViewSize) {
           const localData = JSON.parse(gameViewSize)
           width = localData.width
           height = localData.height
+          if (localData.viewGameRect) {
+            viewGameRect = localData.viewGameRect
+          }
+          console.log('[ viewGameRect ] >', viewGameRect)
         }
         // TODO: 修改数据
         const gameViewInfo = {
@@ -203,12 +213,7 @@ export class SDKGameView {
             width: width * dpr,
             height: height * dpr
           },
-          view_game_rect: {
-            left: 0,
-            right: 0,
-            top: 50,
-            bottom: 50
-          }
+          view_game_rect: viewGameRect
         }
         console.log(gameViewInfo, 'gameViewInfo')
 

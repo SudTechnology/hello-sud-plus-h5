@@ -28,8 +28,15 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
       const localData = JSON.parse(gameViewSize)
       const game = document.getElementById('game')
       if (game) {
+        const gameRootRect = localData.gameRootRect
         game.style.width = localData.width + 'px'
         game.style.height = localData.height + 'px'
+        if (gameRootRect) {
+          game.style.left = gameRootRect.left + 'px'
+          game.style.right = gameRootRect.right + 'px'
+          game.style.top = gameRootRect.top + 'px'
+          game.style.bottom = gameRootRect.bottom + 'px'
+        }
       }
     }
   }, [])
@@ -73,7 +80,15 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
   }
 
   const onFinishGameViewSize = (values: any) => {
-    console.log('[ value ] >', values)
+    console.log('[ value ] >', values, JSON.stringify(values))
+    for (const item in values.viewGameRect) {
+      values.viewGameRect[item] = Number(values.viewGameRect[item])
+    }
+    for (const gitem in values.gameRootRect) {
+      values.gameRootRect[gitem] = Number(values.gameRootRect[gitem])
+    }
+
+    console.log('[ value ] >', values, JSON.stringify(values))
     localStorage.setItem('viewSize', JSON.stringify(values))
     location.reload()
   }
@@ -84,7 +99,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
         showAction && <>
           <div className={cx('action-btn')}>
             <button onClick={() => setVisibleGameSetting(true)}>Game Cfg 配置</button>
-            <button onClick={() => setVisibleViewSize(true)}>设置容器宽高</button>
+            <button onClick={() => setVisibleViewSize(true)}>Game ViewInfo</button>
 
             <button onClick={() => setVisibleGameInfo(true)}>设置游戏玩法</button>
             <button onClick={() => setVisible(true)}>设置AI玩家</button>
@@ -235,7 +250,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
         visible={visibleViewSize}
         closeOnAction
         closeOnMaskClick
-        title="设置容器宽高"
+        title="viewinfo"
         onClose={() => {
           setVisibleViewSize(false)
         }}
@@ -250,12 +265,51 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
               }
               className={cx('form')}
               layout='horizontal'>
+              <header>view_size</header>
               <Form.Item name="width" rules={[{ required: true }]} required initialValue={width} label="宽" extra={<span>px</span>}>
                 <Input type="number" placeholder="请输入" />
               </Form.Item>
               <Form.Item name="height"
                 rules={[{ required: true }]}
                 required initialValue={height} label="高" extra={<span>px</span>}>
+                <Input type="number" placeholder="请输入" />
+              </Form.Item>
+              <header>view_game_rect（相对游戏容器）</header>
+              <Form.Item name={["viewGameRect", "left"]} rules={[{ required: true }]} required initialValue={0} label="left" extra={<span>px</span>}>
+                <Input type="number" placeholder="请输入" />
+              </Form.Item>
+              <Form.Item name={["viewGameRect", "top"]}
+                rules={[{ required: true }]}
+                required initialValue={0} label="top" extra={<span>px</span>}>
+                <Input type="number" placeholder="请输入" />
+              </Form.Item>
+              <Form.Item name={["viewGameRect", "right"]}
+                rules={[{ required: true }]}
+                required initialValue={0} label="right" extra={<span>px</span>}>
+                <Input type="number" placeholder="请输入" />
+              </Form.Item>
+              <Form.Item name={["viewGameRect", "bottom"]}
+                rules={[{ required: true }]}
+                required initialValue={0} label="bottom" extra={<span>px</span>}>
+                <Input type="number" placeholder="请输入" />
+              </Form.Item>
+              <header>游戏容器位置（相对页面窗口）</header>
+              <Form.Item name={["gameRootRect", "left"]} rules={[{ required: true }]} required initialValue={0} label="left" extra={<span>px</span>}>
+                <Input type="number" placeholder="请输入" />
+              </Form.Item>
+              <Form.Item name={["gameRootRect", "top"]}
+                rules={[{ required: true }]}
+                required initialValue={0} label="top" extra={<span>px</span>}>
+                <Input type="number" placeholder="请输入" />
+              </Form.Item>
+              <Form.Item name={["gameRootRect", "right"]}
+                rules={[{ required: true }]}
+                required initialValue={0} label="right" extra={<span>px</span>}>
+                <Input type="number" placeholder="请输入" />
+              </Form.Item>
+              <Form.Item name={["gameRootRect", "bottom"]}
+                rules={[{ required: true }]}
+                required initialValue={0} label="bottom" extra={<span>px</span>}>
                 <Input type="number" placeholder="请输入" />
               </Form.Item>
             </Form>
