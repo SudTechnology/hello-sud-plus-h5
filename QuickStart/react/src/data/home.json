@@ -117,6 +117,17 @@
 				"screenMode": 0
 			},
       {
+				"sceneName": "IDC场馆",
+				"sceneId": "1603636240072916994",
+				"scenePic": "https://fat-sud-static.sudden.ltd/game/umo/332.png?u=2e9e9f7668d4e022",
+				"code": "opensceneescape",
+				"gameAppId": "tech.sud.mgp.opensceneescape",
+				"description": "",
+				"orientation": 0,
+				"screenMode": 0,
+				"lastModifyId": "1528932377258201090"
+			},
+      {
 				"sceneName": "换装",
 				"sceneId": "1560939199401668609",
 				"scenePic": "https://fat-sud-static.sudden.ltd/game/umo/332.png?u=2e9e9f7668d4e022",
