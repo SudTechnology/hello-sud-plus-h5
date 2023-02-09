@@ -124,9 +124,29 @@
 				"gameAppId": "tech.sud.mgp.opensceneescape",
 				"description": "",
 				"orientation": 0,
-				"screenMode": 0,
-				"lastModifyId": "1528932377258201090"
+				"screenMode": 0
 			},
+      {
+				"sceneName": "多米诺",
+				"sceneId": "1537330258004504578",
+				"scenePic": "https://sim-sud-static.sudden.ltd/game/dominoes/332.png",
+				"code": "opensceneescape",
+				"gameAppId": "tech.sud.mgp.opensceneescape",
+				"description": "",
+				"orientation": 1,
+				"screenMode": 0
+			},
+      {
+				"sceneName": "Okey101",
+				"sceneId": "1533746206861164546",
+				"scenePic": "https://sim-sud-static.sudden.ltd/game/okey/332.png",
+				"code": "opensceneescape",
+				"gameAppId": "tech.sud.mgp.opensceneescape",
+				"description": "",
+				"orientation": 1,
+				"screenMode": 0
+			},
+
       {
 				"sceneName": "换装",
 				"sceneId": "1560939199401668609",
