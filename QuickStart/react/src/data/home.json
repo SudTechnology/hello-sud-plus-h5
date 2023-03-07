@@ -146,6 +146,26 @@
 				"orientation": 1,
 				"screenMode": 0
 			},
+      {
+				"sceneName": "数字炸弹",
+				"sceneId": "1468091457989509190",
+				"scenePic": "https://sim-sud-static.sudden.ltd/game/numberbomb/332.png",
+				"code": "opensceneescape",
+				"gameAppId": "tech.sud.mgp.opensceneescape",
+				"description": "",
+				"orientation": 1,
+				"screenMode": 0
+			},
+      {
+				"sceneName": "扫雷",
+				"sceneId": "1468434401847222273",
+				"scenePic": "https://sim-sud-static.sudden.ltd/game/mine/332.png",
+				"code": "opensceneescape",
+				"gameAppId": "tech.sud.mgp.opensceneescape",
+				"description": "",
+				"orientation": 1,
+				"screenMode": 0
+			},
 
       {
 				"sceneName": "换装",
