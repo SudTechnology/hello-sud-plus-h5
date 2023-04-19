@@ -1,7 +1,5 @@
 import React from 'react'
 import router from './routers'
-import './react-i18next/i18n'
-// import './QuickStart'
 const { mockXHR } = require('./mock')
 mockXHR()
 

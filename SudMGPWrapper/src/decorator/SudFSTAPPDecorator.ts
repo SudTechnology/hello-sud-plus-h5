@@ -311,10 +311,10 @@ export class SudFSTAPPDecorator {
   /**
    * 音频流数据
    */
-  // public pushAudio(buffer: Buffer, bufferLength: number) {
-  //   const iSudFSTAPP = this.iSudFSTAPP
-  //   if (iSudFSTAPP != null) {
-  //     iSudFSTAPP.pushAudio(buffer, bufferLength)
-  //   }
-  // }
+  public pushAudio(buffer: ArrayBuffer, bufferLength: number) {
+    const iSudFSTAPP = this.iSudFSTAPP
+    if (iSudFSTAPP != null) {
+      iSudFSTAPP.pushAudio(buffer, bufferLength)
+    }
+  }
 }

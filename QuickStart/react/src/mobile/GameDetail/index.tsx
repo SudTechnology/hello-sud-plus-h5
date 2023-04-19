@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './index.module.less'
 import classnames from 'classnames/bind'
 import Close from 'assets/close.png'
@@ -8,6 +8,8 @@ import { getQueryParam } from 'utils'
 import { Modal } from 'antd-mobile'
 import { IMGCommonGameBackLobby } from "sudmgp-sdk-js-wrapper/state/ISudMGPMGState"
 import CustomAction from './CustomAction'
+import { AudioOutline, AudioMutedOutline } from 'antd-mobile-icons'
+import { Asr } from 'utils/asr'
 interface IProps extends RouteComponentProps {
 
 }
@@ -15,10 +17,10 @@ const { confirm } = Modal
 const cx = classnames.bind(styles)
 
 const GameDetail = (props: IProps) => {
-  console.log(props)
   const params: { id?: string } = props.match.params
   const orientation = getQueryParam('orientation')
   const roomId = getQueryParam('roomId')
+  const [openMic, setOpenMic] = useState(false)
 
   // 返回大厅
   const goBack = (data?: IMGCommonGameBackLobby) => {
@@ -34,6 +36,7 @@ const GameDetail = (props: IProps) => {
   const { SudSDK } = useGameDetail(params.id || '', roomId || (params.id || ''), goBack)
 
   useEffect(() => {
+    console.log('[ navigator.mediaDevices ] >', navigator.mediaDevices)
     // 横屏处理
     if (orientation && orientation === '0') {
       rotateScreen()
@@ -79,6 +82,19 @@ const GameDetail = (props: IProps) => {
     })
   }
 
+  const setMic = (type: boolean) => {
+    setOpenMic(type)
+    if (type) {
+      Asr.startRecord({
+        onProcess(buffer, dataLength) {
+          SudSDK?.sudFSTAPPDecorator.pushAudio(buffer, dataLength)
+        }
+      })
+    } else {
+      Asr.stop()
+    }
+  }
+
   return (
     <div className={cx('container')}>
       <div className={cx('game-container')}>
@@ -86,6 +102,11 @@ const GameDetail = (props: IProps) => {
         <img src={Close} onClick={destory} alt="" className={cx('close')} />
         <div id='game' className={cx('game-wrap')}></div>
         <CustomAction SudSDK={SudSDK} />
+        <div className={cx('mic')}>
+          {
+            openMic ? <AudioOutline className={cx('icon')} color="#fff" onClick={() => setMic(false)} /> : <AudioMutedOutline className={cx('icon')} color="#fff" onClick={() => setMic(true)} />
+          }
+        </div>
       </div>
     </div>
   )

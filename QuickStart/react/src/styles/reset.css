@@ -132,7 +132,7 @@ body {
 }
 a {
   text-decoration: none;
-  color: #ccc;
+  /* color: #ccc; */
 }
 #root {
   width: 100%;

@@ -1,7 +1,10 @@
-import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
-
-import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
-import { ISudMGP } from 'sudmgp-sdk-js/type' // SudMGP类型
+// import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
+import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from '../SudMGP/SudMGPWrapper/lib'
+// import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
+// @ts-ignore
+import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
+import type { ISudMGP } from '../SudMGP/SudMGP/lib/type'
+// import { ISudMGP } from 'sudmgp-sdk-js/type' // SudMGP类型
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
 const SudMGPSDK = SudMGP as ISudMGP
@@ -122,6 +125,8 @@ export class SDKGameView {
   }: IInitSDKParam) {
     const bundleId = this.getBundleId()
     const self = this
+    const version = SudMGPSDK.getVersion()
+    console.log('[ version ] >', version)
     SudMGPSDK.initSDK(appId, appKey, bundleId, isTestEnv, {
       onSuccess() {
         self.loadGame({ userId, code })
@@ -150,6 +155,9 @@ export class SDKGameView {
       onGameStarted() {
         console.log('start')
       },
+      // onGameMGCommonGameASR() {
+      //   console.log('[ onGameMGCommonGameASR onGameMGCommonGameASRonGameMGCommonGameASRonGameMGCommonGameASR ] >')
+      // },
       onGameCustomerStateChange(handle, state, dataJson) {
         console.log('======onGameCustomerStateChange====', 'state', state, dataJson)
         switch (state) {
@@ -168,7 +176,7 @@ export class SDKGameView {
       onPlayerMGCommonPlayerIn(handle, userId, model) {
         // 获取游戏人数
         const size = self.sudFSMMGDecorator.getPlayerInNumber()
-        console.log(`=======sud h5 getPlayerInNumber======= size: ${size}, userId: ${userId}, model: ${model}`)
+        console.log(`=======sud h5 getPlayerInNumber======= size: ${size}, userId: ${userId}, model: ${JSON.stringify(model)}`)
         handle.success(JSON.stringify({ res_code: 0, msg: '' }))
       },
       onGameMGCommonGameBackLobby(handle, dataJson) { // 游戏通知app回到大厅
@@ -278,6 +286,6 @@ export class SDKGameView {
 
   // 根据域名生成bundleId
   public getBundleId() {
-    return location.hostname
+    return 'localhost'// location.hostname
   }
 }
