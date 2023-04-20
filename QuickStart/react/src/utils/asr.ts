@@ -9,6 +9,7 @@ export class Asr {
   static context: AudioContext
   static readonly numChannels = 1 // 声道
   public static startRecord(callback: Icallback) {
+    console.log('[ startRecord ]')
     this.recorder = new Recorder({
       sampleBits: 16, // 采样位数，支持 8 或 16，默认是16
       sampleRate: 16000, // 采样率，支持 11025、16000、22050、24000、44100、48000，根据浏览器默认值，我的chrome是48000
@@ -23,5 +24,6 @@ export class Asr {
 
   public static stop() {
     this.recorder.stop()
+    console.log('[ 关闭recorder ]')
   }
 }

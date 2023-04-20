@@ -834,7 +834,6 @@ class Recorder {
 
       if (navigator.mediaDevices.getUserMedia === undefined) {
         navigator.mediaDevices.getUserMedia = function (constraints) {
-          console.log('[ navigator.getUserMedia ] >', navigator.getUserMedia)
           const getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia
 
           if (!getUserMedia) {
