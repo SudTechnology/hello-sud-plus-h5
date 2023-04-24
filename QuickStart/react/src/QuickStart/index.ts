@@ -1,10 +1,15 @@
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper-test'
+// import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from '../SudMGP/SudMGPWrapper/lib'
+// import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
+// import type { ISudMGP } from 'sudmgp-sdk-js/type'
+
 import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
+import { ISudMGP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
+
 // @ts-ignore
 // import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
 // import type { ISudMGP } from '../SudMGP/SudMGP/lib/type'
-import { ISudMGP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
 const SudMGPSDK = SudMGP as ISudMGP
@@ -155,9 +160,6 @@ export class SDKGameView {
       onGameStarted() {
         console.log('start')
       },
-      // onGameMGCommonGameASR() {
-      //   console.log('[ onGameMGCommonGameASR onGameMGCommonGameASRonGameMGCommonGameASRonGameMGCommonGameASR ] >')
-      // },
       onGameCustomerStateChange(handle, state, dataJson) {
         console.log('======onGameCustomerStateChange====', 'state', state, dataJson)
         switch (state) {
@@ -253,6 +255,7 @@ export class SDKGameView {
     const iSudFSTAPP = SudMGPSDK.loadMG(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator, this.root)
     // APP调用游戏接口的装饰类设置
     if (iSudFSTAPP) {
+      // @ts-ignore
       this.sudFSTAPPDecorator.setISudFSTAPP(iSudFSTAPP)
     }
   }

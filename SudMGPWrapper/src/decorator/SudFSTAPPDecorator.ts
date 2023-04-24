@@ -314,7 +314,7 @@ export class SudFSTAPPDecorator {
   public pushAudio(buffer: ArrayBuffer, bufferLength: number) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      iSudFSTAPP.pushAudio(buffer, bufferLength)
+      iSudFSTAPP.pushAudio && iSudFSTAPP.pushAudio(buffer, bufferLength)
     }
   }
 }

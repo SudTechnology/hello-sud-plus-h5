@@ -68,7 +68,7 @@ export interface ISudFSTAPP {
    * 游戏加载失败，重新加载
    */
   reloadMG(): void;
-  pushAudio: (data: ArrayBuffer, dataLength: number) => void
+  pushAudio?: (data: ArrayBuffer, dataLength: number) => void
 }
 
 export interface ISudFSMMG {
