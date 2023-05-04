@@ -253,7 +253,7 @@
 			{
 				"sceneName": "密室逃脱",
 				"sceneId": "1550382145758941186",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E5%AF%86%E5%AE%A4%E9%80%83%E8%84%B1.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/hooescape/original.jpg",
 				"code": "opensceneescape",
 				"gameAppId": "tech.sud.mgp.opensceneescape",
 				"description": "",
@@ -267,24 +267,8 @@
 				"gmtModify": "2022-07-22 15:28:03"
 			},
 			{
-				"sceneName": "开放世界",
-				"sceneId": "1550381991962202114",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/Ta%E7%9A%84%E4%B8%96%E7%95%8C.jpg",
-				"code": "opensceneopenworld",
-				"gameAppId": "tech.sud.mgp.opensceneopenworld",
-				"description": "",
-				"orientation": 0,
-				"screenMode": 0,
-				"price": "0.00",
-				"durationPrice": "0.0000",
-				"lastModifyId": "1528932377258201090",
-				
-				"gmtCreated": "2022-07-22 15:27:26",
-				"gmtModify": "2022-07-22 15:27:26"
-			},
-			{
 				"sceneName": "迷宫走道",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E8%BF%B7%E5%AE%AB%E8%B5%B0%E9%81%93.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/openscenemaze/332.jpg",
 				"sceneId": "1550379902418669570",
 				"code": "openscenemaze",
 				"gameAppId": "tech.sud.mgp.openscenemaze",
@@ -301,7 +285,7 @@
 			{
 				"sceneName": "演唱会",
 				"sceneId": "1550379773691285506",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E6%BC%94%E5%94%B1%E4%BC%9A.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/openscenesinging/332.jpg",
 				"code": "openscenesinging",
 				"gameAppId": "tech.sud.mgp.openscenesinging",
 				"description": "",
@@ -316,7 +300,7 @@
 			},
 			{
 				"sceneName": "中央广场",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E4%B8%AD%E5%A4%AE%E5%B9%BF%E5%9C%BA.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/openscenesquare/332.jpg",
 				"sceneId": "1550379656288522242",
 				"code": "openscenesquare",
 				"gameAppId": "tech.sud.mgp.openscenesquare",
@@ -334,7 +318,7 @@
 				"sceneName": "许愿池",
 				"sceneId": "1550379522632830977",
 				"code": "openscenewish",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E8%AE%B8%E6%84%BF%E6%B1%A0.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/openscenewish/332.jpg",
 				"gameAppId": "tech.sud.mgp.openscenewish",
 				"description": "",
 				"orientation": 0,
@@ -349,7 +333,7 @@
 			{
 				"sceneName": "记忆管理处",
 				"sceneId": "1550379404550590465",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E8%AE%B0%E5%BF%86%E7%AE%A1%E7%90%86%E5%A4%84.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/openscenememory/332.jpg",
 				"code": "openscenememory",
 				"gameAppId": "tech.sud.mgp.openscenememory",
 				"description": "",
@@ -365,7 +349,7 @@
 			{
 				"sceneName": "粉丝周边处",
 				"sceneId": "1550379223629287425",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E7%B2%89%E4%B8%9D%E5%91%A8%E8%BE%B9%E5%A4%84.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/openscenefans/332.jpg",
 				"code": "openscenefans",
 				"gameAppId": "tech.sud.mgp.openscenefans",
 				"description": "",
@@ -381,7 +365,7 @@
 			{
 				"sceneName": "甜蜜婚礼",
 				"sceneId": "1550378049362579458",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E7%94%9C%E8%9C%9C%E5%A9%9A%E7%A4%BC.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/openscenewedding/332.jpg",
 				"code": "openscenewedding",
 				"gameAppId": "tech.sud.mgp.openscenewedding",
 				"description": "",
@@ -397,7 +381,7 @@
 			{
 				"sceneName": "购物中心",
 				"sceneId": "1550377663922819073",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E8%B4%AD%E7%89%A9%E4%B8%AD%E5%BF%83.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/opensceneshopping/332.jpg",
 				"code": "opensceneshopping",
 				"gameAppId": "tech.sud.mgp.opensceneshopping",
 				"description": "",
@@ -413,7 +397,7 @@
 			{
 				"sceneName": "大剧院",
 				"sceneId": "1550377537972064257",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E5%A4%A7%E5%89%A7%E9%99%A2.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/openscenetheater/332.jpg",
 				"code": "openscenetheater",
 				"gameAppId": "tech.sud.mgp.openscenetheater",
 				"description": "",
@@ -429,7 +413,7 @@
 			{
 				"sceneName": "街道商店",
 				"sceneId": "1550377281276465153",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E8%A1%97%E9%81%93%E5%95%86%E5%BA%97.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/openscenestreet/332.jpg",
 				"code": "openscenestreet",
 				"gameAppId": "tech.sud.mgp.openscenestreet",
 				"description": "",
@@ -445,7 +429,7 @@
 			{
 				"sceneName": "图书馆",
 				"sceneId": "1550377126238212097",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E5%9B%BE%E4%B9%A6%E9%A6%86.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/openscenelibrary/332.jpg",
 				"code": "openscenelibrary",
 				"gameAppId": "tech.sud.mgp.openscenelibrary",
 				"description": "",
@@ -461,7 +445,7 @@
 			{
 				"sceneName": "小公园",
 				"sceneId": "1550376938941566978",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E5%B0%8F%E5%85%AC%E5%9B%AD.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/opensceneminipark/332.jpg",
 				"code": "opensceneminipark",
 				"gameAppId": "tech.sud.mgp.opensceneminipark",
 				"description": "",
@@ -477,7 +461,7 @@
 			{
 				"sceneName": "机场",
 				"sceneId": "1550376779755147266",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E6%9C%BA%E5%9C%BA.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/opensceneairport/332.jpg",
 				"code": "opensceneairport",
 				"gameAppId": "tech.sud.mgp.opensceneairport",
 				"description": "",
@@ -493,7 +477,7 @@
 			{
 				"sceneName": "野外露营",
 				"sceneId": "1550376610036830210",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E9%87%8E%E5%A4%96%E9%9C%B2%E8%90%A5.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/openscenecamping/332.jpg",
 				"code": "openscenecamping",
 				"gameAppId": "tech.sud.mgp.openscenecamping",
 				"description": "",
@@ -509,7 +493,7 @@
 			{
 				"sceneName": "野外森林",
 				"sceneId": "1550376440679223297",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E9%87%8E%E5%A4%96%E6%A3%AE%E6%9E%97.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/opensceneforest/332.jpg",
 				"code": "opensceneforest",
 				"gameAppId": "tech.sud.mgp.opensceneforest",
 				"description": "",
@@ -525,7 +509,7 @@
 			{
 				"sceneName": "狐狸海滩",
 				"sceneId": "1550376292880338945",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E7%8B%90%E7%8B%B8%E6%B5%B7%E6%BB%A9.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/openscenebeach/332.jpg",
 				"code": "openscenebeach",
 				"gameAppId": "tech.sud.mgp.openscenebeach",
 				"description": "",
@@ -541,7 +525,7 @@
 			{
 				"sceneName": "观星台",
 				"sceneId": "1550376074034139137",
-				"scenePic": "https://static-resource.hunuokeji.cn/scene/image/%E8%A7%82%E6%98%9F%E5%8F%B0.jpg",
+				"scenePic": "https://sud-static.sudden.ltd/game/openscenestargazing/332.jpg",
 				"code": "openscenestargazing",
 				"gameAppId": "tech.sud.mgp.openscenestargazing",
 				"description": "",
