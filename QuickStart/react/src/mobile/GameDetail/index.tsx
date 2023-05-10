@@ -20,6 +20,8 @@ const GameDetail = (props: IProps) => {
   const params: { id?: string } = props.match.params
   const orientation = getQueryParam('orientation')
   const roomId = getQueryParam('roomId')
+  const userId = getQueryParam('userId')
+  const language = getQueryParam('language')
   const [openMic, setOpenMic] = useState(false)
 
   // 返回大厅
@@ -33,7 +35,7 @@ const GameDetail = (props: IProps) => {
     }, 1000)
   }
 
-  const { SudSDK } = useGameDetail(params.id || '', roomId || (params.id || ''), goBack)
+  const { SudSDK } = useGameDetail(params.id || '', roomId || (params.id || ''), language || 'zh-CN', userId, goBack)
 
   useEffect(() => {
     console.log('[ navigator.mediaDevices ] >', navigator.mediaDevices)
