@@ -5,6 +5,7 @@ import Close from 'assets/close.png'
 import { Modal } from 'antd'
 import { useGameDetail } from 'hooks/useGameDetail'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { getQueryParam } from 'utils'
 
 const cx = classnames.bind(styles)
 
@@ -12,7 +13,10 @@ const GameDetail = (props: RouteComponentProps) => {
   console.log(props)
   const params: { id?: string } = props.match.params
   console.log(params)
-  const { SudSDK } = useGameDetail(params.id || '', params.id || '')
+  const roomId = getQueryParam('roomId')
+  const userId = getQueryParam('userId')
+  const language = getQueryParam('language')
+  const { SudSDK } = useGameDetail(params.id || '', roomId || (params.id || ''), language || 'zh-CN', userId)
 
   const destory = () => {
     Modal.confirm({
