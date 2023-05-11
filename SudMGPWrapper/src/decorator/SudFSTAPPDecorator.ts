@@ -30,7 +30,7 @@ export class SudFSTAPPDecorator {
     this.iSudFSTAPP = iSudFSTAPP
   }
 
-  public notifyAPPCommon() {
+  public notifyAPPCommon(...args: any) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
       const args = arguments
@@ -311,10 +311,10 @@ export class SudFSTAPPDecorator {
   /**
    * 音频流数据
    */
-  // public pushAudio(buffer: Buffer, bufferLength: number) {
-  //   const iSudFSTAPP = this.iSudFSTAPP
-  //   if (iSudFSTAPP != null) {
-  //     iSudFSTAPP.pushAudio(buffer, bufferLength)
-  //   }
-  // }
+  public pushAudio(buffer: ArrayBuffer, bufferLength: number) {
+    const iSudFSTAPP = this.iSudFSTAPP
+    if (iSudFSTAPP != null) {
+      iSudFSTAPP.pushAudio && iSudFSTAPP.pushAudio(buffer, bufferLength)
+    }
+  }
 }

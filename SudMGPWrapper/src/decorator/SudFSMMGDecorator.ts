@@ -42,7 +42,8 @@ import {
   IMGDGPainting,
   IMGDGScore,
   IMGDGSelecting,
-  IMGDGTotalscore
+  IMGDGTotalscore,
+  IMGCommonPlayerRoleIdList
 } from '../state/ISudMGPMGState'
 import { ISudFSMStateHandleUtils } from '../utils/ISudFSMStateHandleUtils'
 import { SudFSMMGCache } from './SudFSMMGCache'
@@ -170,6 +171,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    */
   public onGameStateChange(handle: ISudFSMStateHandle, state: string, dataJson: string) {
     const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
+
     switch (state) {
       case SudMGPMGState.MG_COMMON_PUBLIC_MESSAGE: { // 1. 公屏消息
         const res = parseJson<IMGCommonPublicMessage>(dataJson)
@@ -344,7 +346,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
       }
       case SudMGPMGState.MG_COMMON_SELF_HEADPHONE:{ // 19. 耳机（听筒，扬声器）状态（2022-02-08新增）
         const mgCommonSelfHeadphone = parseJson<IMGCommonSelfHeadphone>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
           listener.onGameMGCommonSelfHeadphone && listener.onGameMGCommonSelfHeadphone(handle, mgCommonSelfHeadphone)
@@ -353,7 +355,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
       }
       case SudMGPMGState.MG_COMMON_APP_COMMON_SELF_X_RESP: { // 20. App通用状态操作结果错误码（2022-05-10新增）
         const mgCommonAPPCommonSelfXResp = parseJson<IMGCommonAPPCommonSelfXResp>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
           listener.onGameMGCommonAPPCommonSelfXResp && listener.onGameMGCommonAPPCommonSelfXResp(handle, mgCommonAPPCommonSelfXResp)
@@ -362,7 +364,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
       }
       case SudMGPMGState.MG_COMMON_GAME_ADD_AI_PLAYERS: { // 21. 游戏通知app层添加陪玩机器人是否成功（2022-05-17新增）
         const mgCommonGameAddAIPlayers = parseJson<IMGCommonGameAddAIPlayers>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
           listener.onGameMGCommonGameAddAIPlayers && listener.onGameMGCommonGameAddAIPlayers(handle, mgCommonGameAddAIPlayers)
@@ -371,15 +373,21 @@ export class SudFSMMGDecorator implements ISudFSMMG {
       }
       case SudMGPMGState.MG_COMMON_BACK_LOBBY: { // 22. 游戏通知app层回到大厅（2022-08-10新增）
         const mgCommonGameBackLobby = parseJson<IMGCommonGameBackLobby>(dataJson)
-        if (listener == null) {
+        if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
           listener.onGameMGCommonGameBackLobby && listener.onGameMGCommonGameBackLobby(handle, mgCommonGameBackLobby)
         }
         break
       }
+
       default:
-        ISudFSMStateHandleUtils.handleSuccess(handle)
+        // 自定义处理剩下的事件
+        if (listener.onGameCustomerStateChange) {
+          listener.onGameCustomerStateChange(handle, state, parseJson(dataJson))
+        } else {
+          ISudFSMStateHandleUtils.handleSuccess(handle)
+        }
         break
     }
   }
@@ -395,7 +403,6 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    */
   public onPlayerStateChange(handle: ISudFSMStateHandle, userId: string, state: string, dataJson: string) {
     const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
-    console.log('[ state onPlayerStateChange ] >', state, listener)
     switch (state) {
       case SudMGPMGState.MG_COMMON_PLAYER_IN: { // 1.加入状态（已修改）
         const mgCommonPlayerIn = parseJson<IMGCommonPlayerIn>(dataJson)
@@ -542,6 +549,15 @@ export class SudFSMMGDecorator implements ISudFSMMG {
           ISudFSMStateHandleUtils.handleSuccess(handle)
         } else {
           listener.onPlayerMGDGScore && listener.onPlayerMGDGScore(handle, userId, mgdgScore)
+        }
+        break
+      }
+      case SudMGPMGState.MG_COMMON_PLAYER_ROLE_ID: { // 26. 游戏通知app玩家角色(仅对狼人杀有效)
+        const mgCommonPlayerRoleIdList = parseJson<IMGCommonPlayerRoleIdList>(dataJson)
+        if (listener == null) {
+          ISudFSMStateHandleUtils.handleSuccess(handle)
+        } else {
+          listener.onGameMGCommonPlayerRoleId && listener.onGameMGCommonPlayerRoleId(handle, mgCommonPlayerRoleIdList)
         }
         break
       }

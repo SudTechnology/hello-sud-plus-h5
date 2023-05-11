@@ -1,8 +1,9 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
 import { SudMGP } from 'sudmgp-sdk-js'
-import { ISudMGP } from 'sudmgp-sdk-js/type' // SudMGP类型
 import { getCode } from 'api/login' // 短期令牌code接口
-import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
+import type { ISudMGP } from 'sudmgp-sdk-js/type'
+import type { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
+
 const SudMGPSDK = SudMGP as ISudMGP
 interface IInitSDKParam {
   userId: string,
@@ -35,7 +36,7 @@ export class SDKGameView {
   public userId = '100668' // Math.floor((Math.random() + 1) * 10000).toString()
   /** Sud平台申请的appId */
   // eslint-disable-next-line camelcase
-  public SudMGP_APP_ID = '1461564080052506636' // "1498868666956988417"
+  public SudMGP_APP_ID = '1461564080052506636' // '1461564080052506636' // "1498868666956988417"
   /** Sud平台申请的appKey */
   // eslint-disable-next-line camelcase
   public SudMGP_APP_KEY = '03pNxK2lEXsKiiwrBQ9GbH541Fk2Sfnc'// '1461564080052506636' //"E9Lj2Cg61pUgiSESou6WDtxntoTXH7Gf"
@@ -114,6 +115,8 @@ export class SDKGameView {
   }: IInitSDKParam) {
     const bundleId = this.getBundleId()
     const self = this
+    const version = SudMGPSDK.getVersion()
+    console.log('[ version ] >', version)
     SudMGPSDK.initSDK(appId, appKey, bundleId, isTestEnv, {
       onSuccess() {
         self.loadGame({ userId, code })
@@ -142,26 +145,44 @@ export class SDKGameView {
       onGameStarted() {
         console.log('start')
       },
-      // 监听玩家状态改变
+      onGameCustomerStateChange(handle, state, dataJson) {
+        console.log('======onGameCustomerStateChange====', 'state', state, dataJson)
+        switch (state) {
+          case 'mg_common_click_user_profile':
+            console.log('handle mg_common_click_user_profile')
+            break
+          case 'mg_avatar_get_avatar':
+            console.log('mg_avatar_get_avatar')
+            // handle.success(JSON.stringify({ gender: "Male", avatar: "Role_Male_T19_Hair_01_M_Face_01_T_T19_UB_01_M_T19_LB_01_M_T19_Shoe_01_M" }))
+            handle.success(JSON.stringify({ gender: "Male", avatar: "" }))
+
+            break
+        }
+      },
+      // 监听玩家加入状态改变
       onPlayerMGCommonPlayerIn(handle, userId, model) {
         // 获取游戏人数
         const size = self.sudFSMMGDecorator.getPlayerInNumber()
-        console.log(`=======sud h5 getPlayerInNumber======= size: ${size}, userId: ${userId}, model: ${model}`)
+        console.log(`=======sud h5 getPlayerInNumber======= size: ${size}, userId: ${userId}, model: ${JSON.stringify(model)}`)
         handle.success(JSON.stringify({ res_code: 0, msg: '' }))
       },
       onGameMGCommonGameBackLobby(handle, dataJson) { // 游戏通知app回到大厅
         // 自定义实现页面跳转或者回到大厅的操作
 
       },
+      onGameMGCommonPlayerRoleId(handle, dataJson) {
+        console.log('[ onGameMGCommonPlayerRoleId ] >', dataJson)
+      },
       onGameLog(dataJson) {
         console.log('=======sud h5 onGameLog======= ', dataJson)
       },
-      onGetGameViewInfo: function (handle: ISudFSMStateHandle, dataJson: string): void {
+      onGetGameViewInfo(handle: ISudFSMStateHandle, dataJson: string) {
         const width = self.root.clientWidth
         const height = self.root.clientHeight
-        console.log(width, height, 'width,height', dataJson, 'dataJson')
         const data = JSON.parse(dataJson)
         const dpr = data.ratio || 1
+        console.log(width, height, 'width,height', dataJson, 'dataJson', 'dpr', dpr)
+
         // TODO: 修改数据
         const gameViewInfo = {
           ret_code: 0,
@@ -177,27 +198,28 @@ export class SDKGameView {
             bottom: 50
           }
         }
+
         console.log(gameViewInfo, 'gameViewInfo')
 
         handle.success(JSON.stringify(gameViewInfo))
       },
       onGameMGCommonSelfClickJoinBtn(handle, res) {
+        console.log('[ onGameMGCommonSelfClickJoinBtn ] >', handle, res)
         handle.success(JSON.stringify(res))
+        self.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true)
       },
-      onGetGameCfg: function (handle: ISudFSMStateHandle, dataJson: string): void {
-        console.log("onGetGameCfg")
+      onGetGameCfg(handle: ISudFSMStateHandle, dataJson: string): void {
         let config = new GameConfigModel()
         const gameConf = localStorage.getItem('gameconfig')
-
+        // config.ui.join_btn.custom = true
+        // config.ui.join_btn.hide = true
         if (gameConf) {
           // @ts-ignore
           config = gameConf
-          console.log(config, 'GameConfigModel')
           // @ts-ignore
           handle.success(config)
           return
         }
-        console.log(JSON.stringify(config), 'GameConfigModel')
         handle.success(JSON.stringify(config))
       },
       ...customSudFSMMGListener// 外部传入自定义listener可覆盖
@@ -208,6 +230,7 @@ export class SDKGameView {
     const iSudFSTAPP = SudMGPSDK.loadMG(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator, this.root)
     // APP调用游戏接口的装饰类设置
     if (iSudFSTAPP) {
+      // @ts-ignore
       this.sudFSTAPPDecorator.setISudFSTAPP(iSudFSTAPP)
     }
   }

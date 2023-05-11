@@ -11,9 +11,16 @@ const Home = () => {
 
   const toPath = (item: any) => {
     const values = form.getFieldsValue()
+    console.log('[ values ] >', values)
     let url = `/game/${item.sceneId}?orientation=${item.orientation}`
     if (values.roomId) {
       url += `&roomId=${values.roomId}`
+    }
+    if (values.userId) {
+      url += `&userId=${values.userId}`
+    }
+    if (values.language) {
+      url += `&language=${values.language}`
     }
     console.log(url)
 
@@ -26,6 +33,12 @@ const Home = () => {
         <Form form={form} layout='horizontal'>
           <Form.Item label='房间号ID' name='roomId'>
             <Input type="number" placeholder='请输入房间号ID' clearable />
+          </Form.Item>
+          <Form.Item label='语言' name='language'>
+            <Input placeholder='请输入语言值value' clearable />
+          </Form.Item>
+          <Form.Item label='userId' name='userId'>
+            <Input clearable />
           </Form.Item>
         </Form>
       </div>

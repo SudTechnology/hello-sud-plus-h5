@@ -117,6 +117,11 @@ export class SudMGPMGState {
    */
   public static MG_COMMON_BACK_LOBBY = "mg_common_back_lobby"
 
+  /**
+   * 26. 游戏通知app玩家角色(仅对狼人杀有效)
+   */
+  public static MG_COMMON_PLAYER_ROLE_ID = "mg_common_player_role_id"
+
   // endregion 通用状态-游戏
 
   // region MG状态机-通用状态-玩家

@@ -42,6 +42,7 @@ import {
   IMGDGPainting,
   IMGDGScore,
   IMGDGSelecting,
+  IMGCommonPlayerRoleIdList,
   IMGDGTotalscore
 } from '../state/ISudMGPMGState'
 import { ISudFSMStateHandleUtils } from "../utils/ISudFSMStateHandleUtils"
@@ -72,6 +73,11 @@ export class SudFSMMGListener implements Partial<ISudFSMMGListener> {
 
   onGetGameCfg(handle: ISudFSMStateHandle, dataJson: string): void {
     throw new Error("Method not implemented.")
+  }
+
+  // 自定义处理游戏状态
+  onGameCustomerStateChange?(handle: ISudFSMStateHandle, state: string, dataJson: string):void {
+    ISudFSMStateHandleUtils.handleSuccess(handle)
   }
 
   /**
@@ -225,6 +231,10 @@ export class SudFSMMGListener implements Partial<ISudFSMMGListener> {
    * 22. 游戏通知app层添加陪玩机器人是否成功（2022-08-10新增）
    */
   onGameMGCommonGameBackLobby?(handle: ISudFSMStateHandle, model: IMGCommonGameBackLobby) {
+    ISudFSMStateHandleUtils.handleSuccess(handle)
+  }
+
+  onGameMGCommonPlayerRoleId?(handle: ISudFSMStateHandle, model: IMGCommonPlayerRoleIdList) {
     ISudFSMStateHandleUtils.handleSuccess(handle)
   }
   // endregion 游戏回调APP 通用状态

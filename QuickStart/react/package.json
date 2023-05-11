@@ -16,24 +16,17 @@
     "axios": "^0.26.1",
     "classnames": "^2.3.1",
     "i": "^0.3.7",
-    "i18next": "^21.6.16",
-    "i18next-browser-languagedetector": "^6.1.4",
     "mockjs": "^1.1.0",
     "npm": "^8.13.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-error-overlay": "6.0.9",
-    "react-i18next": "^11.16.6",
-    "react-loadable": "^5.5.0",
-    "react-native-root-toast": "^3.2.1",
-    "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
-    "sudmgp-sdk-js": "^0.1.10",
-    "sudmgp-sdk-js-wrapper": "^0.1.16",
+    "sudmgp-sdk-js": "^1.0.0",
+    "sudmgp-sdk-js-wrapper": "^0.1.17",
     "typescript": "^4.1.2",
     "vconsole": "^3.14.6",
-    "view-avatar": "^1.0.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -52,6 +45,9 @@
     "hooks": {
       "pre-commit": "npm run lint"
     }
+  },
+  "engines": {
+    "node": "<=16.x"
   },
   "eslintConfig": {
     "extends": [
@@ -75,7 +71,6 @@
     "@babel/plugin-proposal-class-properties": "^7.14.5",
     "@commitlint/cli": "^12.1.1",
     "@commitlint/config-conventional": "^12.1.1",
-    "@types/react-loadable": "^5.5.5",
     "@types/react-router-dom": "^5.1.7",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
