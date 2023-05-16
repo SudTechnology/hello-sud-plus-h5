@@ -15,6 +15,8 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
   const [visibleGameInfo, setVisibleGameInfo] = useState(false)
   const [visibleShiftUser, setVisibleShiftUser] = useState(false)
   const [visibleVolume, setvisibleVolume] = useState(false)
+  const [visibleCustomMsg, setVisibleCustomMsg] = useState(false)
+
   const [volum, setVolum] = useState(100) // 音量
   const [visibleGameSetting, setVisibleGameSetting] = useState(false)
   const [visibleViewSize, setVisibleViewSize] = useState(false) // 游戏容器宽高设置
@@ -92,6 +94,28 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
     localStorage.setItem('viewSize', JSON.stringify(values))
     location.reload()
   }
+
+  // 通知游戏重连
+  const setGameReconncet = () => {
+    SudSDK.sudFSTAPPDecorator.notifyAPPCommon('app_common_game_reconnect', JSON.stringify({}))
+  }
+  // 发送自定义消息
+  const onFinishSendCustomMsg = (values: any) => {
+    const name = values.name
+    const content = values.content
+    console.log('onFinishSendCustomMsg[ values ] >', values)
+    console.log('[ typeof content ] >', JSON.parse(content))
+    SudSDK.sudFSTAPPDecorator.notifyAPPCommon(name, content, {
+      onSuccess() {
+        console.log('[ success ] >')
+        // 成功后关闭窗口
+        setVisibleCustomMsg(false)
+      },
+      onFailure(e: number, msg: any) {
+        console.log('[ e, msg ] >', e, msg)
+      }
+    })
+  }
   return (
     <div>
       <div className={cx('info')}>屏幕参数 view_size: width: {window.innerWidth}px ,height:{window.innerHeight}px</div>
@@ -111,6 +135,8 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
 
             <button onClick={() => setvisibleVolume(true)}>调节游戏音量</button>
             <button onClick={() => setVisibleShiftUser(true)}>踢人</button>
+            <button onClick={() => setGameReconncet()}>通知重连</button>
+            <button onClick={() => setVisibleCustomMsg(true)}>自定义消息</button>
 
             <button onClick={customActionHook.quitGame}>退出游戏</button>
             <button onClick={customActionHook.joinGame}>加入游戏</button>
@@ -311,6 +337,35 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
                 rules={[{ required: true }]}
                 required initialValue={0} label="bottom" extra={<span>px</span>}>
                 <Input type="number" placeholder="请输入" />
+              </Form.Item>
+            </Form>
+          </div>
+        }
+      />
+
+      <Modal
+        visible={visibleCustomMsg}
+        closeOnAction
+        closeOnMaskClick
+        onClose={() => {
+          setVisibleCustomMsg(false)
+        }}
+        content={
+          <div>
+            <Form
+              onFinish={onFinishSendCustomMsg}
+              footer={
+              <Button block type='submit' color='primary' size="middle">
+                发送
+              </Button>
+              }
+              className={cx('form')}
+              layout='horizontal'>
+              <Form.Item name="name" label="消息名称">
+                <Input clearable placeholder="请输入" />
+              </Form.Item>
+              <Form.Item layout="vertical" name="content" label="消息内容 （纯对象方式）">
+                <TextArea rows={4} placeholder="请输入" />
               </Form.Item>
             </Form>
           </div>
