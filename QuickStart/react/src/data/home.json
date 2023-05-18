@@ -4,6 +4,16 @@
 	"data": {
 		"sceneVOList": [
       {
+				"sceneName": "teenpattipro",
+				"sceneId": "1557194487352053761",
+				"scenePic": "https://sim-sud-static.sudden.ltd/game/teenpattipro/332.png",
+				"code": "opensceneescape",
+				"gameAppId": "tech.sud.mgp.opensceneescape",
+				"description": "",
+				"orientation": 1,
+				"screenMode": 0
+			},
+      {
 				"sceneName": "黑白棋",
 				"sceneId": "1461297789198663710",
 				"scenePic": "https://sim-sud-static.sudden.ltd/game/reversi/332.png",
