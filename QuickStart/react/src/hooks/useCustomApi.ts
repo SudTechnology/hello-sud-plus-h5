@@ -35,7 +35,10 @@ const useCustomApi = (SudSDK: SDKGameView | undefined) => {
   // 添加AI玩家
   function pushAIPlayer() {
     const id = Math.floor((Math.random() + 1) * 10000).toString()
-    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonGameAddAIPlayers([{ userId: id, avatar: 'https://dev-sud-static.sudden.ltd/avatar/6.jpg', name: `AI${id}`, gender: "male" }], 1)
+    const data = [{ userId: id, avatar: 'https://dev-sud-static.sudden.ltd/avatar/6.jpg', name: `AI${id}`, gender: "male" }]
+    console.log('[ pushAIPlayer data ] >', data)
+    // @ts-ignore
+    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonGameAddAIPlayers(data, 1)
   }
 
   // 关闭背景音乐

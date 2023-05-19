@@ -331,7 +331,7 @@
   npm start
  ```
 
--  Node版本 Node >= 14.0.0 和 npm >= 5.6
+- demo运行 Node版本 Node <= 16 和 npm >= 5.6
 
 - QuickStart使用SudMGPWrapper、SudMGPSDK实现快速接入游戏；
 - 快速接入文档：[StartUp-Android](https://docs.sud.tech/zh-CN/app/Client/StartUp-Android.html)
