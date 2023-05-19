@@ -1,6 +1,6 @@
 # hello-sud-plus-h5
 
-`sudmgp-sdk-js`的js版本demo写法，typescript版本的以react的demo为准
+`sudmgp-sdk-js`的js版本demo写法，typescript版本以react的demo为准
 
 demo 所需环境 Node<=16
 
