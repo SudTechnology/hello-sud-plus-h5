@@ -4,6 +4,16 @@
 	"data": {
 		"sceneVOList": [
       {
+				"sceneName": "太空杀",
+				"sceneId": "1559736844916183041",
+				"scenePic": "https://sim-sud-static-tcc.sudden.ltd/game/spacekill/332.png",
+				"code": "opensceneescape",
+				"gameAppId": "tech.sud.mgp.opensceneescape",
+				"description": "",
+				"orientation": 1,
+				"screenMode": 0
+			},
+      {
 				"sceneName": "数字转轮",
 				"sceneId": "1468434637562912769",
 				"scenePic": "https://sud-static.sudden.ltd/game/roll/332.png",
