@@ -236,6 +236,10 @@ const GameSetting: React.FC<IProp> = (props) => {
               <Form.Item name={['ui', 'logo', 'hide']} initialValue={false} label='hide'>
                 <Switch />
               </Form.Item>
+              <Form.Header>lobby_animation</Form.Header>
+              <Form.Item name={['ui', 'lobby_animation', 'hide']} initialValue={false} label='hide'>
+                <Switch />
+              </Form.Item>
           </Form>
           <div className={cx('footer')}>
             <Button block type='submit'
