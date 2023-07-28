@@ -13,7 +13,16 @@ export const useGameDetail = (gameId: string, roomId: string, language: string, 
 
       nsdk.setSudFSMMGListener({
         onGameStarted() {
-          console.log('========自定义的game start=====')
+          const gameConf = localStorage.getItem('gameconfig')
+          if (gameConf) {
+            const gameConfData = JSON.parse(gameConf)
+            console.log('[ gameConfData hd data] >', gameConfData)
+            if (gameConfData.ui.hd && gameConfData.ui.hd.show) {
+              // 高清适配处理
+              const gameView = document.getElementById('game')
+              gameView?.classList.add('hd')
+            }
+          }
         },
         onGameMGCommonGameBackLobby(handle, data) {
           // 返回游戏大厅

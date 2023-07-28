@@ -240,6 +240,11 @@ const GameSetting: React.FC<IProp> = (props) => {
               <Form.Item name={['ui', 'lobby_animation', 'hide']} initialValue={false} label='hide'>
                 <Switch />
               </Form.Item>
+              <div>非游戏部分设置</div>
+              <Form.Header>高清屏幕设置</Form.Header>
+              <Form.Item name={['ui', 'hd', 'show']} initialValue={false} label='开启'>
+                <Switch />
+              </Form.Item>
           </Form>
           <div className={cx('footer')}>
             <Button block type='submit'
