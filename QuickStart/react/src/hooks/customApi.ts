@@ -1,36 +1,34 @@
+// import { useState } from 'react'
 import { SDKGameView } from '../QuickStart' // SudMGP类型
 
-const useCustomApi = (SudSDK: SDKGameView | undefined) => {
-  if (!SudSDK) {
-    return {}
-  }
-  const nSudSDK: SDKGameView = SudSDK
+const customApi = (SudSDK: SDKGameView | undefined) => {
   // 加入游戏
   function joinGame() {
-    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true, -1, true)
+    console.log('[ SudSDK ] >', SudSDK)
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true, -1, true)
   }
 
   // 退出游戏
   function quitGame() {
-    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfIn(false)
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfIn(false)
   }
 
   // 准备游戏
   function readyGame() {
-    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfReady(true)
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfReady(true)
   }
   // 取消准备
   function cancelReadyGame() {
-    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfReady(false)
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfReady(false)
   }
 
   // 开始游戏
   function startGame() {
-    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfPlaying(true)
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfPlaying(true)
   }
   // 玩家自己退出游戏
   function userSelfQuickGame() {
-    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfPlaying(false)
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfPlaying(false)
   }
   // 添加AI玩家
   function pushAIPlayer() {
@@ -38,17 +36,17 @@ const useCustomApi = (SudSDK: SDKGameView | undefined) => {
     const data = [{ userId: id, avatar: 'https://dev-sud-static.sudden.ltd/avatar/6.jpg', name: `AI${id}`, gender: "male" }]
     console.log('[ pushAIPlayer data ] >', data)
     // @ts-ignore
-    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonGameAddAIPlayers(data, 1)
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommonGameAddAIPlayers(data, 1)
   }
 
   // 关闭背景音乐
   function closeBgMusic() {
-    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonOpenBgMusic(false)
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommonOpenBgMusic(false)
   }
 
   // 关闭音效
   function closeMusic() {
-    nSudSDK.sudFSTAPPDecorator.notifyAPPCommonOpenSound(false)
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommonOpenSound(false)
   }
   return {
     joinGame,
@@ -62,4 +60,4 @@ const useCustomApi = (SudSDK: SDKGameView | undefined) => {
     closeMusic
   }
 }
-export default useCustomApi
+export default customApi

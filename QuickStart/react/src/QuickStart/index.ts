@@ -1,14 +1,14 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper-test'
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from '../SudMGP/SudMGPWrapper/lib'
-import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
-import type { ISudMGP } from 'sudmgp-sdk-js/type'
+// import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
+import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
 
 // import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
 // import { ISudMGP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
 
 // @ts-ignore
-// import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
+import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
 // import type { ISudMGP } from '../SudMGP/SudMGP/lib/type'
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
@@ -58,6 +58,7 @@ export class SDKGameView {
   public sudFSMMGDecorator = new SudFSMMGDecorator()
 
   public customSudFSMMGListener: Partial<SudFSMMGListener> | undefined
+  public iSudFSTAPP: ISudFSTAPP | null = null
   // 初始化数据
 
   // 初始化数据
@@ -252,11 +253,11 @@ export class SDKGameView {
     console.log(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator)
 
     // 调用游戏sdk加载游戏
-    const iSudFSTAPP = SudMGPSDK.loadMG(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator, this.root)
+    this.iSudFSTAPP = SudMGPSDK.loadMG(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator, this.root)
     // APP调用游戏接口的装饰类设置
-    if (iSudFSTAPP) {
+    if (this.iSudFSTAPP) {
       // @ts-ignore
-      this.sudFSTAPPDecorator.setISudFSTAPP(iSudFSTAPP)
+      this.sudFSTAPPDecorator.setISudFSTAPP(this.iSudFSTAPP)
     }
   }
 
@@ -282,7 +283,8 @@ export class SDKGameView {
   // end region 生命周期相关
 
   /** 销毁游戏 */
-  private destroyMG() {
+  public destroyMG() {
+    this.iSudFSTAPP && SudMGPSDK.destroyMG(this.iSudFSTAPP)
     this.sudFSTAPPDecorator.destroyMG()
     this.sudFSMMGDecorator.destroyMG()
   }

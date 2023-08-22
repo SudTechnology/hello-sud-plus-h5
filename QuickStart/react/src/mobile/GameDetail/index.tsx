@@ -99,6 +99,9 @@ const GameDetail = (props: IProps) => {
 
   return (
     <div className={cx('container')}>
+      <div className={cx('test-iframe')}>
+        <iframe src="http://192.168.101.139:1000/testmsg.html" frameBorder="0"></iframe>
+      </div>
       <div className={cx('game-container')}>
         {/* game 容器 */}
         <img src={Close} onClick={destory} alt="" className={cx('close')} />

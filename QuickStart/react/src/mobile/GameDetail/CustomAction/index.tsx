@@ -1,21 +1,37 @@
 import React, { useEffect, useState } from 'react'
-import useCustomApi from 'hooks/useCustomApi'
+import customApi from 'hooks/customApi'
 import styles from './index.module.less'
 import classnames from 'classnames/bind'
 import { Popup, Form, Input, Button, Modal, TextArea, Slider } from 'antd-mobile'
 import { SDKGameView } from 'QuickStart' // SudMGP类型
 import GameSetting from './GameSetting'
+import DemoCfg from './DemoCfg'
+
 const cx = classnames.bind(styles)
 
 const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
-  const SudSDK = props.SudSDK as SDKGameView
-  const customActionHook = useCustomApi(SudSDK)
+  console.log(props.SudSDK, 'props.SudSDK')
+
+  const [SudSDK, setSudSDK] = useState<SDKGameView | undefined>(props.SudSDK)
+  const [customActionApi, setCustomActionApi] = useState(customApi(SudSDK))
+
+  useEffect(() => {
+    setSudSDK(props.SudSDK)
+    console.log('[ sdk change ] >', props.SudSDK)
+  }, [props.SudSDK])
+
+  useEffect(() => {
+    console.log('[ sdk change ] >', SudSDK)
+    setCustomActionApi(customApi(SudSDK))
+  }, [SudSDK])
+
   const [showAction, setShowAction] = useState(true) // 显示隐藏自定义的操作按钮
   const [visible, setVisible] = useState(false)
   const [visibleGameInfo, setVisibleGameInfo] = useState(false)
   const [visibleShiftUser, setVisibleShiftUser] = useState(false)
   const [visibleVolume, setvisibleVolume] = useState(false)
   const [visibleCustomMsg, setVisibleCustomMsg] = useState(false)
+  const [visibleDemoCfg, setVisibleDemoCfg] = useState(false)
 
   const [volum, setVolum] = useState(100) // 音量
   const [visibleGameSetting, setVisibleGameSetting] = useState(false)
@@ -55,7 +71,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
         gender: values[`gender${item}`]
       })
     })
-    SudSDK.sudFSTAPPDecorator.notifyAPPCommonGameAddAIPlayers(list, values.isReady)
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommonGameAddAIPlayers(list, values.isReady)
     setVisible(false)
   }
   // 设置游戏玩法
@@ -63,7 +79,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
     if (!values.select) {
       setVisibleGameInfo(false)
     }
-    SudSDK.sudFSTAPPDecorator.notifyAPPCommonGameSettingSelectInfo(values.select)
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommonGameSettingSelectInfo(values.select)
     setVisibleGameInfo(false)
   }
   // 踢人
@@ -71,13 +87,23 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
     if (!values.id) {
       setVisibleShiftUser(false)
     }
-    SudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfKick(values.id)
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfKick(values.id)
     setVisibleShiftUser(false)
   }
 
   const onFinishGameSetting = (values: any) => {
     console.log('[ value ] >', values)
     localStorage.setItem('gameconfig', JSON.stringify(values))
+    location.reload()
+  }
+
+  const updateSdkInstance = (sdk: SDKGameView | undefined) => {
+    SudSDK && SudSDK.destroyMG()
+    setSudSDK(sdk)
+  }
+  const onFinishDemoCfgSetting = (values: any) => {
+    console.log('[ values ] >', values)
+    localStorage.setItem('demoCfg', JSON.stringify(values))
     location.reload()
   }
 
@@ -97,7 +123,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
 
   // 通知游戏重连
   const setGameReconncet = () => {
-    SudSDK.sudFSTAPPDecorator.notifyAPPCommon('app_common_game_reconnect', JSON.stringify({}))
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommon('app_common_game_reconnect', JSON.stringify({}))
   }
   // 发送自定义消息
   const onFinishSendCustomMsg = (values: any) => {
@@ -105,7 +131,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
     const content = values.content
     console.log('onFinishSendCustomMsg[ values ] >', values)
     console.log('[ typeof content ] >', JSON.parse(content))
-    SudSDK.sudFSTAPPDecorator.notifyAPPCommon(name, content, {
+    SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommon(name, content, {
       onSuccess() {
         console.log('[ success ] >')
         // 成功后关闭窗口
@@ -128,21 +154,22 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
             <button onClick={() => setVisibleGameInfo(true)}>设置游戏玩法</button>
             <button onClick={() => setVisible(true)}>设置AI玩家</button>
 
-            <button onClick={customActionHook.userSelfQuickGame}>玩家自己退出游戏</button>
-            <button onClick={customActionHook.pushAIPlayer}>自动添加AI玩家</button>
-            <button onClick={customActionHook.closeBgMusic}>关闭背景音乐</button>
-            <button onClick={customActionHook.closeMusic}>关闭音效</button>
+            <button onClick={customActionApi.userSelfQuickGame}>玩家自己退出游戏</button>
+            <button onClick={customActionApi.pushAIPlayer}>自动添加AI玩家</button>
+            <button onClick={customActionApi.closeBgMusic}>关闭背景音乐</button>
+            <button onClick={customActionApi.closeMusic}>关闭音效</button>
 
             <button onClick={() => setvisibleVolume(true)}>调节游戏音量</button>
             <button onClick={() => setVisibleShiftUser(true)}>踢人</button>
             <button onClick={() => setGameReconncet()}>通知重连</button>
             <button onClick={() => setVisibleCustomMsg(true)}>自定义消息</button>
 
-            <button onClick={customActionHook.quitGame}>退出游戏</button>
-            <button onClick={customActionHook.joinGame}>加入游戏</button>
-            <button onClick={customActionHook.readyGame}>准备</button>
-            <button onClick={customActionHook.cancelReadyGame}>取消准备</button>
-            <button onClick={customActionHook.startGame}>开始游戏</button>
+            <button onClick={customActionApi.quitGame}>退出游戏</button>
+            <button onClick={customActionApi.joinGame}>加入游戏</button>
+            <button onClick={customActionApi.readyGame}>准备</button>
+            <button onClick={customActionApi.cancelReadyGame}>取消准备</button>
+            <button onClick={customActionApi.startGame}>开始游戏</button>
+            <button onClick={() => setVisibleDemoCfg(true)}>demo配置</button>
           </div>
         </>
       }
@@ -150,6 +177,13 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
         <button onClick={() => setShowAction(false)}>隐藏按钮</button>
         <button onClick={() => setShowAction(true)}>显示按钮</button>
       </div>
+
+      <DemoCfg
+        updateSdkInstance={(sdk) => updateSdkInstance(sdk)}
+        onClose={() => setVisibleDemoCfg(false)}
+        onFinish={(value) => onFinishDemoCfgSetting(value)}
+        visible={visibleDemoCfg}
+      />
       <GameSetting
         onClose={() => setVisibleGameSetting(false)}
         onFinish={(value) => onFinishGameSetting(value)}
@@ -264,7 +298,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
               console.log('[ value ] >', value)
               if (typeof value === 'number') {
                 setVolum(value)
-                SudSDK.sudFSTAPPDecorator.notifyAPPCommonGameSoundVolume(value)
+                SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommonGameSoundVolume(value)
               }
             }}/>
           <div style={{ textAlign: 'center' }}>{volum}</div>
