@@ -179,6 +179,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
       </div>
 
       <DemoCfg
+        SudSdk={SudSDK}
         updateSdkInstance={(sdk) => updateSdkInstance(sdk)}
         onClose={() => setVisibleDemoCfg(false)}
         onFinish={(value) => onFinishDemoCfgSetting(value)}

@@ -11,10 +11,12 @@ const cx = classnames.bind(styles)
 interface IProp {
   visible: boolean
   onClose: () => void
+  SudSdk: SDKGameView | undefined
   updateSdkInstance: (sdk: SDKGameView | undefined) => void
   onFinish: (value: any) => void
 }
 const DemoCfg: React.FC<IProp> = (props) => {
+  const { SudSdk } = props
   const [form] = Form.useForm()
   const { list } = useHome()
   function changeGame(gameId: string) {
@@ -24,6 +26,9 @@ const DemoCfg: React.FC<IProp> = (props) => {
     const sdk = loadGame(gameId, roomId, language, userId)
     props.onClose()
     props.updateSdkInstance(sdk)
+  }
+  const destory = () => {
+    SudSdk && SudSdk.destroyMG()
   }
   return (
     <Popup
@@ -46,6 +51,9 @@ const DemoCfg: React.FC<IProp> = (props) => {
           <Switch/>
         </Form.Item>
         </Form>
+        <div>
+          <Button color='primary' onClick={() => destory()}>destoryMG</Button>
+        </div>
         <div className={cx('title')}>
           点击切换游戏
         </div>

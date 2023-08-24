@@ -4,11 +4,11 @@ import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListene
 // import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
 import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
 
-// import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
+import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
 // import { ISudMGP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
 
 // @ts-ignore
-import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
+// import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
 // import type { ISudMGP } from '../SudMGP/SudMGP/lib/type'
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
@@ -284,6 +284,9 @@ export class SDKGameView {
 
   /** 销毁游戏 */
   public destroyMG() {
+    console.log('destory')
+
+    window.onmessage = null
     this.iSudFSTAPP && SudMGPSDK.destroyMG(this.iSudFSTAPP)
     this.sudFSTAPPDecorator.destroyMG()
     this.sudFSMMGDecorator.destroyMG()
