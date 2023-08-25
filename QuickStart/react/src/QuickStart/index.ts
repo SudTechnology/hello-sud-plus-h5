@@ -285,8 +285,9 @@ export class SDKGameView {
   /** 销毁游戏 */
   public destroyMG() {
     console.log('destory')
-
-    window.onmessage = null
+    // 如果有高清屏的时候，同时需要卸载还原原来的尺寸
+    const gameView = document.getElementById('game')
+    gameView?.classList.remove('hd')
     this.iSudFSTAPP && SudMGPSDK.destroyMG(this.iSudFSTAPP)
     this.sudFSTAPPDecorator.destroyMG()
     this.sudFSMMGDecorator.destroyMG()
