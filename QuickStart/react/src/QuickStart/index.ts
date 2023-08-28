@@ -59,6 +59,9 @@ export class SDKGameView {
 
   public customSudFSMMGListener: Partial<SudFSMMGListener> | undefined
   public iSudFSTAPP: ISudFSTAPP | null = null
+
+  public gameIsStarted: boolean = false
+
   // 初始化数据
 
   // 初始化数据
@@ -160,6 +163,7 @@ export class SDKGameView {
       // 默认监听事件
       onGameStarted() {
         console.log('start')
+        self.gameIsStarted = true
       },
       onGameCustomerStateChange(handle, state, dataJson) {
         console.log('======onGameCustomerStateChange====', 'state', state, dataJson)
@@ -288,7 +292,9 @@ export class SDKGameView {
     // 如果有高清屏的时候，同时需要卸载还原原来的尺寸
     const gameView = document.getElementById('game')
     gameView?.classList.remove('hd')
-    this.iSudFSTAPP && SudMGPSDK.destroyMG(this.iSudFSTAPP)
+    if (this.gameIsStarted) {
+      this.iSudFSTAPP && SudMGPSDK.destroyMG(this.iSudFSTAPP)
+    }
     this.sudFSTAPPDecorator.destroyMG()
     this.sudFSMMGDecorator.destroyMG()
   }
