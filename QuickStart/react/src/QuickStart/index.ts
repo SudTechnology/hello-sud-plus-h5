@@ -2,7 +2,7 @@ import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListene
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper-test'
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from '../SudMGP/SudMGPWrapper/lib'
 import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
-import type { ISudMGP } from 'sudmgp-sdk-js/type'
+import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
 
 // import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
 // import { ISudMGP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
@@ -58,8 +58,8 @@ export class SDKGameView {
   public sudFSMMGDecorator = new SudFSMMGDecorator()
 
   public customSudFSMMGListener: Partial<SudFSMMGListener> | undefined
-  // 初始化数据
-
+  public iSudFSTAPP: ISudFSTAPP | null = null
+  public gameIsStarted: boolean = false
   // 初始化数据
   constructor({ root, gameRoomId, language = 'zh-CN', gameId, userId }: IBaseGameViewModelConstru) {
     this.gameRoomId = gameRoomId
@@ -158,7 +158,8 @@ export class SDKGameView {
     this.sudFSMMGDecorator.setSudFSMMGListener({
       // 默认监听事件
       onGameStarted() {
-        console.log('start')
+        console.log('game started')
+        self.gameIsStarted = true
       },
       onGameCustomerStateChange(handle, state, dataJson) {
         console.log('======onGameCustomerStateChange====', 'state', state, dataJson)
@@ -252,11 +253,11 @@ export class SDKGameView {
     console.log(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator)
 
     // 调用游戏sdk加载游戏
-    const iSudFSTAPP = SudMGPSDK.loadMG(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator, this.root)
+    this.iSudFSTAPP = SudMGPSDK.loadMG(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator, this.root)
     // APP调用游戏接口的装饰类设置
-    if (iSudFSTAPP) {
+    if (this.iSudFSTAPP) {
       // @ts-ignore
-      this.sudFSTAPPDecorator.setISudFSTAPP(iSudFSTAPP)
+      this.sudFSTAPPDecorator.setISudFSTAPP(this.iSudFSTAPP)
     }
   }
 
@@ -283,6 +284,10 @@ export class SDKGameView {
 
   /** 销毁游戏 */
   private destroyMG() {
+    if (this.gameIsStarted) {
+      this.iSudFSTAPP && SudMGPSDK.destroyMG(this.iSudFSTAPP)
+    }
+
     this.sudFSTAPPDecorator.destroyMG()
     this.sudFSMMGDecorator.destroyMG()
   }
