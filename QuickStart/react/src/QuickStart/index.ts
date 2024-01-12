@@ -4,12 +4,12 @@ import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListene
 // import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
 // import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
 
-// import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
-// import { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
+import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
+import { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
 
 // @ts-ignore
-import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
-import type { ISudMGP, ISudFSTAPP } from '../SudMGP/SudMGP/lib/type'
+// import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
+// import type { ISudMGP, ISudFSTAPP } from '../SudMGP/SudMGP/lib/type'
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
 const SudMGPSDK = SudMGP as ISudMGP
