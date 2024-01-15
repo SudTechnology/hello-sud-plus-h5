@@ -4,6 +4,26 @@
 	"data": {
 		"sceneVOList": [
       {
+				"sceneName": "对战消消乐",
+				"sceneId": "1689904909564116994",
+				"scenePic": "https://sud-static-tcc.sudden.ltd/game/monstercrushboom/332.png",
+				"code": "opensceneescape",
+				"gameAppId": "tech.sud.mgp.opensceneescape",
+				"description": "",
+				"orientation": 1,
+				"screenMode": 0
+			},
+      {
+				"sceneName": "蛇梯",
+				"sceneId": "1716668321022017537",
+				"scenePic": "https://sud-static-tcc.sudden.ltd/game/snakeandladders/332.png",
+				"code": "opensceneescape",
+				"gameAppId": "tech.sud.mgp.opensceneescape",
+				"description": "",
+				"orientation": 1,
+				"screenMode": 0
+			},
+      {
 				"sceneName": "大富翁",
 				"sceneId": "1704460412809043970",
 				"scenePic": "https://sud-static-tcc.sudden.ltd/game/monopoly/332.png",
