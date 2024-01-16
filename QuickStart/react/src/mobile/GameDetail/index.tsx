@@ -38,7 +38,6 @@ const GameDetail = (props: IProps) => {
   const { SudSDK } = useGameDetail(params.id || '', roomId || (params.id || ''), language || 'zh-CN', userId, goBack)
 
   useEffect(() => {
-    console.log('[ navigator.mediaDevices ] >', navigator.mediaDevices)
     // 横屏处理
     if (orientation && orientation === '0') {
       rotateScreen()
