@@ -12,6 +12,7 @@ import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
 // import type { ISudMGP, ISudFSTAPP } from '../SudMGP/SudMGP/lib/type'
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
+import { appMap } from '../data/app'
 const SudMGPSDK = SudMGP as ISudMGP
 interface IInitSDKParam {
   userId: string,
@@ -67,6 +68,12 @@ export class SDKGameView {
     this.userId = userId
     this.root = root
     language && (this.language = language)
+
+    if (localStorage.getItem('localAppId')) {
+      const localAppId = localStorage.getItem('localAppId') || '1461564080052506636'
+      this.SudMGP_APP_ID = localAppId
+      this.SudMGP_APP_KEY = appMap[localAppId as keyof typeof appMap].appKey
+    }
   }
 
   /**
