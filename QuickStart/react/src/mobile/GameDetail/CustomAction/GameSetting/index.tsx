@@ -1,5 +1,5 @@
 import React from 'react'
-import { Popup, Input, Form, Button, Radio, Switch } from 'antd-mobile'
+import { Popup, Stepper, Form, Button, Radio, Switch } from 'antd-mobile'
 import styles from './index.module.less'
 import classnames from 'classnames/bind'
 const cx = classnames.bind(styles)
@@ -29,7 +29,7 @@ const GameSetting: React.FC<IProp> = (props) => {
             className={cx('form')}
             footer={null}>
               <Form.Item name="gameMode" initialValue={1} label="gameMode">
-                <Input />
+                <Stepper />
               </Form.Item>
               <Form.Item name="gameCPU" initialValue={0} label="gameCPU">
                 <Radio.Group>
@@ -42,7 +42,7 @@ const GameSetting: React.FC<IProp> = (props) => {
                 </Radio.Group>
               </Form.Item>
               <Form.Item initialValue={100} name="gameSoundVolume" label="gameSoundVolume">
-                <Input></Input>
+                <Stepper max={100}></Stepper>
               </Form.Item>
               <Form.Header>gameSettle</Form.Header>
 
