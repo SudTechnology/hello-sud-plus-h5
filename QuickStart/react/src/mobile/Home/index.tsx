@@ -74,6 +74,8 @@ const Home = () => {
         <select value={appId} onChange={(e) => changeAPP(e)}>
           <option value={'1461564080052506636'}>1461564080052506636</option>
           <option value={'1486637108889305089'}>1486637108889305089</option>
+          <option value={'1658379102832939010'}>1658379102832939010</option>
+
         </select>
       </div>
       {/* 游戏列表 */}
