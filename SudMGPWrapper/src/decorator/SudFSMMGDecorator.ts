@@ -64,7 +64,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
   private sudFSMMGListener: Partial<SudFSMMGListener>
 
   // 数据状态封装
-  private sudFSMMGCache = new SudFSMMGCache()
+  public sudFSMMGCache = new SudFSMMGCache()
 
   /**
    * 设置回调

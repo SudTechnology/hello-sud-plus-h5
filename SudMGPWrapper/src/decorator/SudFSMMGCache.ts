@@ -12,9 +12,9 @@ export class SudFSMMGCache {
   private captainUserId: string | undefined // 记录当前队长的用户id
   private mgCommonGameStateModel: IMGCommonGameState | null | undefined // 全局游戏状态
   private _isHitBomb = false // 是否数字炸弹
-  private playerInSet = new Map<string, any>() // 记录已经加入了游戏的玩家
-  private playerReadySet = new Map<string, any>() // 记录已经准备好的游戏玩家
-  private playerPlayingMap = new Map<string, IMGCommonPlayerPlaying>() // 记录玩家的游戏状态
+  public playerInSet = new Map<string, any>() // 记录已经加入了游戏的玩家
+  public playerReadySet = new Map<string, any>() // 记录已经准备好的游戏玩家
+  public playerPlayingMap = new Map<string, IMGCommonPlayerPlaying>() // 记录玩家的游戏状态
 
   // 队长状态 处理
   public onPlayerMGCommonPlayerCaptain(userId: string, model: IMGCommonPlayerCaptain) {
@@ -48,6 +48,10 @@ export class SudFSMMGCache {
         this.playerReadySet.delete(userId)
       }
     }
+  }
+
+  public getJoinedGamePlayerIdList(): string[] {
+    return Array.from(this.playerInSet.values())
   }
 
   // 玩家准备状态

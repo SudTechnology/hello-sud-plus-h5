@@ -215,17 +215,7 @@ export class SDKGameView {
         self.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true)
       },
       onGetGameCfg(handle: ISudFSMStateHandle, dataJson: string): void {
-        let config = new GameConfigModel()
-        const gameConf = localStorage.getItem('gameconfig')
-        // config.ui.join_btn.custom = true
-        // config.ui.join_btn.hide = true
-        if (gameConf) {
-          // @ts-ignore
-          config = gameConf
-          // @ts-ignore
-          handle.success(config)
-          return
-        }
+        const config = new GameConfigModel()
         handle.success(JSON.stringify(config))
       },
       ...customSudFSMMGListener// 外部传入自定义listener可覆盖

@@ -32,9 +32,9 @@ export class SDKGameView {
   // 初始化数据
   constructor ({ root, gameRoomId, language = 'zh-CN', gameId, userId }) {
     console.log('[ SDKGameView ] >', gameRoomId, gameId, userId)
-    this.gameRoomId = gameRoomId
-    this.gameId = gameId
-    this.userId = userId
+    this.gameRoomId = gameRoomId // ！！注意：字符串类型
+    this.gameId = gameId // ！！注意：字符串类型
+    this.userId = userId // ！！注意：字符串类型
     this.root = root
     language && (this.language = language)
   }
@@ -178,17 +178,10 @@ export class SDKGameView {
         self.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true)
       },
       onGetGameCfg (handle, dataJson) {
-        let config = new GameConfigModel()
-        const gameConf = localStorage.getItem('gameconfig')
+        const config = new GameConfigModel()
         // config.ui.join_btn.custom = true
         // config.ui.join_btn.hide = true
-        if (gameConf) {
-          // @ts-ignore
-          config = gameConf
-          // @ts-ignore
-          handle.success(config)
-          return
-        }
+
         handle.success(JSON.stringify(config))
       },
       ...customSudFSMMGListener// 外部传入自定义listener可覆盖
