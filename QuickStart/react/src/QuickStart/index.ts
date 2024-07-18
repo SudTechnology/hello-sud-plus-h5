@@ -200,8 +200,8 @@ export class SDKGameView {
           view_game_rect: {
             left: 0,
             right: 0,
-            top: 50,
-            bottom: 50
+            top: 200,
+            bottom: 200
           }
         }
 
