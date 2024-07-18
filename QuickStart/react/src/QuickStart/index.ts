@@ -216,6 +216,7 @@ export class SDKGameView {
       },
       onGetGameCfg(handle: ISudFSMStateHandle, dataJson: string): void {
         const config = new GameConfigModel()
+        config.ui.join_btn.custom = true
         handle.success(JSON.stringify(config))
       },
       ...customSudFSMMGListener// 外部传入自定义listener可覆盖

@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import styles from './index.module.less'
 import classnames from 'classnames/bind'
 // import Close from 'assets/close.png'
-import { useGameDetail } from 'hooks/useGameDetail'
+import { useGameDetail } from 'hooks/useGameDetailMb'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { getQueryParam } from 'utils'
 // import { Modal } from 'antd-mobile'
-import { IMGCommonGameBackLobby } from "sudmgp-sdk-js-wrapper/state/ISudMGPMGState"
+// import { IMGCommonGameBackLobby } from "sudmgp-sdk-js-wrapper/state/ISudMGPMGState"
 import { AudioOutline, AudioMutedOutline } from 'antd-mobile-icons'
 import { Asr } from 'utils/asr'
 interface IProps extends RouteComponentProps {
@@ -24,17 +24,22 @@ const GameDetail = (props: IProps) => {
   const [openMic, setOpenMic] = useState(false)
 
   // 返回大厅
-  const goBack = (data?: IMGCommonGameBackLobby) => {
-    if (data && data.leaveGame) {
-      // 销毁游戏
-      SudSDK && SudSDK.onDestroy()
-    }
-    setTimeout(() => {
-      location.href = '/'
-    }, 1000)
-  }
+  // const goBack = (data?: IMGCommonGameBackLobby) => {
+  //   if (data && data.leaveGame) {
+  //     // 销毁游戏
+  //     SudSDK && SudSDK.onDestroy()
+  //   }
+  //   setTimeout(() => {
+  //     location.href = '/'
+  //   }, 1000)
+  // }
 
-  const { SudSDK } = useGameDetail(params.id || '', roomId || (params.id || ''), language || 'zh-CN', userId, goBack)
+  const { SudSDK } = useGameDetail({
+    gameId: params.id || '',
+    roomId: roomId || (params.id || ''),
+    language: language || 'zh-CN',
+    userId
+  })
 
   useEffect(() => {
     console.log('[ navigator.mediaDevices ] >', navigator.mediaDevices)

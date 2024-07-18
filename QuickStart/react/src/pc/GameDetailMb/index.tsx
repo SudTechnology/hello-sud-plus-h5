@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './index.module.less'
 import classnames from 'classnames/bind'
 
-import { useGameDetail } from 'hooks/useGameDetail'
+import { useGameDetail } from 'hooks/useGameDetailMb'
 import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { getQueryParam } from 'utils'
 
@@ -15,11 +15,17 @@ const GameDetail = (props: RouteComponentProps) => {
   const roomId = getQueryParam('roomId')
   const userId = getQueryParam('userId')
   const language = getQueryParam('language')
-  useGameDetail(params.id || '', roomId || (params.id || ''), language || 'zh-CN', userId)
+  useGameDetail({
+    gameId: params.id || '',
+    roomId: roomId || (params.id || ''),
+    language: language || 'zh-CN',
+    userId
+  })
 
   return (
     <div className={cx('container')}>
       <div className={cx('game-container')}>
+
         {/* game 容器 */}
         <div id='game' className={cx('game-wrap')}></div>
       </div>
