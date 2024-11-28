@@ -344,7 +344,7 @@
 ![Android](doc/hello_sudplus_android.png)
 ![iPhone](doc/hello_sudplus_iphone.png)
 
-# 5.  Sequence Diagram of Calls between the Access Party Client and SudMGP SDK
+# 4.  Sequence Diagram of Calls between the Access Party Client and SudMGP SDK
 
 ![AppCallSudMGPSeqDiag.png](doc/AppCallSudMGPSeqDiag.png)
 
