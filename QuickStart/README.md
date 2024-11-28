@@ -345,7 +345,7 @@
 ![Android](doc/hello_sudplus_android.png)
 ![iPhone](doc/hello_sudplus_iphone.png)
 
-# 5. 接入方客户端和SudMGP SDK调用时序图
+# 4. 接入方客户端和SudMGP SDK调用时序图
 
 ![AppCallSudMGPSeqDiag.png](doc/AppCallSudMGPSeqDiag.png)
 
