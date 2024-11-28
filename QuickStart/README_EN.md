@@ -4,14 +4,14 @@
   <details>
   <summary>Detailed Description</summary>
   
-      1.appId、appKey和isTestEnv=true，please use those of the QuickStart client；
-      2.iOS bundleId、Android applicationId，please use those of the APP client itself；(the bundleId/applicationId in the access information table)；
-      3.For the short-term token code, please use the QuickStart backend service (obtained through login/getCode);；
+      1.appId、appKey and isTestEnv=true，please use those of the QuickStart client;
+      2.iOS bundleId、Android applicationId，please use those of the APP client itself；(the bundleId/applicationId in the access information table);
+      3.For the short-term token code, please use the QuickStart backend service (obtained through login/getCode);
       4.Complete the integration and get the game running;
   
-      *** SUD platform supports one appId being bound to multiple bundleIds and applicationIds；***
-      *** After filling out the access information table, SUD will bind the APP's bundleId and applicationId to the QuickStart appId, only supporting the test environment;***
-  QuickStart backend service [hello-sud-java code repository,](https://github.com/SudTechnology/hello-sud-java) ，`if the code repository cannot be accessed, please contact SUD to add it, and provide your github account`；
+      *** SUD platform supports one appId being bound to multiple bundleIds and applicationIds ***
+      *** After filling out the access information table, SUD will bind the APP's bundleId and applicationId to the QuickStart appId, only supporting the test environment ***
+  QuickStart backend service [hello-sud-java code repository](https://github.com/SudTechnology/hello-sud-java) ，`if the code repository cannot be accessed, please contact SUD to add it, and provide your github account`;
   </details>
 
 
@@ -175,7 +175,7 @@
 
   ```
 
-  2. The web communication mechanism is based on the window.onmessage event. If the web page itself also uses the window.onmessage event, the following code needs to be added. SudSDk will not modify the window.onmessage method defined by the web itself, and the corresponding listening and execution will still occur
+  2. The web communication mechanism is based on the window.onmessage event. If the web page itself also uses the window.onmessage event, the following code needs to be added. SudSDk will not modify the window.onmessage method defined by the web itself, and the corresponding listening and execution will still occur.
   ```javascript
       // The onmessage defined in the page
       window.onmessage = function (data) {
@@ -207,18 +207,18 @@
 
 # 2. SudMGPWrapper
 
-- `SudMGPWrapper encapsulates SudMGP to simplify the mutual calls between the App and the game`；
-- `SudMGPWrapper is maintained and updated regularly`；
-- `It is recommended that the APP access side use SudMGPWrapper.`；
+- `SudMGPWrapper encapsulates SudMGP to simplify the mutual calls between the App and the game`;
+- `SudMGPWrapper is maintained and updated regularly`;
+- `It is recommended that the APP access side use SudMGPWrapper.`;
 - `SudMGPAPPState`、`SudMGPMGState`、`SudFSMMGListener`、`SudFSMMGDecorator`、`SudFSTAPPDecorator  Core class
-`；
+`;
 
 ### 2.1 App Calls the Game
 
-- `SudMGPAPPState` encapsulates [App Common States](https://docs.sud.tech/zh-CN/app/Client/APPFST/CommonState.html) ；
+- `SudMGPAPPState` encapsulates [App Common States](https://docs.sud.tech/zh-CN/app/Client/APPFST/CommonState.html) ;
 - `SudFSTAPPDecorator` encapsulates [ISudFSTAPP](https://docs.sud.tech/zh-CN/app/Client/API/ISudFSTAPP.html)
-  two types of interfaces ，[notifyStateChange](https://docs.sud.tech/zh-CN/app/Client/APPFST/CommonState.html) 、 foo；
-- `SudFSTAPPDecorator` is responsible for encapsulating each App common state into an interface；
+  two types of interfaces ，[notifyStateChange](https://docs.sud.tech/zh-CN/app/Client/APPFST/CommonState.html) 、 foo;
+- `SudFSTAPPDecorator` is responsible for encapsulating each App common state into an interface;
     <details>
     <summary>Code Framework class SudFSTAPPDecorator</summary>
 
@@ -243,9 +243,9 @@
 ### 2.2 Game Calls the App
 
 - `SudMGPMGState` encapsulates [Common States - Game](https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html)
-  和 [Common States - Player](https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStatePlayer.html) ；
-- `SudFSMMGListener` encapsulates three types of callback functions of [ISudFSMMG](https://docs.sud.tech/zh-CN/app/Client/API/ISudFSMMG.html) ，onGameStateChange、onPlayerStateChange、onFoo；
-- `SudFSMMGListener` is responsible for encapsulating each game state into a separate callback function；
+  and  [Common States - Player](https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStatePlayer.html) ;
+- `SudFSMMGListener` encapsulates three types of callback functions of [ISudFSMMG](https://docs.sud.tech/zh-CN/app/Client/API/ISudFSMMG.html) ，onGameStateChange、onPlayerStateChange、onFoo;
+- `SudFSMMGListener` is responsible for encapsulating each game state into a separate callback function;
     <details>
     <summary>Code Framework interface SudFSMMGListener</summary>
 
@@ -259,8 +259,8 @@
         onGetGameCfg(handle: ISudFSMStateHandle, dataJson: string): void
     
         // Common States - Game
-        // void onGameStateChange(ISudFSMStateHandle handle, String state, String dataJson)；
-        // 文档: https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html
+        // void onGameStateChange(ISudFSMStateHandle handle, String state, String dataJson);
+        // Document: https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html
         // 1.Public message in the game lobby
        onGameMGCommonPublicMessage?(handle: ISudFSMStateHandle, model: IMGCommonPublicMessage) 
 
@@ -332,12 +332,11 @@
   npm start
  ```
 
-- The demo runs with Node version Node <= 16 and npm >= 5.6
-
+- The demo runs with Node version Node <= 16 and npm >= 5.6;
 - Rapid access documentation：[StartUp-Android](https://docs.sud.tech/zh-CN/app/Client/StartUp-Android.html)
   、 [StartUp-iOS](https://docs.sud.tech/zh-CN/app/Client/StartUp-iOS.html) 、[StartUp-Web](https://docs.sud.tech/zh-CN/app/Client/StartUp-Web.html)
-- `SDKGameView` is responsible for login(App getCode) --> SudMGP.initSDK --> SudMGP.loadMG；
-- `QuickStart Server` [hello-sud-java](https://github.com/SudTechnology/hello-sud-java) ，login(App gets the short-term token code through getCode) ，`If the code repository cannot be accessed, please contact SUD to add it, and provide your github account`；
+- `SDKGameView` is responsible for login(App getCode) --> SudMGP.initSDK --> SudMGP.loadMG;
+- `QuickStart Server` [hello-sud-java](https://github.com/SudTechnology/hello-sud-java) ，login(App gets the short-term token code through getCode) ，`If the code repository cannot be accessed, please contact SUD to add it, and provide your github account`;
 
 
 - HelloSud Experience Demo (showing multiple business scenarios)
