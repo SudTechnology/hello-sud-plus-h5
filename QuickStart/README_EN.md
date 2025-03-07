@@ -15,14 +15,14 @@
   </details>
 
 
-- Step 2: Debugging between the Web and APP Server
+- Step 2: Debugging between the Web and Server
   <details>
   <summary>Detailed Description</summary>
   
-      1.The APP server implements 4 HTTP APIs; (filled in the access information table)
-      2.Please use the web appId、appKey、isTestEnv=true、bundleId(iOS)、applicationId(Android)；
-      3.The APP server implements the login/getCode interface to obtain the short-term token code；
-      4.The Web and APP servers debug 5 HTTP APIs；
+      1.The Server implements 4 HTTP APIs; (filled in the access information table)
+      2.Please use the web appId、appKey、isTestEnv=true、bundleId(web)；
+      3.The Server implements the login/getCode interface to obtain the short-term token code；
+      4.The Web and Server debug 5 HTTP APIs；
       5.Complete the HTTP API debugging；
   </details>
 

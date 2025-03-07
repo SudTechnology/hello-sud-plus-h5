@@ -5,7 +5,7 @@
   <summary>详细描述</summary>
   
       1.appId、appKey和isTestEnv=true，请使用QuickStart客户端的；
-      2.Web bundleId 请使用web的域名；(接入信息表中的bundleId/applicationId)；
+      2.Web bundleId 请使用Web的域名；(接入信息表中的bundleId/applicationId)；
       3.短期令牌code，请使用QuickStart的后端服务（login/getCode获取的）；
       4.完成集成，游戏跑起来;
   
@@ -15,14 +15,14 @@
   </details>
 
 
-- 第二步：Web端和APP服务端联调
+- 第二步：Web端和服务端联调
   <details>
   <summary>详细描述</summary>
   
-      1.APP服务端实现4个HTTP API；（接入信息表填的）
-      2.请使用Web端自己的appId、appKey、isTestEnv=true、bundleId(iOS)、applicationId(Android)；
-      3.APP服务端实现login/getCode接口，获取短期令牌code；
-      4.Web端和APP服务端联调5个HTTP API；
+      1.服务端实现4个HTTP API；（接入信息表填的）
+      2.请使用Web端自己的appId、appKey、isTestEnv=true、bundleId(域名)
+      3.服务端实现login/getCode接口，获取短期令牌code；
+      4.Web端和服务端联调5个HTTP API；
       5.完成HTTP API联调；
   </details>
 
@@ -32,7 +32,7 @@
   <summary>详细描述</summary>
 
       1.参考SudMGP文档、SudMGPWrapper、QuickStart、HelloSud体验Demo（展示多场景，Custom自定义场景）；
-      2.专注于APP UI交互、功能是否支持、如何实现
+      2.专注于Web UI交互、功能是否支持、如何实现
       比如：
       调整游戏View大小、位置；
       调整Web和游戏交互流程，UI元素是否可隐藏，按钮是否可隐藏APP实现，点击事件是否支持拦截回调；
@@ -90,11 +90,16 @@
 
     /** true 加载游戏时为测试环境 false 加载游戏时为生产环境 */
     public GAME_IS_TEST_ENV = false
+
+     public getBundleId() {
+        return location.hostname // 网站域名，可以根据环境变量自定义，本地开发可使用localhost，上线要用真实的网站域名
+      }
+
   ```
-      3.APP客户端请使用QuickStart后端服务login/getCode；
-        *** 实现APP快速加载运行游戏，使用QuickStart服务 ***
+      3.Web客户端请使用QuickStart后端服务login/getCode；
+        *** 实现Web快速加载运行游戏，使用QuickStart服务 ***
         *** SUD平台支持一个appId绑定多个bundleId和applicationId ***
-        *** 填完接入信息表后，SUD会将APP的bundleId和applicationId，绑定到QuickStart的appId上，仅支持测试环境 ***
+        *** 填完接入信息表后，SUD会将Web的bundleId和applicationId，绑定到QuickStart的appId上，仅支持测试环境 ***
   </details>
 
 
