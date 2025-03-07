@@ -5,7 +5,7 @@
   <summary>Detailed Description</summary>
   
       1.appId、appKey and isTestEnv=true，please use those of the QuickStart client;
-      2.iOS bundleId、Android applicationId，please use those of the APP client itself；(the bundleId/applicationId in the access information table);
+      2.Web bundleId，please use the domain name of web;(the bundleId/applicationId in the access information table);
       3.For the short-term token code, please use the QuickStart backend service (obtained through login/getCode);
       4.Complete the integration and get the game running;
   
