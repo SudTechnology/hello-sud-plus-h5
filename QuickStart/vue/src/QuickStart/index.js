@@ -27,6 +27,10 @@ export class SDKGameView {
   sudFSMMGDecorator = new SudFSMMGDecorator()
 
   customSudFSMMGListener
+
+  iSudFSTAPP = null
+
+  gameIsStarted = false
   // 初始化数据
 
   // 初始化数据
@@ -119,7 +123,8 @@ export class SDKGameView {
     this.sudFSMMGDecorator.setSudFSMMGListener({
       // 默认监听事件
       onGameStarted () {
-        console.log('start')
+        console.log('game started')
+        self.gameIsStarted = true
       },
       onGameCustomerStateChange (handle, state, dataJson) {
         console.log('======onGameCustomerStateChange====', 'state', state, JSON.stringify(dataJson))
@@ -189,10 +194,10 @@ export class SDKGameView {
     console.log(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator)
 
     // 调用游戏sdk加载游戏
-    const iSudFSTAPP = SudMGPSDK.loadMG(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator, this.root)
+    this.iSudFSTAPP = SudMGPSDK.loadMG(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator, this.root)
     // APP调用游戏接口的装饰类设置
-    if (iSudFSTAPP) {
-      this.sudFSTAPPDecorator.setISudFSTAPP(iSudFSTAPP)
+    if (this.iSudFSTAPP) {
+      this.sudFSTAPPDecorator.setISudFSTAPP(this.iSudFSTAPP)
     }
   }
 
@@ -219,6 +224,11 @@ export class SDKGameView {
 
   /** 销毁游戏 */
   destroyMG () {
+    if (this.gameIsStarted) {
+      this.iSudFSTAPP && SudMGPSDK.destroyMG(this.iSudFSTAPP)
+    }
+    this.root.innerHTML = ''
+
     this.sudFSTAPPDecorator.destroyMG()
     this.sudFSMMGDecorator.destroyMG()
   }

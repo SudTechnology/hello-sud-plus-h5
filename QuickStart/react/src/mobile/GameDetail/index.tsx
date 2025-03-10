@@ -31,7 +31,7 @@ const GameDetail = (props: IProps) => {
     }
     setTimeout(() => {
       location.href = '/'
-    }, 1000)
+    }, 100)
   }
 
   const { SudSDK } = useGameDetail(params.id || '', roomId || (params.id || ''), language || 'zh-CN', userId, goBack)

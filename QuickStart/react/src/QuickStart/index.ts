@@ -258,6 +258,7 @@ export class SDKGameView {
     if (this.gameIsStarted) {
       this.iSudFSTAPP && SudMGPSDK.destroyMG(this.iSudFSTAPP)
     }
+    this.root.innerHTML = ''
 
     this.sudFSTAPPDecorator.destroyMG()
     this.sudFSMMGDecorator.destroyMG()

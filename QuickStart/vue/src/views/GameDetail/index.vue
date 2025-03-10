@@ -31,7 +31,7 @@ export default {
       }
       setTimeout(() => {
         location.href = '/'
-      }, 1000)
+      }, 100)
     }
   }
 }
