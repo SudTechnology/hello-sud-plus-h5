@@ -4,13 +4,13 @@ import { SudMGP as SudMGPSDK } from 'sudmgp-sdk-js'
 import { getCode } from '@/api/login' // 短期令牌code接口,由业务方自行实现
 
 export class SDKGameView {
-  gameRoomId // 游戏房间id，房间隔离，同一房间才能一起游戏
+  gameRoomId // 游戏房间id，房间隔离，同一房间才能一起游戏，【必须是字符串类型！！】
   language = 'zh-CN' /** 游戏的语言代码 */
-  gameId // 游戏id
+  gameId // 游戏id 【必须是字符串类型！！】
 
   root // 绑定到元素上
   /** 使用的UserId。这里随机生成作演示，开发者将其修改为业务使用的唯一userId */
-  userId = '100668'// 注意: 是字符串类型,  Math.floor((Math.random() + 1) * 10000).toString()
+  userId = '100668'// 注意: 是字符串类型,  Math.floor((Math.random() + 1) * 10000).toString() 【必须是字符串类型！！】
   /** Sud平台申请的appId */
   // eslint-disable-next-line camelcase
   SudMGP_APP_ID = '1461564080052506636' // '1461564080052506636' // "1498868666956988417"
@@ -34,6 +34,7 @@ export class SDKGameView {
   // 初始化数据
 
   // 初始化数据
+  // 注意参数的类型！！gameRoomId， gameId，userId都是字符串类型
   constructor ({ root, gameRoomId, language = 'zh-CN', gameId, userId }) {
     console.log('[ SDKGameView ] >', gameRoomId, gameId, userId)
     this.gameRoomId = gameRoomId // ！！注意：字符串类型
@@ -48,12 +49,12 @@ export class SDKGameView {
    * 接入方客户端 调用 接入方服务端 login 获取 短期令牌code
    * 参考文档时序图：sud-mgp-doc(https://docs.sud.tech/zh-CN/app/Client/StartUp-Android.html)
    *
-   * @param userId string
+   * @param userId string 【必须是字符串类型！！】
    */
   login (userId) {
     return new Promise(() => {
       const data = {
-        user_id: userId, // string
+        user_id: userId, // 【必须是字符串类型！！】
         app_id: this.SudMGP_APP_ID
       }
       // 获取code
@@ -115,8 +116,8 @@ export class SDKGameView {
    *
    */
   loadGame ({ userId, code }) {
-    const gameRoomId = this.gameRoomId
-    const gameId = this.gameId
+    const gameRoomId = this.gameRoomId // 【必须是字符串类型！！】
+    const gameId = this.gameId // 【必须是字符串类型！！】
     const language = this.language
     const self = this
     const customSudFSMMGListener = this.customSudFSMMGListener || {}
