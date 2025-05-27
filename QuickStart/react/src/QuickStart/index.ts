@@ -1,4 +1,4 @@
-import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
+import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudmgp-sdk-js-wrapper'
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper-test'
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from '../SudMGP/SudMGPWrapper/lib'
 // import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
@@ -254,6 +254,37 @@ export class SDKGameView {
           return
         }
         handle.success(JSON.stringify(config))
+      },
+      /*
+      * 《狼人杀》&《谁是卧底》RTC 接入部分
+      */
+      // 游戏发送“开启/关闭 RTC拉流”状态，允许/禁止收听其他玩家发言
+      onGameMGCommonSelfHeadphone(handle, mgCommonSelfHeadphoneData) {
+        const isOn = mgCommonSelfHeadphoneData.isOn // 耳机（听筒，喇叭）开关状态 true: 开(APP开启RTC拉流)；false: 关(APP关闭RTC拉流)
+        console.log('[ onGameMGCommonSelfHeadphone isOn ] >', isOn)
+        if (isOn) {
+          // 开启RTC推流
+          console.log('onGameMGCommonSelfHeadphone[ open rtc ] >')
+          // 业务按自身rtc方案自行实现推拉流逻辑
+        } else {
+          // 关闭RTC推流
+          console.log('onGameMGCommonSelfHeadphone[ close rtc ] >')
+        }
+        ISudFSMStateHandleUtils.handleSuccess(handle)
+      },
+      // 游戏发送“开启/关闭 RTC推流”状态，允许/禁止玩家发言
+      onGameMGCommonSelfMicrophone(handle, mgCommonSelfMicrophoneData) {
+        const isOn = mgCommonSelfMicrophoneData.isOn // 麦开关状态 true: 开(APP开启RTC拉流)；false: 关(APP关闭RTC拉流)
+        console.log('[ onGameMGCommonSelfMicrophone isOn ] >', isOn)
+        if (isOn) {
+          // 开启RTC推流
+          console.log('onGameMGCommonSelfMicrophone[ open rtc ] >')
+          // 业务按自身rtc方案自行实现推拉流逻辑
+        } else {
+          // 关闭RTC推流
+          console.log('onGameMGCommonSelfMicrophone[ close rtc ] >')
+        }
+        ISudFSMStateHandleUtils.handleSuccess(handle)
       },
       ...customSudFSMMGListener// 外部传入自定义listener可覆盖
     })
