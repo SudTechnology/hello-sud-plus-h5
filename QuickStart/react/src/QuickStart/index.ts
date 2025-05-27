@@ -264,11 +264,11 @@ export class SDKGameView {
         console.log('[ onGameMGCommonSelfHeadphone isOn ] >', isOn)
         if (isOn) {
           // 开启RTC推流
-          console.log('onGameMGCommonSelfHeadphone[ open rtc ] >')
+          console.log('onGameMGCommonSelfHeadphone[ open rtc ]')
           // 业务按自身rtc方案自行实现推拉流逻辑
         } else {
           // 关闭RTC推流
-          console.log('onGameMGCommonSelfHeadphone[ close rtc ] >')
+          console.log('onGameMGCommonSelfHeadphone[ close rtc ]')
         }
         ISudFSMStateHandleUtils.handleSuccess(handle)
       },
@@ -278,11 +278,11 @@ export class SDKGameView {
         console.log('[ onGameMGCommonSelfMicrophone isOn ] >', isOn)
         if (isOn) {
           // 开启RTC推流
-          console.log('onGameMGCommonSelfMicrophone[ open rtc ] >')
+          console.log('onGameMGCommonSelfMicrophone[ open rtc ]')
           // 业务按自身rtc方案自行实现推拉流逻辑
         } else {
           // 关闭RTC推流
-          console.log('onGameMGCommonSelfMicrophone[ close rtc ] >')
+          console.log('onGameMGCommonSelfMicrophone[ close rtc ]')
         }
         ISudFSMStateHandleUtils.handleSuccess(handle)
       },
