@@ -261,28 +261,28 @@ export class SDKGameView {
       // 游戏发送“开启/关闭 RTC拉流”状态，允许/禁止收听其他玩家发言
       onGameMGCommonSelfHeadphone(handle, mgCommonSelfHeadphoneData) {
         const isOn = mgCommonSelfHeadphoneData.isOn // 耳机（听筒，喇叭）开关状态 true: 开(APP开启RTC拉流)；false: 关(APP关闭RTC拉流)
-        console.log('[ onGameMGCommonSelfHeadphone isOn ] >', isOn)
+        console.log('[ onGameMGCommonSelfHeadphone data ] >', mgCommonSelfHeadphoneData)
         if (isOn) {
-          // 开启RTC推流
-          console.log('onGameMGCommonSelfHeadphone[ open rtc ]')
-          // 业务按自身rtc方案自行实现推拉流逻辑
+          // 开启RTC拉流
+          console.log('onGameMGCommonSelfHeadphone[ pull rtc ]')
+          // 业务按自身rtc方案自行实现拉流逻辑
         } else {
-          // 关闭RTC推流
-          console.log('onGameMGCommonSelfHeadphone[ close rtc ]')
+          // 关闭RTC拉流
+          console.log('onGameMGCommonSelfHeadphone[ close pull rtc ]')
         }
         ISudFSMStateHandleUtils.handleSuccess(handle)
       },
       // 游戏发送“开启/关闭 RTC推流”状态，允许/禁止玩家发言
       onGameMGCommonSelfMicrophone(handle, mgCommonSelfMicrophoneData) {
-        const isOn = mgCommonSelfMicrophoneData.isOn // 麦开关状态 true: 开(APP开启RTC拉流)；false: 关(APP关闭RTC拉流)
-        console.log('[ onGameMGCommonSelfMicrophone isOn ] >', isOn)
+        const isOn = mgCommonSelfMicrophoneData.isOn // 麦开关状态 true: 开(APP开启RTC推流)；false: 关(APP关闭RTC推流)
+        console.log('[ onGameMGCommonSelfMicrophone data ] >', mgCommonSelfMicrophoneData)
         if (isOn) {
           // 开启RTC推流
-          console.log('onGameMGCommonSelfMicrophone[ open rtc ]')
-          // 业务按自身rtc方案自行实现推拉流逻辑
+          console.log('onGameMGCommonSelfMicrophone[ open push rtc ]')
+          // 业务按自身rtc方案自行实现推流逻辑
         } else {
           // 关闭RTC推流
-          console.log('onGameMGCommonSelfMicrophone[ close rtc ]')
+          console.log('onGameMGCommonSelfMicrophone[ close push rtc ]')
         }
         ISudFSMStateHandleUtils.handleSuccess(handle)
       },
