@@ -1,4 +1,4 @@
-import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper'
+import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudmgp-sdk-js-wrapper'
 import { SudMGP } from 'sudmgp-sdk-js'
 import { getCode } from 'api/login' // 短期令牌code接口
 import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
@@ -42,7 +42,7 @@ export class SDKGameView {
   public SudMGP_APP_KEY = '03pNxK2lEXsKiiwrBQ9GbH541Fk2Sfnc'// '1461564080052506636' //"E9Lj2Cg61pUgiSESou6WDtxntoTXH7Gf"
 
   /** true 加载游戏时为测试环境 false 加载游戏时为生产环境 */
-  public GAME_IS_TEST_ENV = process.env.REACT_APP_ENV !== 'production'
+  public GAME_IS_TEST_ENV = false // process.env.REACT_APP_ENV !== 'production'
 
   // app调用sdk的封装类
   public sudFSTAPPDecorator = new SudFSTAPPDecorator()
@@ -219,6 +219,38 @@ export class SDKGameView {
         config.ui.join_btn.custom = true
         handle.success(JSON.stringify(config))
       },
+      /*
+      * 《狼人杀》&《谁是卧底》RTC 接入部分
+      */
+      // 游戏发送“开启/关闭 RTC拉流”状态，允许/禁止收听其他玩家发言
+      onGameMGCommonSelfHeadphone(handle, mgCommonSelfHeadphoneData) {
+        const isOn = mgCommonSelfHeadphoneData.isOn // 耳机（听筒，喇叭）开关状态 true: 开(APP开启RTC拉流)；false: 关(APP关闭RTC拉流)
+        console.log('[ onGameMGCommonSelfHeadphone data ] >', mgCommonSelfHeadphoneData)
+        if (isOn) {
+          // 开启RTC拉流
+          console.log('onGameMGCommonSelfHeadphone[ pull rtc ]')
+          // 业务按自身rtc方案自行实现拉流逻辑
+        } else {
+          // 关闭RTC拉流
+          console.log('onGameMGCommonSelfHeadphone[ close pull rtc ]')
+        }
+        ISudFSMStateHandleUtils.handleSuccess(handle)
+      },
+      // 游戏发送“开启/关闭 RTC推流”状态，允许/禁止玩家发言
+      onGameMGCommonSelfMicrophone(handle, mgCommonSelfMicrophoneData) {
+        const isOn = mgCommonSelfMicrophoneData.isOn // 麦开关状态 true: 开(APP开启RTC推流)；false: 关(APP关闭RTC推流)
+        console.log('[ onGameMGCommonSelfMicrophone data ] >', mgCommonSelfMicrophoneData)
+        if (isOn) {
+          // 开启RTC推流
+          console.log('onGameMGCommonSelfMicrophone[ open push rtc ]')
+          // 业务按自身rtc方案自行实现推流逻辑
+        } else {
+          // 关闭RTC推流
+          console.log('onGameMGCommonSelfMicrophone[ close push rtc ]')
+        }
+        ISudFSMStateHandleUtils.handleSuccess(handle)
+      },
+
       ...customSudFSMMGListener// 外部传入自定义listener可覆盖
     })
     console.log(userId, gameRoomId, code, gameId, language, this.sudFSMMGDecorator)
