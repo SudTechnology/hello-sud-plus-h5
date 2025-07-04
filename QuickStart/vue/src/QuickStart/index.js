@@ -127,11 +127,46 @@ export class SDKGameView {
         console.log('game started')
         self.gameIsStarted = true
       },
-      onGameCustomerStateChange (handle, state, dataJson) {
-        console.log('======onGameCustomerStateChange====', 'state', state, JSON.stringify(dataJson))
+      onGameCustomerStateChange (handle, state, data) {
+        console.log('======onGameCustomerStateChange====', 'state', state, data)
         switch (state) {
-          case 'mg_common_click_user_profile':
-            console.log('handle mg_common_click_user_profile')
+          case 'mg_avatar_get_avatar':
+            console.log('mg_avatar_get_avatar')
+            // handle.success(JSON.stringify({ gender: "Male", avatar: "Role_Male_T19_Hair_01_M_Face_01_T_T19_UB_01_M_T19_LB_01_M_T19_Shoe_01_M" }))
+            handle.success(JSON.stringify({ gender: 'Male', avatar: '' }))
+            break
+          case 'mg_common_game_create_order':
+            /// https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html => 25
+            // 创建订单处理
+            const { cmd } = data
+            // 根据cmd值处理不同游戏的付费点
+            console.log('[ mg_common_game_create_order cmd ] >', cmd)
+            // TODO：根据data的数据，请求业务方后端服务查询是否允许使用付费点
+            // 以下为模拟请求代码，按此流程操作即可
+            // const orderData = {
+            //   room_id: self.gameRoomId,
+            //   cmd: data.cmd,
+            //   value: data.value,
+            //   payload: data.payload
+            // }
+            // createOrder：模拟接口请求函数，业务放自行实现该处接口
+            // createOrder(orderData).then((res) => {
+            //   console.log('[ res createOrder success ] >', res)
+            //   // 通知游戏创建订单结果
+            //   // 创建成功，sdk调用api通知游戏
+            //   self.sudFSTAPPDecorator.notifyAPPCommon('app_common_game_create_order_result', JSON.stringify({ result: 1 }), {
+            //     onSuccess: () => {
+            //     },
+            //     onFailure: () => {}
+            //   })
+            // }).catch(() => {
+            //   console.log('[ error createOrder fail ] >')
+            //   // 创建订单失败
+            //   self.sudFSTAPPDecorator.notifyAPPCommon('app_common_game_create_order_result', JSON.stringify({ result: 0 }), {
+            //     onSuccess: () => {},
+            //     onFailure: () => {}
+            //   })
+            // })
             break
         }
       },
@@ -178,15 +213,20 @@ export class SDKGameView {
 
         handle.success(JSON.stringify(gameViewInfo))
       },
+      // 监听加入按钮事件
       onGameMGCommonSelfClickJoinBtn (handle, res) {
         console.log('[ onGameMGCommonSelfClickJoinBtn ] >', handle, res)
         handle.success(JSON.stringify(res))
+        // 在此处可以根据业务方的需求进行逻辑处理，例如，加入游戏扣积分等等，在处理完成后，需要手动调用 self.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true) 用sdk来调用加入游戏
+        // sdk调用api，让玩家加入游戏
         self.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true)
       },
       onGetGameCfg (handle, dataJson) {
+        // 游戏配置，ui相关事件监听 https://docs.sud.tech/zh-CN/app/Client/API/ISudFSMMG/onGetGameCfg.html
         const config = new GameConfigModel()
+        // 如： 配置监听加入按钮（config.ui.join_btn），当监听配置后，游戏默认加入操作会无效，此时需要找到对应事件进行监听如这里onGameMGCommonSelfClickJoinBtn需要监听加入按钮事件
         // config.ui.join_btn.custom = true
-        // config.ui.join_btn.hide = true
+        // config.ui.join_btn.hide = true // 配置隐藏加入按钮
 
         handle.success(JSON.stringify(config))
       },

@@ -34,6 +34,7 @@ module.exports = {
     'no-new': 0,
     quotes: 0,
     'no-use-before-define': 'off',
+    'no-case-declarations': 'off',
     '@typescript-eslint/no-use-before-define': 'off'
   }
 }

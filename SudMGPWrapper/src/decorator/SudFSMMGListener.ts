@@ -76,7 +76,7 @@ export class SudFSMMGListener implements Partial<ISudFSMMGListener> {
   }
 
   // 自定义处理游戏状态
-  onGameCustomerStateChange?(handle: ISudFSMStateHandle, state: string, dataJson: string):void {
+  onGameCustomerStateChange?(handle: ISudFSMStateHandle, state: string, dataJson: any):void {
     ISudFSMStateHandleUtils.handleSuccess(handle)
   }
 
