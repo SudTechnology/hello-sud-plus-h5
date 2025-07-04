@@ -1,6 +1,6 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudmgp-sdk-js-wrapper'
-// import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from 'sudmgp-sdk-js-wrapper-test'
-// import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener } from '../SudMGP/SudMGPWrapper/lib'
+// import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudmgp-sdk-js-wrapper-test'
+// import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from '../SudMGP/SudMGPWrapper/lib'
 import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
 import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
 
@@ -168,8 +168,8 @@ export class SDKGameView {
         console.log('game started')
         self.gameIsStarted = true
       },
-      onGameCustomerStateChange(handle, state, dataJson) {
-        console.log('======onGameCustomerStateChange====', 'state', state, dataJson)
+      onGameCustomerStateChange(handle, state, data) {
+        console.log('======onGameCustomerStateChange====', 'state', state, data)
         switch (state) {
           case 'mg_common_click_user_profile':
             console.log('handle mg_common_click_user_profile')

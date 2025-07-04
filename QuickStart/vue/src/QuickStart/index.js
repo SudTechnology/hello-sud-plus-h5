@@ -121,8 +121,8 @@ export class SDKGameView {
       onGameStarted () {
         console.log('start')
       },
-      onGameCustomerStateChange (handle, state, dataJson) {
-        console.log('======onGameCustomerStateChange====', 'state', state, JSON.stringify(dataJson))
+      onGameCustomerStateChange (handle, state, data) {
+        console.log('======onGameCustomerStateChange====', 'state', state, data)
         switch (state) {
           case 'mg_common_click_user_profile':
             console.log('handle mg_common_click_user_profile')
