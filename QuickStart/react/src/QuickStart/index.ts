@@ -1,11 +1,11 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudmgp-sdk-js-wrapper'
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudmgp-sdk-js-wrapper-test'
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from '../SudMGP/SudMGPWrapper/lib'
-import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
-import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
+// import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
+// import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
 
-// import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
-// import { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
+import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
+import { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
 
 // @ts-ignore
 // import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
@@ -13,6 +13,7 @@ import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
 import { appMap } from '../data/app'
+
 const SudMGPSDK = SudMGP as ISudMGP
 interface IInitSDKParam {
   userId: string,
@@ -139,6 +140,13 @@ export class SDKGameView {
     const self = this
     const version = SudMGPSDK.getVersion()
     console.log('[ version ] >', version)
+    // 监测是否支持webgl，不支持的无法加载游戏
+    const isSupported = SudMGPSDK.isWebGLAvailable()
+    console.log('[ isSupported ] >', isSupported)
+
+    // 开启游戏debug上报
+    SudMGPSDK.getSudCfg().getAdvancedConfigMap().set('enable_debug_game_log', true)
+
     SudMGPSDK.initSDK(appId, appKey, bundleId, isTestEnv, {
       onSuccess() {
         self.loadGame({ userId, code })
@@ -169,7 +177,7 @@ export class SDKGameView {
         self.gameIsStarted = true
       },
       onGameCustomerStateChange(handle, state, data) {
-        console.log('======onGameCustomerStateChange====', 'state', state, data)
+        // console.log('======onGameCustomerStateChange====', 'state', state, data)
         switch (state) {
           case 'mg_common_click_user_profile':
             console.log('handle mg_common_click_user_profile')
@@ -196,8 +204,9 @@ export class SDKGameView {
       onGameMGCommonPlayerRoleId(handle, dataJson) {
         console.log('[ onGameMGCommonPlayerRoleId ] >', dataJson)
       },
-      onGameLog(dataJson) {
-        console.log('=======sud h5 onGameLog======= ', dataJson)
+      onGameLog(dataJson: any) {
+        // logs.push(dataJson)
+        console.log('=======Sud game onGameLog======= ', ...dataJson)
       },
       onGetGameViewInfo: function (handle: ISudFSMStateHandle, dataJson: string): void {
         let width = self.root.clientWidth
