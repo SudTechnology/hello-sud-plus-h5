@@ -4,12 +4,12 @@ import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListene
 // import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
 // import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
 
-import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
-import { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
+// import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
+// import { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
 
 // @ts-ignore
-// import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
-// import type { ISudMGP, ISudFSTAPP } from '../SudMGP/SudMGP/lib/type'
+import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
+import type { ISudMGP, ISudFSTAPP } from '../SudMGP/SudMGP/lib/type'
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
 import { appMap } from '../data/app'
@@ -145,7 +145,7 @@ export class SDKGameView {
     console.log('[ isSupported ] >', isSupported)
 
     // 开启游戏debug上报
-    SudMGPSDK.getSudCfg().getAdvancedConfigMap().set('enable_debug_game_log', true)
+    // SudMGPSDK.getSudCfg().getAdvancedConfigMap().set('enable_debug_game_log', true)
 
     SudMGPSDK.initSDK(appId, appKey, bundleId, isTestEnv, {
       onSuccess() {
@@ -175,6 +175,7 @@ export class SDKGameView {
       onGameStarted() {
         console.log('game started')
         self.gameIsStarted = true
+        self.customSudFSMMGListener && self.customSudFSMMGListener.onGameStarted && self.customSudFSMMGListener.onGameStarted()
       },
       onGameCustomerStateChange(handle, state, data) {
         // console.log('======onGameCustomerStateChange====', 'state', state, data)

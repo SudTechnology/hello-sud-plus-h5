@@ -2,20 +2,23 @@ import React, { useState } from 'react'
 import styles from './index.module.less'
 import classnames from 'classnames/bind'
 import { useHome } from 'hooks/useHome'
-import { Input, Form } from 'antd-mobile'
+import { Input, Form, Switch } from 'antd-mobile'
+import LLMBotIcon from 'assets/llm.png'
 const cx = classnames.bind(styles)
 
 const Home = () => {
   const [env, setEnv] = useState(Number(localStorage.getItem('env')) || 3)
   const [appId, setAppId] = useState(localStorage.getItem('localAppId') || '1461564080052506636')
+  const [llmbot, setLlmbot] = useState(!!localStorage.getItem('llmbot'))
 
   const { list } = useHome()
   const [form] = Form.useForm()
 
   const toPath = (item: any) => {
     const values = form.getFieldsValue()
+    const basePath = (item.llmbot && llmbot) ? '/llmbot' : '/game'
     console.log('[ values ] >', values)
-    let url = `/game/${item.sceneId}?orientation=${item.orientation}`
+    let url = `${basePath}/${item.sceneId}?orientation=${item.orientation}`
     if (values.roomId) {
       url += `&roomId=${values.roomId}`
     }
@@ -75,8 +78,18 @@ const Home = () => {
           <option value={'1461564080052506636'}>1461564080052506636</option>
           <option value={'1486637108889305089'}>1486637108889305089</option>
           <option value={'1658379102832939010'}>1658379102832939010</option>
-
         </select>
+      </div>
+      <div className={cx('form-item')}>
+        <label className={cx('form-item-lable')}>LLMBOT: </label>
+         <Switch
+            checked={llmbot}
+            onChange={async val => {
+              localStorage.setItem('llmbot', val ? '1' : '')
+              setLlmbot(val)
+            }}
+          />
+          <span>启用后，如果游戏有llmbot功能会进入llmbot的路由</span>
       </div>
       {/* 游戏列表 */}
       <div className={cx('game-list')}>
@@ -84,6 +97,9 @@ const Home = () => {
           list.map((item: any) => {
             return (
               <a onClick={() => toPath(item)} key={item.sceneId} className={cx('game-item')}>
+                {
+                  item.llmbot && <img className={cx('llmbot-game')} src={LLMBotIcon} alt="" />
+                }
                 <img className={cx('game-logo')} src={item.scenePic} alt="" />
                 <div className={cx('game-title')}>{item.sceneName}</div>
               </a>

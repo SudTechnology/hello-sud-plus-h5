@@ -150,9 +150,7 @@
 				"screenMode": 0,
 				"price": "0.00",
 				"durationPrice": "0.0000",
-				"lastModifyId": "1528932377258201090",
-				"gmtCreated": "2022-07-22 15:28:03",
-				"gmtModify": "2022-07-22 15:28:03"
+				"lastModifyId": "1528932377258201090"
 			},
       {
 				"sceneName": "你画我猜",
@@ -194,11 +192,9 @@
 				"description": "",
 				"orientation": 1,
 				"screenMode": 0,
-				"price": "0.00",
-				"durationPrice": "0.0000",
-				"lastModifyId": "1528932377258201090",
-				"gmtCreated": "2022-07-22 15:28:03",
-				"gmtModify": "2022-07-22 15:28:03"
+				"llmbot": true
+
+
 			},
       {
 				"sceneName": "碰碰我最强",

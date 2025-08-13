@@ -10,7 +10,7 @@ const cx = classnames.bind(styles)
 const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
   const SudSDK = props.SudSDK as SDKGameView
   const customActionHook = useCustomApi(SudSDK)
-  const [showAction, setShowAction] = useState(true) // 显示隐藏自定义的操作按钮
+  const [showAction, setShowAction] = useState(false) // 显示隐藏自定义的操作按钮
   const [visible, setVisible] = useState(false)
   const [visibleGameInfo, setVisibleGameInfo] = useState(false)
   const [visibleShiftUser, setVisibleShiftUser] = useState(false)
@@ -119,36 +119,41 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
   return (
     <div>
       <div className={cx('info')}>屏幕参数 view_size: width: {window.innerWidth}px ,height:{window.innerHeight}px</div>
-      {
-        showAction && <>
-          <div className={cx('action-btn')}>
-            <button onClick={() => setVisibleGameSetting(true)}>Game Cfg 配置</button>
-            <button onClick={() => setVisibleViewSize(true)}>Game ViewInfo</button>
+      <Popup
+        visible={showAction}
+        onMaskClick={() => {
+          setShowAction(false)
+        }}
+        position='right'
+        bodyStyle={{ width: '40vw', overflow: 'auto' }}
+        >
+      <div className={cx('action-btn')}>
+        <button onClick={() => setVisibleGameSetting(true)}>Game Cfg 配置</button>
+        <button onClick={() => setVisibleViewSize(true)}>Game ViewInfo</button>
 
-            <button onClick={() => setVisibleGameInfo(true)}>设置游戏玩法</button>
-            <button onClick={() => setVisible(true)}>设置AI玩家</button>
+        <button onClick={() => setVisibleGameInfo(true)}>设置游戏玩法</button>
+        <button onClick={() => setVisible(true)}>设置AI玩家</button>
 
-            <button onClick={customActionHook.userSelfQuickGame}>玩家自己退出游戏</button>
-            <button onClick={customActionHook.pushAIPlayer}>自动添加AI玩家</button>
-            <button onClick={customActionHook.closeBgMusic}>关闭背景音乐</button>
-            <button onClick={customActionHook.closeMusic}>关闭音效</button>
+        <button onClick={customActionHook.userSelfQuickGame}>玩家自己退出游戏</button>
+        <button onClick={customActionHook.pushAIPlayer}>自动添加AI玩家</button>
+        <button onClick={customActionHook.closeBgMusic}>关闭背景音乐</button>
+        <button onClick={customActionHook.closeMusic}>关闭音效</button>
 
-            <button onClick={() => setvisibleVolume(true)}>调节游戏音量</button>
-            <button onClick={() => setVisibleShiftUser(true)}>踢人</button>
-            <button onClick={() => setGameReconncet()}>通知重连</button>
-            <button onClick={() => setVisibleCustomMsg(true)}>自定义消息</button>
+        <button onClick={() => setvisibleVolume(true)}>调节游戏音量</button>
+        <button onClick={() => setVisibleShiftUser(true)}>踢人</button>
+        <button onClick={() => setGameReconncet()}>通知重连</button>
+        <button onClick={() => setVisibleCustomMsg(true)}>自定义消息</button>
 
-            <button onClick={customActionHook.quitGame}>退出游戏</button>
-            <button onClick={customActionHook.joinGame}>加入游戏</button>
-            <button onClick={customActionHook.readyGame}>准备</button>
-            <button onClick={customActionHook.cancelReadyGame}>取消准备</button>
-            <button onClick={customActionHook.startGame}>开始游戏</button>
-          </div>
-        </>
-      }
+        <button onClick={customActionHook.quitGame}>退出游戏</button>
+        <button onClick={customActionHook.joinGame}>加入游戏</button>
+        <button onClick={customActionHook.readyGame}>准备</button>
+        <button onClick={customActionHook.cancelReadyGame}>取消准备</button>
+        <button onClick={customActionHook.startGame}>开始游戏</button>
+      </div>
+      </Popup>
       <div className={cx('action-control')}>
-        <button onClick={() => setShowAction(false)}>隐藏按钮</button>
-        <button onClick={() => setShowAction(true)}>显示按钮</button>
+        {/* <button onClick={() => setShowAction(false)}>隐藏</button> */}
+        <button onClick={() => setShowAction(true)}>显示</button>
       </div>
       <GameSetting
         onClose={() => setVisibleGameSetting(false)}
