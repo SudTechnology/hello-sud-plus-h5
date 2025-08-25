@@ -7,7 +7,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom'
 import { getQueryParam } from 'utils'
 import { Modal } from 'antd-mobile'
 import { IMGCommonGameBackLobby } from "sudmgp-sdk-js-wrapper/state/ISudMGPMGState"
-import CustomAction from './CustomAction'
+// import CustomAction from './CustomAction'
 import { AudioOutline, AudioMutedOutline } from 'antd-mobile-icons'
 import { Asr } from 'utils/asr'
 interface IProps extends RouteComponentProps {
@@ -102,7 +102,7 @@ const GameDetail = (props: IProps) => {
         {/* game 容器 */}
         <img src={Close} onClick={destory} alt="" className={cx('close')} />
         <div id='game' className={cx('game-wrap')}></div>
-        <CustomAction SudSDK={SudSDK} />
+        {/* <CustomAction SudSDK={SudSDK} /> */}
         <div className={cx('mic')}>
           {
             openMic ? <AudioOutline className={cx('icon')} color="#fff" onClick={() => setMic(false)} /> : <AudioMutedOutline className={cx('icon')} color="#fff" onClick={() => setMic(true)} />

@@ -18,7 +18,7 @@ const Home = () => {
     const values = form.getFieldsValue()
     const basePath = (item.llmbot && llmbot) ? '/llmbot' : '/game'
     console.log('[ values ] >', values)
-    let url = `${basePath}/${item.sceneId}?orientation=${item.orientation}`
+    let url = `${basePath}/${item.mgId}?orientation=${item.orientation}`
     if (values.roomId) {
       url += `&roomId=${values.roomId}`
     }
@@ -59,7 +59,7 @@ const Home = () => {
             <Input placeholder='请输入语言值value' clearable />
           </Form.Item>
           <Form.Item label='userId' name='userId'>
-            <Input clearable />
+            <Input clearable placeholder='请输入userId' />
           </Form.Item>
         </Form>
       </div>
@@ -96,9 +96,9 @@ const Home = () => {
         {
           list.map((item: any) => {
             return (
-              <a onClick={() => toPath(item)} key={item.sceneId} className={cx('game-item')}>
+              <a onClick={() => toPath(item)} key={item.mgId} className={cx('game-item')}>
                 {
-                  item.llmbot && <img className={cx('llmbot-game')} src={LLMBotIcon} alt="" />
+                  item.llmbot && <span className={cx('llmbot')}><img className={cx('llmbot-game')} src={LLMBotIcon} alt="" /></span>
                 }
                 <img className={cx('game-logo')} src={item.scenePic} alt="" />
                 <div className={cx('game-title')}>{item.sceneName}</div>

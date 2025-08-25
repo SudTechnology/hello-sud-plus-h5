@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react'
 import { LabASR } from 'byted-ailab-speech-sdk'
-// import { getToken } from './helper'
+import { getToken } from './helper'
 import { buildFullUrl } from './helps'
 const ASRStory = () => {
   const [header, setHeader] = useState('')
@@ -25,10 +25,10 @@ const ASRStory = () => {
   const startASR = async () => {
     recordStopping.current = false
     const appid = '3341568023'
-    // const accessKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiMzM0MTU2ODAyMyJdLCJleHAiOjE3NTM4NzA4MTF9.1YiRXfEdfvkBNrw_xLAfwqz2yYTg7igqugXxJfqDl-0'
+    const accessKey = 'hUtO_ALXgAAZo6hhD6q6JjrVdJ3Katvq' // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiMzM0MTU2ODAyMyJdLCJleHAiOjE3NTM4NzA4MTF9.1YiRXfEdfvkBNrw_xLAfwqz2yYTg7igqugXxJfqDl-0'
     const auth: Record<string, string> = {}
     // 小模型
-    // const token = await getToken(appid, accessKey)
+    const token = await getToken(appid, accessKey)
     // if (token) {
     //   auth.api_jwt = token
     // }
@@ -60,12 +60,13 @@ const ASRStory = () => {
     //   }
     // }
     // 大模型
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiMzM0MTU2ODAyMyJdLCJleHAiOjE3NTM4NzA4MTF9.1YiRXfEdfvkBNrw_xLAfwqz2yYTg7igqugXxJfqDl-0'
+    // const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiMzM0MTU2ODAyMyJdLCJleHAiOjE3NTM4NzA4MTF9.1YiRXfEdfvkBNrw_xLAfwqz2yYTg7igqugXxJfqDl-0'
     if (token) {
       auth.api_resource_id = 'volc.bigasr.sauc.duration'
       auth.api_app_key = appid
       auth.api_access_key = `Jwt; ${token}`
     }
+    console.log('[ auth ] >', auth)
     const fullUrl = buildFullUrl(`wss://openspeech.bytedance.com/api/v3/sauc/bigmodel`, auth)
     const params = {
       url: fullUrl,

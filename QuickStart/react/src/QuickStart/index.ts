@@ -190,6 +190,7 @@ export class SDKGameView {
 
             break
         }
+        self.customSudFSMMGListener?.onGameCustomerStateChange && self.customSudFSMMGListener?.onGameCustomerStateChange(handle, state, data)
       },
       // 监听玩家状态改变
       onPlayerMGCommonPlayerIn(handle, userId, model) {
@@ -343,6 +344,6 @@ export class SDKGameView {
 
   // 根据域名生成bundleId
   public getBundleId() {
-    return location.hostname
+    return 'localhost'// location.hostname
   }
 }

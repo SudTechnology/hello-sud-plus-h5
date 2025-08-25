@@ -153,7 +153,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
       </Popup>
       <div className={cx('action-control')}>
         {/* <button onClick={() => setShowAction(false)}>隐藏</button> */}
-        <button onClick={() => setShowAction(true)}>显示</button>
+        <button onClick={() => setShowAction(true)}>调试</button>
       </div>
       <GameSetting
         onClose={() => setVisibleGameSetting(false)}

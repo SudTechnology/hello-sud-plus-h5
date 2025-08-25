@@ -12,6 +12,6 @@ export async function getToken(appId: string, accessKey: string) {
     })
   })
     .then(res => res.json())
-    .then(res => res.jwt_token)
+    .then(res => res.data.token)
   return result
 }

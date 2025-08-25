@@ -8,8 +8,8 @@ import { getQueryParam } from 'utils'
 import { Modal, Input } from 'antd-mobile'
 import { IMGCommonGameBackLobby } from "sudmgp-sdk-js-wrapper/state/ISudMGPMGState"
 import CustomAction from 'mobile/GameDetail/CustomAction'
-import { AudioOutline, AudioMutedOutline, TravelOutline } from 'antd-mobile-icons'
-import { Asr } from 'utils/asr'
+import { AudioOutline, AudioMutedOutline, TravelOutline, PlayOutline } from 'antd-mobile-icons'
+import { Recorder } from './rtc'
 interface IProps extends RouteComponentProps {
 
 }
@@ -35,7 +35,7 @@ const GameDetail = (props: IProps) => {
     }, 1000)
   }
 
-  const { contentInnerRef, contentRef, SudSDK, sendText, addAiBot, aiUserContentList } = useLLMbot(params.id || '', roomId || (params.id || ''), language || 'zh-CN', userId, goBack)
+  const { realUserId, setUserAudioPlayState, contentInnerRef, contentRef, SudSDK, sendText, addAiBot, aiAgent, aiUserContentList } = useLLMbot(params.id || '', roomId || (params.id || ''), language || 'zh-CN', userId, goBack)
 
   const destory = () => {
     confirm({
@@ -48,17 +48,27 @@ const GameDetail = (props: IProps) => {
     })
   }
 
-  const setMic = (type: boolean) => {
+  const setMic = async (type: boolean) => {
     setOpenMic(type)
     if (type) {
-      Asr.startRecord({
-        onProcess(buffer, dataLength) {
-          SudSDK?.sudFSTAPPDecorator.pushAudio(buffer, dataLength)
-        }
+      // 开启rtc
+      Recorder.startRecord((pcm, length) => {
+        setUserAudioPlayState(realUserId!, { state: 1, uid: realUserId! })
+        aiAgent?.pushAudio(pcm as any, length)
       })
     } else {
-      Asr.stop()
+      Recorder.stopRecord(() => {
+        setUserAudioPlayState(realUserId!, { state: 0, uid: realUserId! })
+        aiAgent?.stopAudio()
+      })
     }
+  }
+  const pause = () => {
+    Recorder.pauseRecord()
+    setUserAudioPlayState(realUserId!, { state: 0, uid: realUserId! })
+    aiAgent && aiAgent.pauseAudio()
+    // 同步关麦
+    setOpenMic(false)
   }
 
   const sendToAiText = () => {
@@ -68,7 +78,7 @@ const GameDetail = (props: IProps) => {
   }
 
   return (
-    <div className={cx('container')}>
+    <div className={cx('container')} >
       <div className={cx('game-container')}>
         {/* game 容器 */}
         <img src={Close} onClick={destory} alt="" className={cx('close')} />
@@ -88,12 +98,16 @@ const GameDetail = (props: IProps) => {
         <div className={cx('button-bar')}>
           <button onClick={addAiBot}>ai bot</button>
         </div>
+        <div className={cx('asr-status')}>asr {Recorder.pause ? '暂停了' : Recorder.stop ? '停止了' : '识别中'}</div>
+
         <div className={cx('action-bar')}>
           <Input value={text} onChange={(val) => setText(val)} className={cx('input')} placeholder='请输入内容' clearable />
           <TravelOutline onClick={sendToAiText} className={cx('icon')} color="#fff"/>
           {
             openMic ? <AudioOutline className={cx('icon')} color="#fff" onClick={() => setMic(false)} /> : <AudioMutedOutline className={cx('icon')} color="#fff" onClick={() => setMic(true)} />
           }
+          {/* 暂停语音识别 */}
+          <PlayOutline className={cx('icon')} color="#fff" onClick={pause} />
         </div>
       </div>
     </div>
