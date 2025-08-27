@@ -1,6 +1,8 @@
 import { SDKGameView } from "QuickStart"
 import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react"
 import { ISudAiAgent, IModelAIPlayers } from "sudmgp-sdk-js-test/type"
+import { faker } from '@faker-js/faker'
+
 interface IAiModel {
   aiPlayers: IModelAIPlayers[]
   isReady: number
@@ -213,7 +215,8 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
         {
           userId: aiuId, // 玩家id
           avatar: `https://dev-sud-static.sudden.ltd/avatar/${avatar}.jpg`, // 头像url
-          name: `ai-${aiuId}`, // 名字
+          // @ts-ignore
+          name: `${faker.person.firstName()}`, // 名字
           gender: 'male', // 性别 male：男，female：女
           aiId: Math.floor(Math.random() * 275) + 1 // 随机一个ai性格 目前支持1~370
         }
