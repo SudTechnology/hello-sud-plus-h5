@@ -144,7 +144,9 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
                     // 播放结束，更新uid的播放状态
                     setUserAudioPlayState(parseData.uid, { state: 0, uid: parseData.uid })
                   })
-                  audio.play().catch(e => console.error("播放失败:", e))
+
+                  audio.oncanplaythrough = () => audio.play().catch(e => console.error("播放失败:", e))
+                  audio.onerror = (e) => console.error("音频加载失败", e)
                   const list = aiUserContentList
                   list.push(parseData)
                   setAiUserContentList([...list])
