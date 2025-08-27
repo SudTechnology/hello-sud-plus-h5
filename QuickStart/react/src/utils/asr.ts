@@ -26,4 +26,8 @@ export class Asr {
     this.recorder.stop()
     console.log('[ 关闭recorder ]')
   }
+
+  public static pause() {
+    this.recorder.pause()
+  }
 }

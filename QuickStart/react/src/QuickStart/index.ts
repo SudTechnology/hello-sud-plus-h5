@@ -145,7 +145,7 @@ export class SDKGameView {
     console.log('[ isSupported ] >', isSupported)
 
     // 开启游戏debug上报
-    SudMGPSDK.getSudCfg().getAdvancedConfigMap().set('enable_debug_game_log', true)
+    // SudMGPSDK.getSudCfg().getAdvancedConfigMap().set('enable_debug_game_log', true)
 
     SudMGPSDK.initSDK(appId, appKey, bundleId, isTestEnv, {
       onSuccess() {
@@ -175,6 +175,7 @@ export class SDKGameView {
       onGameStarted() {
         console.log('game started')
         self.gameIsStarted = true
+        self.customSudFSMMGListener && self.customSudFSMMGListener.onGameStarted && self.customSudFSMMGListener.onGameStarted()
       },
       onGameCustomerStateChange(handle, state, data) {
         // console.log('======onGameCustomerStateChange====', 'state', state, data)
@@ -189,6 +190,7 @@ export class SDKGameView {
 
             break
         }
+        self.customSudFSMMGListener?.onGameCustomerStateChange && self.customSudFSMMGListener?.onGameCustomerStateChange(handle, state, data)
       },
       // 监听玩家状态改变
       onPlayerMGCommonPlayerIn(handle, userId, model) {
@@ -342,6 +344,6 @@ export class SDKGameView {
 
   // 根据域名生成bundleId
   public getBundleId() {
-    return location.hostname
+    return 'localhost'// location.hostname
   }
 }

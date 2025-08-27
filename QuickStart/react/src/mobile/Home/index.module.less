@@ -18,9 +18,23 @@
   flex-wrap: wrap;
   padding-bottom: 40px;
   .game-item {
-    // display: inline-block;
+    position: relative;
     margin-right: 1.6vw;
     margin-top: 20px;
+  }
+  .llmbot {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    z-index: 22;
+    background-color: #000000;
+    padding: 0 5px;
+    width: 70px;
+    border-radius: 20px;
+  }
+  .llmbot-game {
+    width: 100%;
+    height: auto;
   }
   .game-item:nth-child(2n) {
     margin-right: 0;
@@ -46,10 +60,18 @@
 
 .form-item {
   margin-top: 6px;
+  display: flex;
   .form-item-lable {
-    width: 60px;
+    width: 80px;
     font-size: 16px;
     margin-left: 16px;
-    display: inline-block;
+  }
+}
+
+.tabs {
+  :global {
+    .adm-tabs-content {
+      --content-padding: 0;
+    }
   }
 }

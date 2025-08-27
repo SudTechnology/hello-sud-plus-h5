@@ -220,6 +220,7 @@ class Recorder {
     pause(): void {
       if (this.isrecording && !this.ispause) {
         this.ispause = true
+        this.stopStream()
       }
     }
 
@@ -243,6 +244,8 @@ class Recorder {
       this.isrecording = false
       this.audioInput && this.audioInput.disconnect()
       this.recorder.disconnect()
+      this.closeAudioContext()
+      this.stopStream()
     }
 
     /**
