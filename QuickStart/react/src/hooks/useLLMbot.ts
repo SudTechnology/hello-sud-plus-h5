@@ -25,6 +25,17 @@ function generateName() {
   }
   return surname + givenName
 }
+
+function base64ToBlobUrl(base64: string) {
+  // 分割 MIME 和 Base64 数据
+  const [header, data] = base64.split(';base64,')
+  const mime = header.replace('data:', '')
+  // 解码 Base64
+  const bytes = Uint8Array.from(atob(data), c => c.charCodeAt(0))
+  // 生成 Blob URL
+  const blob = new Blob([bytes], { type: mime })
+  return URL.createObjectURL(blob)
+}
 interface IAiModel {
   aiPlayers: IModelAIPlayers[]
   isReady: number
@@ -162,7 +173,8 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
                   //   onloaderror: (e) => console.log(e, 'play error')
                   //   // 事件监听
                   // })
-                  const audio = new Audio(`data:audio/mp3;base64,${parseData.audioData}`)
+                  const audio = new Audio()
+                  audio.src = base64ToBlobUrl(`data:audio/mp3;base64,${parseData.audioData}`)
                   // 播放结束
                   audio.addEventListener('ended', () => {
                     // 播放结束，更新uid的播放状态
