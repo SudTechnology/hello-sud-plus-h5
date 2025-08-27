@@ -18,7 +18,7 @@ const Home = () => {
             return (
               <a href={`/game/${item.mgId}?orientation=${item.orientation}`} key={item.mgId} className={cx('game-item')}>
                 <img className={cx('game-logo')} src={item.scenePic} alt="" />
-                <div className={cx('game-title')}>{item.sceneName}</div>
+                <div className={cx('game-title')}>{item.gameName}</div>
               </a>
             )
           })
