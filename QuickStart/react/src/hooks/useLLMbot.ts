@@ -140,7 +140,7 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
                   //   onloaderror: (e) => console.log(e, 'play error')
                   //   // 事件监听
                   // })
-                  const audio = new Audio(`data:audio/wav;base64,${parseData.audioData}`)
+                  const audio = new Audio(`data:audio/mp3;base64,${parseData.audioData}`)
                   // 播放结束
                   audio.addEventListener('ended', () => {
                     // 播放结束，更新uid的播放状态
