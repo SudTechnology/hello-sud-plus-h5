@@ -1,6 +1,6 @@
 import { SDKGameView } from "QuickStart"
 import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react"
-import { ISudAiAgent, IModelAIPlayers } from "SudMGP/SudMGP/lib/type"
+import { ISudAiAgent, IModelAIPlayers } from "sudmgp-sdk-js-test/type"
 interface IAiModel {
   aiPlayers: IModelAIPlayers[]
   isReady: number
