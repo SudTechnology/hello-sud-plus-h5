@@ -1,8 +1,30 @@
 import { SDKGameView } from "QuickStart"
 import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react"
 import { ISudAiAgent, IModelAIPlayers } from "sudmgp-sdk-js-test/type"
-import { faker } from '@faker-js/faker'
+const surnames = [
+  // 单姓（常见）
+  '林', '周', '沈', '顾', '陆', '叶', '苏', '程', '谢', '萧',
+  // 单姓（意境）
+  '云', '风', '江', '山', '墨', '白', '宁', '岑', '晏', '凌',
+  // 复姓
+  '欧阳', '上官', '慕容', '司徒', '南宫', '诸葛', '东方', '端木', '闻人', '夏侯'
+]
+const modernNames = ['一然', '予安', '司衡', '景和', '知远', '星冉', '若洲', '清川', '南舟', '云起']
+const classicNames = ['疏桐', '砚舟', '镜玄', '怀瑾', '墨珩', '清晏', '昭明', '溪亭', '望舒', '攸宁']
+const natureNames = ['雪松', '云溪', '星河', '鹤鸣', '栖野', '听澜', '屿枫', '鹿蹊', '汀兰', '竹隐']
 
+function generateName() {
+  const surname = surnames[Math.floor(Math.random() * surnames.length)]
+  const isCompound = surname.length > 1 // 判断复姓
+  const namePool = [...modernNames, ...classicNames, ...natureNames]
+  let givenName = namePool[Math.floor(Math.random() * namePool.length)]
+
+  // 复姓时取1-2字名字（避免过长）
+  if (isCompound && givenName.length > 2) {
+    givenName = givenName.substring(0, 2)
+  }
+  return surname + givenName
+}
 interface IAiModel {
   aiPlayers: IModelAIPlayers[]
   isReady: number
@@ -216,7 +238,7 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
           userId: aiuId, // 玩家id
           avatar: `https://dev-sud-static.sudden.ltd/avatar/${avatar}.jpg`, // 头像url
           // @ts-ignore
-          name: `${faker.person.firstName()}`, // 名字
+          name: `${generateName()}`, // 名字
           gender: 'male', // 性别 male：男，female：女
           aiId: Math.floor(Math.random() * 275) + 1 // 随机一个ai性格 目前支持1~370
         }
