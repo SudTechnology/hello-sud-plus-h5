@@ -93,7 +93,7 @@ const LLMBot = (props: IProps) => {
           </div>
         </div>
 
-        <div onClick={() => console.log('testtsets')} id='game' className={cx('game-wrap')}></div>
+        <div id='game' className={cx('game-wrap')}></div>
         <CustomAction SudSDK={SudSDK} />
         <div className={cx('button-bar')}>
           <button onClick={addAiBot}>ai bot</button>

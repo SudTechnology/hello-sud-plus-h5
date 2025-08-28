@@ -207,6 +207,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
         visible={visibleGameInfo}
         closeOnAction
         closeOnMaskClick
+        getContainer={() => document.body}
         content={
           <div>
             <Form
@@ -233,6 +234,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
         visible={visibleShiftUser}
         closeOnAction
         closeOnMaskClick
+        getContainer={() => document.body}
         content={
           <div>
             <Form
@@ -260,6 +262,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
         closeOnMaskClick
         onClose={() => setvisibleVolume(false)}
         bodyStyle={{ height: '110px' }}
+        getContainer={() => document.body}
         content={
           <div>
           <Slider
@@ -282,6 +285,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
         closeOnAction
         closeOnMaskClick
         title="viewinfo"
+        getContainer={() => document.body}
         onClose={() => {
           setVisibleViewSize(false)
         }}
@@ -352,6 +356,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
         visible={visibleCustomMsg}
         closeOnAction
         closeOnMaskClick
+        getContainer={() => document.body}
         onClose={() => {
           setVisibleCustomMsg(false)
         }}

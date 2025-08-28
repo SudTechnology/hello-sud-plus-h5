@@ -1,31 +1,8 @@
 import { SDKGameView } from "QuickStart"
 import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react"
 import { ISudAiAgent, IModelAIPlayers } from "sudmgp-sdk-js-test/type"
-import { Howl } from 'howler'
-const surnames = [
-  // 单姓（常见）
-  '林', '周', '沈', '顾', '陆', '叶', '苏', '程', '谢', '萧',
-  // 单姓（意境）
-  '云', '风', '江', '山', '墨', '白', '宁', '岑', '晏', '凌',
-  // 复姓
-  '欧阳', '上官', '慕容', '司徒', '南宫', '诸葛', '东方', '端木', '闻人', '夏侯'
-]
-const modernNames = ['一然', '予安', '司衡', '景和', '知远', '星冉', '若洲', '清川', '南舟', '云起']
-const classicNames = ['疏桐', '砚舟', '镜玄', '怀瑾', '墨珩', '清晏', '昭明', '溪亭', '望舒', '攸宁']
-const natureNames = ['雪松', '云溪', '星河', '鹤鸣', '栖野', '听澜', '屿枫', '鹿蹊', '汀兰', '竹隐']
-
-function generateName() {
-  const surname = surnames[Math.floor(Math.random() * surnames.length)]
-  const isCompound = surname.length > 1 // 判断复姓
-  const namePool = [...modernNames, ...classicNames, ...natureNames]
-  let givenName = namePool[Math.floor(Math.random() * namePool.length)]
-
-  // 复姓时取1-2字名字（避免过长）
-  if (isCompound && givenName.length > 2) {
-    givenName = givenName.substring(0, 2)
-  }
-  return surname + givenName
-}
+import { AudioPlayer } from './audioPlayer'
+import { generateName } from 'utils/randomName'
 
 function base64ToBlobUrl(base64: string) {
   // 分割 MIME 和 Base64 数据
@@ -126,6 +103,13 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
 
   // 页面挂载后进行sdk初始化
   useEffect(() => {
+    const player = new AudioPlayer()
+    player.setEndListener((data) => {
+      if (data) {
+        const parseData = data.data
+        setUserAudioPlayState(parseData.uid, { state: 0, uid: parseData.uid })
+      }
+    })
     // 要挂载的元素
     const root = document.getElementById('game')
     const detailUserId = userId || Math.floor((Math.random() + 1) * 10000).toString()
@@ -157,23 +141,24 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
                   const parseData = JSON.parse(data)
                   console.log('[ parseData uid] >', parseData.uid, '[ parseData content] >', parseData.content)
                   setUserAudioPlayState(parseData.uid, { state: 1, uid: parseData.uid })
-
+                  player.pushSrc({ src: base64ToBlobUrl(`data:audio/aac;base64,${parseData.audioData}`), data: parseData })
                   // 如果不存在id，则录入
-                  const sound = new Howl({
-                    src: base64ToBlobUrl(`data:audio/aac;base64,${parseData.audioData}`), // 支持本地路径或 URL
-                    html5: true, // 启用 HTML5 Audio 模式（解决移动端限制）
-                    volume: 0.8, // 初始音量（0~1）
-                    loop: false, // 循环播放
-                    autoplay: true,
-                    onend: () => setUserAudioPlayState(parseData.uid, { state: 0, uid: parseData.uid }),
-                    onplayerror: () => {
-                      sound.once('unlock', () => sound.play()) // 解锁后重试
-                    },
-                    onloaderror: (e) => {
-                      console.log(e, 'onloaderror')
-                    }
-                  })
-                  sound.play()
+                  // const sound = new Howl({
+                  //   src: base64ToBlobUrl(`data:audio/aac;base64,${parseData.audioData}`), // 支持本地路径或 URL
+                  //   html5: true, // 启用 HTML5 Audio 模式（解决移动端限制）
+                  //   volume: 0.8, // 初始音量（0~1）
+                  //   loop: false, // 循环播放
+                  //   autoplay: true,
+                  //   onend: () => setUserAudioPlayState(parseData.uid, { state: 0, uid: parseData.uid }),
+                  //   onplayerror: () => {
+                  //     sound.once('unlock', () => sound.play()) // 解锁后重试
+                  //   },
+                  //   onloaderror: (e) => {
+                  //     console.log(e, 'onloaderror')
+                  //   }
+                  // })
+                  // sound.play()
+
                   const list = aiUserContentList
                   list.push(parseData)
                   setAiUserContentList([...list])
