@@ -16,13 +16,24 @@ interface IProps extends RouteComponentProps {
 const { confirm } = Modal
 const cx = classnames.bind(styles)
 
-const GameDetail = (props: IProps) => {
+const LLMBot = (props: IProps) => {
   const params: { id?: string } = props.match.params
   const roomId = getQueryParam('roomId')
   const userId = getQueryParam('userId')
   const language = getQueryParam('language')
   const [openMic, setOpenMic] = useState(false)
   const [text, setText] = useState('')
+
+  // 3. 初始化音频会话（解决无声问题）
+  async function initAudioSession() {
+    try {
+      console.log('test')
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      stream.getTracks().forEach(track => track.stop()) // 仅激活权限
+    } catch (e) {
+      console.error("音频会话初始化失败", e)
+    }
+  }
 
   // 返回大厅
   const goBack = (data?: IMGCommonGameBackLobby) => {
@@ -93,12 +104,12 @@ const GameDetail = (props: IProps) => {
           </div>
         </div>
 
-        <div id='game' className={cx('game-wrap')}></div>
+        <div onClick={() => console.log('testtsets')} id='game' className={cx('game-wrap')}></div>
         <CustomAction SudSDK={SudSDK} />
         <div className={cx('button-bar')}>
           <button onClick={addAiBot}>ai bot</button>
         </div>
-        <div className={cx('asr-status')}>asr {Recorder.pause ? '暂停了' : Recorder.stop ? '停止了' : '识别中'}</div>
+        <div onClick={initAudioSession} className={cx('asr-status')}>asr {Recorder.pause ? '暂停了' : Recorder.stop ? '停止了' : '识别中'}</div>
 
         <div className={cx('action-bar')}>
           <Input value={text} onChange={(val) => setText(val)} className={cx('input')} placeholder='请输入内容' clearable />
@@ -114,4 +125,4 @@ const GameDetail = (props: IProps) => {
   )
 }
 
-export default withRouter(GameDetail)
+export default withRouter(LLMBot)

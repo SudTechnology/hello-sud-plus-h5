@@ -174,7 +174,7 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
                   //   // 事件监听
                   // })
                   const audio = new Audio()
-                  audio.src = base64ToBlobUrl(`data:audio/mp3;base64,${parseData.audioData}`)
+                  audio.src = base64ToBlobUrl(`data:audio/aac;base64,${parseData.audioData}`)
                   // 播放结束
                   audio.addEventListener('ended', () => {
                     // 播放结束，更新uid的播放状态
