@@ -15,6 +15,7 @@ import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
 import { appMap } from '../data/app'
 
 const SudMGPSDK = SudMGP as ISudMGP
+
 interface IInitSDKParam {
   userId: string,
   code: string
