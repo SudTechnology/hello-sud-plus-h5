@@ -1,6 +1,7 @@
 import { SDKGameView } from "QuickStart"
 import { useEffect, useLayoutEffect, useRef, useState, useCallback } from "react"
 import { ISudAiAgent, IModelAIPlayers } from "sudmgp-sdk-js-test/type"
+import { Howl } from 'howler'
 const surnames = [
   // 单姓（常见）
   '林', '周', '沈', '顾', '陆', '叶', '苏', '程', '谢', '萧',
@@ -122,7 +123,7 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
   const [realUserId, setRealUserId] = useState(userId)
   const [isGamePlayerMicStateOk, setIsGamePlayerMicStateOk] = useState(false)
   const { map: userAudioPlayStateMap, set: setUserAudioPlayState } = useMapState<string, {state: number, uid: string}>()
-  // const { pushAudio, initAudio } = useAudio()
+
   // 页面挂载后进行sdk初始化
   useEffect(() => {
     // 要挂载的元素
@@ -157,32 +158,22 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
                   console.log('[ parseData uid] >', parseData.uid, '[ parseData content] >', parseData.content)
                   setUserAudioPlayState(parseData.uid, { state: 1, uid: parseData.uid })
 
-                  // pushAudio(parseData, () => {
-                  //   setUserAudioPlayState(parseData.uid, { state: 1, uid: parseData.uid })
-                  //   const list = aiUserContentList
-                  //   list.push(parseData)
-                  //   setAiUserContentList([...list])
-                  // })
                   // 如果不存在id，则录入
-                  // const sound = new Howl({
-                  //   src: `data:audio/wav;base64,${parseData.audioData}`, // 支持本地路径或 URL
-                  //   html5: true, // 启用 HTML5 Audio 模式（解决移动端限制）
-                  //   volume: 0.8, // 初始音量（0~1）
-                  //   loop: false, // 循环播放
-                  //   onend: () => setUserAudioPlayState(parseData.uid, { state: 0, uid: parseData.uid }),
-                  //   onloaderror: (e) => console.log(e, 'play error')
-                  //   // 事件监听
-                  // })
-                  const audio = new Audio()
-                  audio.src = base64ToBlobUrl(`data:audio/aac;base64,${parseData.audioData}`)
-                  // 播放结束
-                  audio.addEventListener('ended', () => {
-                    // 播放结束，更新uid的播放状态
-                    setUserAudioPlayState(parseData.uid, { state: 0, uid: parseData.uid })
+                  const sound = new Howl({
+                    src: base64ToBlobUrl(`data:audio/aac;base64,${parseData.audioData}`), // 支持本地路径或 URL
+                    html5: true, // 启用 HTML5 Audio 模式（解决移动端限制）
+                    volume: 0.8, // 初始音量（0~1）
+                    loop: false, // 循环播放
+                    autoplay: true,
+                    onend: () => setUserAudioPlayState(parseData.uid, { state: 0, uid: parseData.uid }),
+                    onplayerror: () => {
+                      sound.once('unlock', () => sound.play()) // 解锁后重试
+                    },
+                    onloaderror: (e) => {
+                      console.log(e, 'onloaderror')
+                    }
                   })
-
-                  audio.oncanplaythrough = () => audio.play().catch(e => console.error("播放失败:", e))
-                  audio.onerror = (e) => console.error("音频加载失败", e)
+                  sound.play()
                   const list = aiUserContentList
                   list.push(parseData)
                   setAiUserContentList([...list])

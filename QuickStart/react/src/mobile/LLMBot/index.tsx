@@ -24,17 +24,6 @@ const LLMBot = (props: IProps) => {
   const [openMic, setOpenMic] = useState(false)
   const [text, setText] = useState('')
 
-  // 3. 初始化音频会话（解决无声问题）
-  async function initAudioSession() {
-    try {
-      console.log('test')
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
-      stream.getTracks().forEach(track => track.stop()) // 仅激活权限
-    } catch (e) {
-      console.error("音频会话初始化失败", e)
-    }
-  }
-
   // 返回大厅
   const goBack = (data?: IMGCommonGameBackLobby) => {
     if (data && data.leaveGame) {
@@ -109,7 +98,7 @@ const LLMBot = (props: IProps) => {
         <div className={cx('button-bar')}>
           <button onClick={addAiBot}>ai bot</button>
         </div>
-        <div onClick={initAudioSession} className={cx('asr-status')}>asr {Recorder.pause ? '暂停了' : Recorder.stop ? '停止了' : '识别中'}</div>
+        <div className={cx('asr-status')}>asr {Recorder.pause ? '暂停了' : Recorder.stop ? '停止了' : '识别中'}</div>
 
         <div className={cx('action-bar')}>
           <Input value={text} onChange={(val) => setText(val)} className={cx('input')} placeholder='请输入内容' clearable />
