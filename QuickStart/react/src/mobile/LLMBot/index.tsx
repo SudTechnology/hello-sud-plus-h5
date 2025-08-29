@@ -35,7 +35,7 @@ const LLMBot = (props: IProps) => {
     }, 1000)
   }
 
-  const { realUserId, setUserAudioPlayState, contentInnerRef, contentRef, SudSDK, sendText, addAiBot, aiAgent, aiUserContentList } = useLLMbot(params.id || '', roomId || (params.id || ''), language || 'zh-CN', userId, goBack)
+  const { realUserId, userMap, setUserAudioPlayState, contentInnerRef, contentRef, SudSDK, sendText, addAiBot, aiAgent, aiUserContentList } = useLLMbot(params.id || '', roomId || (params.id || ''), language || 'zh-CN', userId, goBack)
 
   const destory = () => {
     confirm({
@@ -82,21 +82,21 @@ const LLMBot = (props: IProps) => {
       <div className={cx('game-container')}>
         {/* game 容器 */}
         <img src={Close} onClick={destory} alt="" className={cx('close')} />
-        <div className={cx('content-list')} ref={contentRef}>
-          <div ref={contentInnerRef} >
-            {/* ai 回复的文案内容 */}
-            {
-              aiUserContentList.map((item, index) => {
-                return <div className={cx('content-item')} key={index}><span>{item.uid}:</span> {item.content}</div>
-              })
-            }
-          </div>
-        </div>
-
         <div id='game' className={cx('game-wrap')}></div>
         <CustomAction SudSDK={SudSDK} />
         <div className={cx('button-bar')}>
           <button onClick={addAiBot}>ai bot</button>
+        </div>
+
+        <div className={cx('content-list')} ref={contentRef}>
+          {/* 简单的公屏内容展示 */}
+          <div ref={contentInnerRef} >
+            {
+              aiUserContentList.map((item, index) => {
+                return <div className={cx('content-item')} key={index}><span>{userMap.get(item.uid)?.name ? userMap.get(item.uid)?.name : item.uid}:</span> {item.content}</div>
+              })
+            }
+          </div>
         </div>
         <div className={cx('asr-status')}>asr {Recorder.pause ? '暂停了' : Recorder.stop ? '停止了' : '识别中'}</div>
 

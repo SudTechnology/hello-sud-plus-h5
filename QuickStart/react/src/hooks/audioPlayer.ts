@@ -19,6 +19,7 @@ export class AudioPlayer {
     // 创建audio元素
     this.audioElement = document.createElement('audio')
     this.audioElement.controls = true
+    this.audioElement.style.display = 'none'
     document.body.appendChild(this.audioElement)
 
     // 绑定事件监听器

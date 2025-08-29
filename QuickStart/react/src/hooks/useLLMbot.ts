@@ -100,6 +100,7 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
   const [realUserId, setRealUserId] = useState(userId)
   const [isGamePlayerMicStateOk, setIsGamePlayerMicStateOk] = useState(false)
   const { map: userAudioPlayStateMap, set: setUserAudioPlayState } = useMapState<string, {state: number, uid: string}>()
+  const { map: userMap, set: setUserMapState } = useMapState<string, IModelAIPlayers>()
 
   // 页面挂载后进行sdk初始化
   useEffect(() => {
@@ -113,6 +114,9 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
     // 要挂载的元素
     const root = document.getElementById('game')
     const detailUserId = userId || Math.floor((Math.random() + 1) * 10000).toString()
+    setUserMapState(detailUserId, {
+      userId: detailUserId // 玩家id
+    })
     setRealUserId(detailUserId)
     if (root) {
       const nsdk = new SDKGameView({ root, gameRoomId: roomId, gameId, userId: detailUserId, language })
@@ -142,23 +146,6 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
                   console.log('[ parseData uid] >', parseData.uid, '[ parseData content] >', parseData.content)
                   setUserAudioPlayState(parseData.uid, { state: 1, uid: parseData.uid })
                   player.pushSrc({ src: base64ToBlobUrl(`data:audio/aac;base64,${parseData.audioData}`), data: parseData })
-                  // 如果不存在id，则录入
-                  // const sound = new Howl({
-                  //   src: base64ToBlobUrl(`data:audio/aac;base64,${parseData.audioData}`), // 支持本地路径或 URL
-                  //   html5: true, // 启用 HTML5 Audio 模式（解决移动端限制）
-                  //   volume: 0.8, // 初始音量（0~1）
-                  //   loop: false, // 循环播放
-                  //   autoplay: true,
-                  //   onend: () => setUserAudioPlayState(parseData.uid, { state: 0, uid: parseData.uid }),
-                  //   onplayerror: () => {
-                  //     sound.once('unlock', () => sound.play()) // 解锁后重试
-                  //   },
-                  //   onloaderror: (e) => {
-                  //     console.log(e, 'onloaderror')
-                  //   }
-                  // })
-                  // sound.play()
-
                   const list = aiUserContentList
                   list.push(parseData)
                   setAiUserContentList([...list])
@@ -172,8 +159,34 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
             case 'mg_common_game_player_mic_state': {
               console.log('[ 可以开始推送麦克说话状态 ] >', data)
               setIsGamePlayerMicStateOk(true)
+              break
             }
           }
+        },
+        onGetGameViewInfo(handle, dataJson) {
+          const width = root.clientWidth
+          const height = root.clientHeight
+          const data = JSON.parse(dataJson)
+          const dpr = data.ratio || 1
+          console.log(width, height, 'width,height', dataJson, 'dataJson', 'dpr', dpr)
+          const viewGameRect = {
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 200
+          }
+          const gameViewInfo = {
+            ret_code: 0,
+            ret_msg: "success",
+            view_size: {
+              width: width * dpr,
+              height: height * dpr
+            },
+            view_game_rect: viewGameRect
+          }
+          console.log(gameViewInfo, 'gameViewInfo')
+
+          handle.success(JSON.stringify(gameViewInfo))
         },
         onGameMGCommonGameBackLobby(handle, data) {
           // 返回游戏大厅
@@ -220,19 +233,19 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
       aiuId = `988${aiuId}`
     }
     const avatar = Math.floor(Math.random() * 20)
+    const aiPlayer = {
+      userId: aiuId, // 玩家id
+      avatar: `https://dev-sud-static.sudden.ltd/avatar/${avatar}.jpg`, // 头像url
+      name: `${generateName()}`, // 名字
+      gender: 'male', // 性别 male：男，female：女
+      aiId: Math.floor(Math.random() * 275) + 1 // 随机一个ai性格 目前支持1~370
+    }
     const aiPlayers: IAiModel = {
-      aiPlayers: [
-        {
-          userId: aiuId, // 玩家id
-          avatar: `https://dev-sud-static.sudden.ltd/avatar/${avatar}.jpg`, // 头像url
-          // @ts-ignore
-          name: `${generateName()}`, // 名字
-          gender: 'male', // 性别 male：男，female：女
-          aiId: Math.floor(Math.random() * 275) + 1 // 随机一个ai性格 目前支持1~370
-        }
-      ],
+      aiPlayers: [aiPlayer],
       isReady: 1 // 机器人加入后是否自动准备 1：自动准备，0：不自动准备 默认为1
     }
+
+    setUserMapState(aiuId, aiPlayer)
     console.log('[ add aiPlayers ] >', aiPlayers)
     SudSDK && SudSDK.sudFSTAPPDecorator.notifyAPPCommon('app_common_game_add_big_scale_model_ai_players', JSON.stringify(aiPlayers))
   }
@@ -249,6 +262,7 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
   }
   return {
     realUserId,
+    userMap,
     userAudioPlayStateMap,
     setUserAudioPlayState,
 
