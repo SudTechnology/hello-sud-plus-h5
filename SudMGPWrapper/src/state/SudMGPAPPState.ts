@@ -110,14 +110,15 @@ export class SudMGPAPPState {
    * 收缩麦位；
    * 如果不在游戏中，则恢复。
    */
-  public static APPCommonSelfPlaying = function (isPlaying: boolean, reportGameInfoExtras?: string) {
+  public static APPCommonSelfPlaying = function (isPlaying: boolean, reportGameInfoExtras?: string, reportGameInfoKey?: string) {
     // true 开始游戏，false 结束游戏
     // isPlaying: boolean;
     // string类型，Https服务回调report_game_info参数，最大长度1024字节，超过则截断（2022-01-21）
     // reportGameInfoExtras: string;
     return {
       isPlaying,
-      reportGameInfoExtras
+      reportGameInfoExtras,
+      reportGameInfoKey
     }
   }
 
