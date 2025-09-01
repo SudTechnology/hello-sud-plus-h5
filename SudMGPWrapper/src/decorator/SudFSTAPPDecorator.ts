@@ -88,11 +88,12 @@ export class SudFSTAPPDecorator {
    *
    * @param isPlaying            true 开始游戏，false 结束游戏
    * @param reportGameInfoExtras string类型，Https服务回调report_game_info参数，最大长度1024字节，超过则截断（2022-01-21）
+   * @param reportGameInfoKey string类型，最大长度64字节，接入方服务端，可以根据这个字段来查询一局游戏的数据
    */
-  public notifyAPPCommonSelfPlaying(isPlaying: boolean, reportGameInfoExtras?: string) {
+  public notifyAPPCommonSelfPlaying(isPlaying: boolean, reportGameInfoExtras?: string, reportGameInfoKey?: string) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonSelfPlaying(isPlaying, reportGameInfoExtras)
+      const state = SudMGPAPPState.APPCommonSelfPlaying(isPlaying, reportGameInfoExtras, reportGameInfoKey)
       iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_SELF_PLAYING, JSON.stringify(state), notifyStateChangeFun)
     }
   }
