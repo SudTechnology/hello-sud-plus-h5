@@ -142,8 +142,12 @@ export class SDKGameView {
     const version = SudMGPSDK.getVersion()
     console.log('[ version ] >', version)
     // 监测是否支持webgl，不支持的无法加载游戏
-    const isSupported = SudMGPSDK.isWebGLAvailable()
-    console.log('[ isSupported ] >', isSupported)
+    try {
+      const isSupported = SudMGPSDK.isWebGLAvailable()
+      console.log('[ isSupported ] >', isSupported)
+    } catch (error) {
+
+    }
 
     // 开启游戏debug上报
     // SudMGPSDK.getSudCfg().getAdvancedConfigMap().set('enable_debug_game_log', true)
