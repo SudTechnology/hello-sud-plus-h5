@@ -4,13 +4,13 @@
   <details>
   <summary>Detailed Description</summary>
   
-      1.appId、appKey and isTestEnv=true，please use those of the QuickStart client;
+      1.appId、appKey，please use those of the QuickStart client;
       2.Web bundleId，please use the domain name of web;(the bundleId/applicationId in the access information table);
       3.For the short-term token code, please use the QuickStart backend service (obtained through login/getCode);
       4.Complete the integration and get the game running;
   
       *** SUD platform supports one appId being bound to multiple bundleIds and applicationIds ***
-      *** After filling out the access information table, SUD will bind the APP's bundleId and applicationId to the QuickStart appId, only supporting the test environment ***
+      *** After filling out the access information table, SUD will bind the APP's bundleId and applicationId to the QuickStart appId ***
   QuickStart backend service [hello-sud-java code repository](https://github.com/SudTechnology/hello-sud-java) ，`if the code repository cannot be accessed, please contact SUD to add it, and provide your github account`;
   </details>
 
@@ -20,7 +20,7 @@
   <summary>Detailed Description</summary>
   
       1.The Server implements 4 HTTP APIs; (filled in the access information table)
-      2.Please use the web appId、appKey、isTestEnv=true、bundleId(web)；
+      2.Please use the web appId、appKey、bundleId(web)；
       3.The Server implements the login/getCode interface to obtain the short-term token code；
       4.The Web and Server debug 5 HTTP APIs；
       5.Complete the HTTP API debugging；
@@ -88,13 +88,11 @@
     /** The appKey applied for on the Sud platform */
     public SudMGP_APP_KEY = "03pNxK2lEXsKiiwrBQ9GbH541Fk2Sfnc"
 
-    /** true means the loading game is in the test environment, false means it is in the production environment */
-    public GAME_IS_TEST_ENV = false
   ```
       3.The APP client should use the QuickStart backend service login/getCode；
         *** To achieve the APP to quickly load and run the game, use the QuickStart service ***
         *** SUD platform supports one appId being bound to multiple bundleIds and applicationIds ***
-        *** After filling out the access information table, SUD will bind the APP's bundleId and applicationId to the QuickStart appId, only supporting the test environment ***
+        *** After filling out the access information table, SUD will bind the APP's bundleId and applicationId to the QuickStart appId ***
   </details>
 
 

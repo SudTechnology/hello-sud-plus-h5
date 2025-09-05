@@ -4,10 +4,10 @@
   <details>
   <summary>详细描述</summary>
   
-      1.appId、appKey和isTestEnv=true，请使用QuickStart客户端的；
-      2.Web bundleId 请使用Web的域名；(接入信息表中的bundleId/applicationId)；
+      1.appId、appKey，请使用QuickStart客户端的；
+      2.Web bundleId(接入信息表中的bundleId/applicationId)；
       3.短期令牌code，请使用QuickStart的后端服务（login/getCode获取的）；
-      4.完成集成，游戏跑起来;
+      4.完成集成，游戏跑起来；
   
       *** SUD平台支持一个appId绑定多个bundleId和applicationId；***
       *** 填完接入信息表后，SUD会将APP的bundleId和applicationId，绑定到QuickStart的appId上，仅支持测试环境；***
@@ -20,7 +20,7 @@
   <summary>详细描述</summary>
   
       1.服务端实现4个HTTP API；（接入信息表填的）
-      2.请使用Web端自己的appId、appKey、isTestEnv=true、bundleId(域名)
+      2.请使用Web端自己的appId、appKey、bundleId
       3.服务端实现login/getCode接口，获取短期令牌code；
       4.Web端和服务端联调5个HTTP API；
       5.完成HTTP API联调；
@@ -88,11 +88,8 @@
     /** Sud平台申请的appKey */
     public SudMGP_APP_KEY = "03pNxK2lEXsKiiwrBQ9GbH541Fk2Sfnc"
 
-    /** true 加载游戏时为测试环境 false 加载游戏时为生产环境 */
-    public GAME_IS_TEST_ENV = false
-
      public getBundleId() {
-        return location.hostname // 网站域名，可以根据环境变量自定义，本地开发可使用localhost，上线要用真实的网站域名
+        return location.hostname // 可使用网站域名，可以根据环境变量自定义，本地开发可使用localhost，上线要用真实的网站域名
       }
 
   ```

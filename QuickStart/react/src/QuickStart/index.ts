@@ -10,7 +10,6 @@ interface IInitSDKParam {
   code: string
   appId: string
   appKey: string
-  isTestEnv: boolean
 }
 
 interface ILoadGameParam {
@@ -32,17 +31,14 @@ export class SDKGameView {
   private gameId: string // 游戏id
 
   public root: HTMLElement // 绑定到元素上
-  /** 使用的UserId。这里随机生成作演示，开发者将其修改为业务使用的唯一userId */
-  public userId = '100668' // Math.floor((Math.random() + 1) * 10000).toString()
+  /** 使用的UserId，必须string类型，这里随机生成作演示，开发者将其修改为业务使用的唯一userId */
+  public userId = '100668' // // 必须string
   /** Sud平台申请的appId */
   // eslint-disable-next-line camelcase
   public SudMGP_APP_ID = '1461564080052506636' // '1461564080052506636' // "1498868666956988417"
   /** Sud平台申请的appKey */
   // eslint-disable-next-line camelcase
   public SudMGP_APP_KEY = '03pNxK2lEXsKiiwrBQ9GbH541Fk2Sfnc'// '1461564080052506636' //"E9Lj2Cg61pUgiSESou6WDtxntoTXH7Gf"
-
-  /** true 加载游戏时为测试环境 false 加载游戏时为生产环境 */
-  public GAME_IS_TEST_ENV = false // process.env.REACT_APP_ENV !== 'production'
 
   // app调用sdk的封装类
   public sudFSTAPPDecorator = new SudFSTAPPDecorator()
@@ -88,8 +84,7 @@ export class SDKGameView {
           userId,
           code,
           appId: this.SudMGP_APP_ID,
-          appKey: this.SudMGP_APP_KEY,
-          isTestEnv: this.GAME_IS_TEST_ENV
+          appKey: this.SudMGP_APP_KEY
         })
       })
     })
@@ -112,25 +107,22 @@ export class SDKGameView {
    *
    */
   public initSdk({
-    userId,
-    appId,
+    userId, // 必须string
+    appId, // 必须string
     code,
-    appKey,
-    isTestEnv
+    appKey
   }: IInitSDKParam) {
     const bundleId = this.getBundleId()
     const self = this
     const version = SudMGPSDK.getVersion()
     console.log('[ version ] >', version)
-    SudMGPSDK.initSDK(appId, appKey, bundleId, isTestEnv, {
+    SudMGPSDK.initSDK(appId, appKey, bundleId, false, {
       onSuccess() {
         self.loadGame({ userId, code })
       },
       onFailure(errCode: number, errMsg: string) {
         // TODO: 2022/6/13 下面可以根据业务需要决定是否保留
-        if (isTestEnv) {
-          console.error(`${bundleId}, initSDK onFailure:${errMsg} (${errCode})`)
-        }
+        console.error(`${bundleId}, initSDK onFailure:${errMsg} (${errCode})`)
       }
     })
   }
@@ -140,8 +132,8 @@ export class SDKGameView {
    *
    */
   public loadGame({ userId, code }: ILoadGameParam) {
-    const gameRoomId = this.gameRoomId
-    const gameId = this.gameId
+    const gameRoomId = this.gameRoomId // 必须string
+    const gameId = this.gameId // 必须string
     const language = this.language
     const self = this
     const customSudFSMMGListener = this.customSudFSMMGListener || {}
@@ -333,8 +325,8 @@ export class SDKGameView {
     this.sudFSMMGDecorator.destroyMG()
   }
 
-  // 根据域名生成bundleId
+  // 使用后台关联好的bundleId
   public getBundleId() {
-    return location.hostname
+    return location.hostname // 此处是使用了域名，可以写死值，如果是桌面应用可以使用自定义的bundleId，与后台关联的值保持一致即可
   }
 }

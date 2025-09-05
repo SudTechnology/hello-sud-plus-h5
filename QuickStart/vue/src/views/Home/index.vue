@@ -1,12 +1,27 @@
 <template>
   <div class="home">
     <van-cell-group>
-      <van-field v-model="roomId" label="房间号ID" placeholder="请输入房间号ID" />
+      <van-field
+        v-model="roomId"
+        label="房间号ID"
+        placeholder="请输入房间号ID"
+      />
     </van-cell-group>
     <div class="game-list">
-      <div @click="toDetail(item)" v-for="item in list" :key="item.sceneId" class='game-item'>
-        <img class="game-logo" :src="item.scenePic" alt="" />
-        <div class="game-title">{{item.sceneName}}</div>
+      <div
+        v-for="item in list"
+        :key="item.sceneId"
+        class="game-item"
+        @click="toDetail(item)"
+      >
+        <img
+          class="game-logo"
+          :src="item.scenePic"
+          alt=""
+        />
+        <div class="game-title">
+          {{ item.sceneName }}
+        </div>
       </div>
     </div>
   </div>

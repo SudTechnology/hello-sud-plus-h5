@@ -1,10 +1,16 @@
 <template>
- <div class='container'>
-    <div class='game-container'>
+  <div class="container">
+    <div class="game-container">
       <!-- game 容器  -->
-      <van-icon name="cross"
-       @click="destory()" class='close' />
-      <div id='game' class='game-wrap'></div>
+      <van-icon
+        name="cross"
+        class="close"
+        @click="destory()"
+      />
+      <div
+        id="game"
+        class="game-wrap"
+      ></div>
     </div>
   </div>
 </template>

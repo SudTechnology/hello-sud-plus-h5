@@ -18,9 +18,6 @@ export class SDKGameView {
   // eslint-disable-next-line camelcase
   SudMGP_APP_KEY = '03pNxK2lEXsKiiwrBQ9GbH541Fk2Sfnc'// '1461564080052506636' //"E9Lj2Cg61pUgiSESou6WDtxntoTXH7Gf"
 
-  /** true 加载游戏时为测试环境 false 加载游戏时为生产环境 */
-  GAME_IS_TEST_ENV = true
-
   // app调用sdk的封装类
   sudFSTAPPDecorator = new SudFSTAPPDecorator()
   // 用于处理游戏SDK部分回调业务
@@ -66,8 +63,7 @@ export class SDKGameView {
           userId,
           code,
           appId: this.SudMGP_APP_ID,
-          appKey: this.SudMGP_APP_KEY,
-          isTestEnv: this.GAME_IS_TEST_ENV
+          appKey: this.SudMGP_APP_KEY
         })
       })
     })
@@ -93,20 +89,17 @@ export class SDKGameView {
     userId,
     appId,
     code,
-    appKey,
-    isTestEnv
+    appKey
   }) {
     const bundleId = this.getBundleId()
     const self = this
-    SudMGPSDK.initSDK(appId, appKey, bundleId, isTestEnv, {
+    SudMGPSDK.initSDK(appId, appKey, bundleId, false, {
       onSuccess () {
         self.loadGame({ userId, code })
       },
       onFailure (errCode, errMsg) {
         // TODO: 下面可以根据业务需要决定是否保留
-        if (isTestEnv) {
-          console.error(`${bundleId}, initSDK onFailure:${errMsg} (${errCode})`)
-        }
+        console.error(`${bundleId}, initSDK onFailure:${errMsg} (${errCode})`)
       }
     })
   }
@@ -274,8 +267,8 @@ export class SDKGameView {
     this.sudFSMMGDecorator.destroyMG()
   }
 
-  // 根据域名生成bundleId
+  // 使用后台关联好的bundleId
   getBundleId () {
-    return location.hostname
+    return location.hostname // 此处是使用了域名，可以写死值，如果是桌面应用可以使用自定义的bundleId，与后台关联的值保持一致即可
   }
 }
