@@ -1,4 +1,6 @@
 import { SDKGameView } from "QuickStart"
+import { GameConfigModel } from 'sudmgp-sdk-js-wrapper'
+
 import { useEffect, useState } from "react"
 
 interface IProps {
@@ -57,6 +59,14 @@ export const useGameDetail = (props: IProps) => {
           console.log('onGameMGCommonGameBackLobby', data)
 
           goBack && goBack(data)
+        },
+        onGetGameCfg(handle, dataJson) {
+          // 游戏配置，ui相关事件监听 https://docs.sud.tech/zh-CN/app/Client/API/ISudFSMMG/onGetGameCfg.html
+          const config = new GameConfigModel()
+          config.ui.join_btn.custom = true
+          // config.ui.join_btn.hide = true // 配置隐藏加入按钮
+
+          handle.success(JSON.stringify(config))
         },
         onGameMGCommonSelfClickJoinBtn(handle, res) {
           console.log('[ onGameMGCommonSelfClickJoinBtn ] >', handle, res)
