@@ -1,4 +1,4 @@
-import { SDKGameView } from "QuickStart"
+import { SDKGameView } from "mobile/GameDetailMb/QuickStart"
 import { GameConfigModel } from 'sudmgp-sdk-js-wrapper'
 
 import { useEffect, useState } from "react"
