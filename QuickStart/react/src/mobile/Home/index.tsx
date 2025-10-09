@@ -32,7 +32,7 @@ const Home = () => {
       <div>
         <Form form={form} layout='horizontal'>
           <Form.Item label='房间号ID' name='roomId'>
-            <Input type="number" placeholder='请输入房间号ID' clearable />
+            <Input placeholder='请输入房间号ID' clearable />
           </Form.Item>
           <Form.Item label='语言' name='language'>
             <Input placeholder='请输入语言值value' clearable />
