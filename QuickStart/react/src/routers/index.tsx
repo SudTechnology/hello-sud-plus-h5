@@ -15,6 +15,9 @@ function mobileCheck() {
     // 平板的也是用mobile页面
     check = true
   }
+  if (document.body.clientWidth < 960) {
+    check = true
+  }
   return check
 }
 let curDevice = 'pc'

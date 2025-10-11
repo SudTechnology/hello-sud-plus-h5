@@ -142,6 +142,7 @@ export class SDKGameView {
       onGameStarted() {
         console.log('game started')
         self.gameIsStarted = true
+        self.customSudFSMMGListener && self.customSudFSMMGListener.onGameStarted && self.customSudFSMMGListener.onGameStarted()
       },
       onGameCustomerStateChange(handle, state, data) {
         console.log('======onGameCustomerStateChange====', 'state', state, data)
@@ -186,6 +187,7 @@ export class SDKGameView {
             // })
             break
         }
+        self.customSudFSMMGListener?.onGameCustomerStateChange && self.customSudFSMMGListener?.onGameCustomerStateChange(handle, state, data)
       },
       // 监听玩家加入状态改变
       onPlayerMGCommonPlayerIn(handle, userId, model) {
