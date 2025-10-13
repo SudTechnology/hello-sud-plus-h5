@@ -57,6 +57,7 @@
       npm install sudmgp-sdk-js sudmgp-sdk-js-wrapper
     ```
   </details>
+  SudMGPWrapper开源，就在demo下的SudMGPWrapper文件夹内，请了解这个类的作用，主要是为了方便调用sdk的api
 
 - 第二步：在项目内导入模块SudMGPSDK、SudMGPWrapper
   <details>
@@ -89,7 +90,7 @@
     public SudMGP_APP_KEY = "03pNxK2lEXsKiiwrBQ9GbH541Fk2Sfnc"
 
      public getBundleId() {
-        return location.hostname // 可使用网站域名，可以根据环境变量自定义，本地开发可使用localhost，上线要用真实的网站域名
+        return location.hostname // 此处是使用了域名，可以写死值，如果是桌面应用可以使用自定义的bundleId，与后台关联的值保持一致即可
       }
 
   ```
@@ -208,7 +209,7 @@
 - [FAQ](https://docs.sud.tech/zh-CN/app/Client/FAQ/)
 
 # 2. SudMGPWrapper
-
+ 源码在demo的SudMGPWrapper文件夹
 - `SudMGPWrapper封装SudMGP，简化App和游戏相互调用`；
 - `SudMGPWrapper长期维护和保持更新`；
 - `推荐APP接入方使用SudMGPWrapper`；
@@ -217,7 +218,7 @@
 ### 2.1 App调用游戏
 
 - `SudMGPAPPState` 封装 [App通用状态](https://docs.sud.tech/zh-CN/app/Client/APPFST/CommonState.html) ；
-- `SudFSTAPPDecorator` 封装 [ISudFSTAPP](https://docs.sud.tech/zh-CN/app/Client/API/ISudFSTAPP.html)
+- `SudFSTAPPDecorator` app调用api通知游戏的类, 封装 [ISudFSTAPP](https://docs.sud.tech/zh-CN/app/Client/API/ISudFSTAPP.html)
   两类接口，[notifyStateChange](https://docs.sud.tech/zh-CN/app/Client/APPFST/CommonState.html) 、 foo；
 - `SudFSTAPPDecorator` 负责把每一个App通用状态封装成接口；
     <details>
@@ -225,7 +226,6 @@
 
     ``` javascript
     class SudFSTAPPDecorator {
-        // iSudFSTAPP = SudMGP.loadMG(AppAudioRoomActivity, userId, roomId, code, gameId, language, sudFSMMGDecorator);
         public setISudFSTAPP(ISudFSTAPP iSudFSTAPP);
         // 1. 加入状态
         public notifyAPPCommonSelfIn(isIn: boolean, seatIndex: number, isSeatRandom: boolean, teamId: number) {
@@ -241,11 +241,32 @@
     ```
     </details>
 
-### 2.2 游戏调用App
+  ## 调用api通知游戏
+  可在官方文档中查看调用api字符串：
+👉 https://docs.sud.tech/zh-CN/app/Client/APPFST/CommonState.html
+
+  1. 如要调用"app_common_self_in" 要用户加入游戏可以使用
+    ```js
+      sudFSTAPPDecorator.notifyAPPCommonSelfIn(true)
+    ```
+  2. 自定义事件调用
+  如果 SudMGPWrapper 中没有定义对应的调用 API，可以使用通用的自定义调用方式：
+  ```js
+    sudFSTAPPDecorator.notifyAPPCommon(eventName, eventData)
+  ```
+  示例：
+  ```js
+    sudFSTAPPDecorator.notifyAPPCommon(
+      'app_common_game_ui_custom_config',
+      JSON.stringify({})
+    )
+  ```
+
+### 2.2 监听游戏回调
 
 - `SudMGPMGState` 封装 [通用状态-游戏](https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html)
   和 [通用状态-玩家](https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStatePlayer.html) ；
-- `SudFSMMGListener` 封装[ISudFSMMG](https://docs.sud.tech/zh-CN/app/Client/API/ISudFSMMG.html) 三类回调函数，onGameStateChange、onPlayerStateChange、onFoo；
+- `SudFSMMGListener` 用于处理游戏回调业务， 封装[ISudFSMMG](https://docs.sud.tech/zh-CN/app/Client/API/ISudFSMMG.html) 三类回调函数，onGameStateChange、onPlayerStateChange、onFoo；
 - `SudFSMMGListener` 负责把游戏每一个状态封装成单独的回调函数；
     <details>
     <summary>代码框架 interface SudFSMMGListener</summary>
@@ -289,6 +310,41 @@
     }
     ```
     </details>
+
+   ## 一、监听游戏的回调
+
+    可在官方文档中查看可监听的回调字符串：  
+    👉 [https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html](https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html)
+
+    ### 1. 查找对应回调 API
+
+    - 根据文档中的回调字符串，在 **SudMGPWrapper** 源码中搜索是否存在对应的回调 API。  
+    - 如果存在对应的 API，可以直接使用。
+
+    **示例：**
+
+    ```js
+    // 回调字符串："mg_common_player_in"
+    // 对应的监听 API：onPlayerMGCommonPlayerIn
+    this.sudFSMMGDecorator.setSudFSMMGListener({
+      onPlayerMGCommonPlayerIn(handle, data) {
+        console.log('玩家进入游戏', data)
+      }
+    })
+
+    ```
+
+    ## 二、 自定义监听回调
+
+    如果文档中的回调字符串在 SudMGPWrapper 中找不到对应的回调 API，
+    可以使用自定义监听回调进行处理：
+    ```js
+    onGameCustomerStateChange(handle, state, data) {
+      // 根据 state 值进行判断和处理
+      console.log('自定义状态回调', state, data)
+    }
+    ```
+
 - [ISudFSMMG](https://docs.sud.tech/zh-CN/app/Client/API/ISudFSMMG.html) 的装饰类`SudFSMMGDecorator`，负责派发每一个游戏状态，缓存需要的游戏状态；
     <details>
     <summary>代码框架 class SudFSMMGDecorator</summary>

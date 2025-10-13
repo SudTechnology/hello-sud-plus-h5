@@ -238,6 +238,27 @@
     ```
     </details>
 
+  Example
+  1. To trigger `"app_common_self_in"` (i.e., make the user join the game), you can use
+
+    ```js
+    sudFSTAPPDecorator.notifyAPPCommonSelfIn(true)
+    ```
+
+  2. If there’s no corresponding API defined in **SudMGPWrapper**, you can use the custom invocation method
+
+    ```js
+    sudFSTAPPDecorator.notifyAPPCommon(...)
+    ```
+
+    and pass the data according to the format specified in the documentation.
+    For example:
+
+    ```js
+    sudFSTAPPDecorator.notifyAPPCommon('app_common_game_ui_custom_config', JSON.stringify({}))
+    ```
+
+
 ### 2.2 Game Calls the App
 
 - `SudMGPMGState` encapsulates [Common States - Game](https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html)
@@ -319,6 +340,21 @@
     }
     ```
     </details>
+
+    Listen for game callbacks. You can find the corresponding event strings at
+    [https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html](https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html).
+
+    1. Search for the event string in the **SudMGPWrapper** source code to see if there’s a corresponding callback API.
+
+      * If it exists, you can use it directly.
+      * For example, the string `"mg_common_player_in"` corresponds to the callback API `onPlayerMGCommonPlayerIn`.
+
+    2. **onGameCustomerStateChange(handle, state, data):**
+      This is a custom event callback.
+
+      * If the event string from
+        [https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html](https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html)
+        doesn’t have a matching callback API in **SudMGPWrapper**, you can use this callback to handle it manually by checking the `state` value.
 
 # 3. QuickStart
 

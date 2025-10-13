@@ -1,4 +1,5 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator } from 'sudmgp-sdk-js-wrapper'
+// SudFSTAPPDecorator：app调用api通知游戏的类，SudFSMMGDecorator：用于处理游戏回调业务，需要理解这两个类是什么，可以直接看源码SudMGPWrapper
 
 import { SudMGP as SudMGPSDK } from 'sudmgp-sdk-js'
 import { getCode } from '@/api/login' // 短期令牌code接口,由业务方自行实现
@@ -18,9 +19,12 @@ export class SDKGameView {
   // eslint-disable-next-line camelcase
   SudMGP_APP_KEY = '03pNxK2lEXsKiiwrBQ9GbH541Fk2Sfnc'// '1461564080052506636' //"E9Lj2Cg61pUgiSESou6WDtxntoTXH7Gf"
 
-  // app调用sdk的封装类
+  // app调用api通知游戏的类
+  // 一般使用SudMGPWrapper中已经定义好的api进行调用，如想要调用 "app_common_self_in" 这个通知游戏，对应的api就是 sudFSTAPPDecorator.notifyAPPCommonSelfIn(true)
+  // 如果SudMGPWrapper中没有定义对应的api，可以使用sudFSTAPPDecorator.notifyAPPCommon 自定义的调用方式，传入的数据按文档格式写即可，如：sudFSTAPPDecorator.notifyAPPCommon('app_common_game_ui_custom_config', JSON.stringify({}))
   sudFSTAPPDecorator = new SudFSTAPPDecorator()
-  // 用于处理游戏SDK部分回调业务
+
+  // 用于处理游戏回调业务
   sudFSMMGDecorator = new SudFSMMGDecorator()
 
   customSudFSMMGListener
@@ -54,7 +58,7 @@ export class SDKGameView {
         user_id: userId, // 【必须是字符串类型！！】
         app_id: this.SudMGP_APP_ID
       }
-      // 获取code
+      // 短期令牌code接口,由业务方自行实现
       getCode(data).then(async (res) => {
         const code = res.data.code
         console.log(code)
@@ -86,8 +90,8 @@ export class SDKGameView {
    *
    */
   initSdk ({
-    userId,
-    appId,
+    userId,  // 必须string
+    appId, // 必须string
     code,
     appKey
   }) {
@@ -114,12 +118,17 @@ export class SDKGameView {
     const language = this.language
     const self = this
     const customSudFSMMGListener = this.customSudFSMMGListener || {}
+    // 监听游戏的回调，在https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html中找到想要监听对应的字符串
+    // 1. 根据字符串在SudMGPWrapper源码中搜索是否有对应的回调api，如果有则可以直接使用
+    // 如 mg_common_player_in 对应的监听的api就是 => onPlayerMGCommonPlayerIn
     this.sudFSMMGDecorator.setSudFSMMGListener({
-      // 默认监听事件
       onGameStarted () {
         console.log('game started')
         self.gameIsStarted = true
       },
+      // 自定义监听回调，只有在SudMGPWrapper中没有找到对应的回调api才能用这个回调
+      // https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html 这里的回调字符串如果在SudMGPWrapper找不到相应的回调api就可以使用这个回调自行判断state值进行处理
+
       onGameCustomerStateChange (handle, state, data) {
         console.log('======onGameCustomerStateChange====', 'state', state, data)
         switch (state) {
