@@ -123,16 +123,6 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
 
       nsdk.setSudFSMMGListener({
         onGameStarted() {
-          const gameConf = localStorage.getItem('gameconfig')
-          if (gameConf) {
-            const gameConfData = JSON.parse(gameConf)
-            console.log('[ gameConfData hd data] >', gameConfData)
-            if (gameConfData.ui.hd && gameConfData.ui.hd.show) {
-              // 高清适配处理
-              const gameView = document.getElementById('game')
-              gameView?.classList.add('hd')
-            }
-          }
           // 在onGameStarted触发之后去拿，可以保证返回对象不为空
           const ai = nsdk.iSudFSTAPP?.getAiAgent()
           console.log('[ ai ] >', ai)
@@ -163,37 +153,6 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
               break
             }
           }
-        },
-        onGetGameViewInfo(handle, dataJson) {
-          const width = root.clientWidth
-          const height = root.clientHeight
-          const data = JSON.parse(dataJson)
-          const dpr = data.ratio || 1
-          console.log(width, height, 'width,height', dataJson, 'dataJson', 'dpr', dpr)
-          const viewGameRect = {
-            left: 0,
-            right: 0,
-            top: 0,
-            bottom: 200
-          }
-          const gameViewInfo = {
-            ret_code: 0,
-            ret_msg: "success",
-            view_size: {
-              width: width * dpr,
-              height: height * dpr
-            },
-            view_game_rect: viewGameRect
-          }
-          console.log(gameViewInfo, 'gameViewInfo')
-
-          handle.success(JSON.stringify(gameViewInfo))
-        },
-        onGameMGCommonGameBackLobby(handle, data) {
-          // 返回游戏大厅
-          console.log('onGameMGCommonGameBackLobby', data)
-
-          goBack && goBack(data)
         }
       })
       setSudSDK(nsdk)
