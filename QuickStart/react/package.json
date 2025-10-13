@@ -25,7 +25,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "sudmgp-sdk-js": "^1.2.0",
-    "sudmgp-sdk-js-test": "^0.1.28",
+    "sudmgp-sdk-js-test": "^0.1.29",
     "sudmgp-sdk-js-wrapper": "^0.1.20",
     "sudmgp-sdk-js-wrapper-test": "^0.1.9",
     "typescript": "^4.1.2",
