@@ -1,9 +1,9 @@
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator } from 'sudmgp-sdk-js-wrapper'
 
-// import { SudMGP as SudMGPSDK } from 'sudmgp-sdk-js'
+import { SudMGP as SudMGPSDK } from 'sudmgp-sdk-js'
 
 // @ts-ignore
-import { SudMGP as SudMGPSDK } from '../SudMGP/SudMGP/lib'
+// import { SudMGP as SudMGPSDK } from '../SudMGP/SudMGP/lib'
 // import type { ISudMGP, ISudFSTAPP } from '../SudMGP/SudMGP/lib/type'
 import { getCode } from '@/api/login' // 短期令牌code接口,由业务方自行实现
 
