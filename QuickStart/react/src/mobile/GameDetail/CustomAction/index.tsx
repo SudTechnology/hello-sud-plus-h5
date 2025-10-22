@@ -19,6 +19,8 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
 
   const [volum, setVolum] = useState(100) // 音量
   const [visibleGameSetting, setVisibleGameSetting] = useState(false)
+  const [visibleCustomGameSetting, setVisibleCustomGameSetting] = useState(false)
+
   const [visibleViewSize, setVisibleViewSize] = useState(false) // 游戏容器宽高设置
   const width = document.body.clientWidth
   const height = document.body.clientHeight
@@ -116,6 +118,13 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
       }
     })
   }
+
+  const onFinishSendCustomGameCfg = (values: any) => {
+    const data = values.data
+    localStorage.setItem('gameconfig', data)
+    location.reload()
+  }
+
   return (
     <div>
       <div className={cx('info')}>屏幕参数 view_size: width: {window.innerWidth}px ,height:{window.innerHeight}px</div>
@@ -129,6 +138,7 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
         >
       <div className={cx('action-btn')}>
         <button onClick={() => setVisibleGameSetting(true)}>Game Cfg 配置</button>
+        <button onClick={() => setVisibleCustomGameSetting(true)}>自定义Game Cfg 配置</button>
         <button onClick={() => setVisibleViewSize(true)}>Game ViewInfo</button>
 
         <button onClick={() => setVisibleGameInfo(true)}>设置游戏玩法</button>
@@ -346,6 +356,34 @@ const CustomAction = (props: {SudSDK: SDKGameView | undefined}) => {
                 rules={[{ required: true }]}
                 required initialValue={0} label="bottom" extra={<span>px</span>}>
                 <Input type="number" placeholder="请输入" />
+              </Form.Item>
+            </Form>
+          </div>
+        }
+      />
+
+      <Modal
+        visible={visibleCustomGameSetting}
+        closeOnAction
+        closeOnMaskClick
+        getContainer={() => document.body}
+        onClose={() => {
+          setVisibleCustomGameSetting(false)
+        }}
+        title="自定义Game Cfg 配置"
+        content={
+          <div>
+            <Form
+              onFinish={onFinishSendCustomGameCfg}
+              footer={
+              <Button block type='submit' color='primary' size="middle">
+                确定
+              </Button>
+              }
+              className={cx('form')}
+              layout='horizontal'>
+              <Form.Item layout="vertical" name="data" label="内容 （json字符串方式）">
+                <TextArea rows={4} placeholder="请输入" />
               </Form.Item>
             </Form>
           </div>
