@@ -219,7 +219,7 @@
 
 - `SudMGPAPPState` 封装 [App通用状态](https://docs.sud.tech/zh-CN/app/Client/APPFST/CommonState.html) ；
 - `SudFSTAPPDecorator` app调用api通知游戏的类, 封装 [ISudFSTAPP](https://docs.sud.tech/zh-CN/app/Client/API/ISudFSTAPP.html)
-  两类接口，[notifyStateChange](https://docs.sud.tech/zh-CN/app/Client/APPFST/CommonState.html) 、 foo；
+  两类接口，[notifyStateChange](https://docs.sud.tech/zh-CN/app/Client/APPFST/CommonState.html)；
 - `SudFSTAPPDecorator` 负责把每一个App通用状态封装成接口；
     <details>
     <summary>代码框架 class SudFSTAPPDecorator</summary>
@@ -245,7 +245,7 @@
   可在官方文档中查看调用api字符串：
 👉 https://docs.sud.tech/zh-CN/app/Client/APPFST/CommonState.html
 
-  1. 如要调用"app_common_self_in" 要用户加入游戏可以使用
+  1. 在 **SudMGPWrapper** 源码中搜索是否存在对应的API，如要调用"app_common_self_in" 手动让用户加入游戏
     ```js
       sudFSTAPPDecorator.notifyAPPCommonSelfIn(true)
     ```
@@ -266,7 +266,7 @@
 
 - `SudMGPMGState` 封装 [通用状态-游戏](https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html)
   和 [通用状态-玩家](https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStatePlayer.html) ；
-- `SudFSMMGListener` 用于处理游戏回调业务， 封装[ISudFSMMG](https://docs.sud.tech/zh-CN/app/Client/API/ISudFSMMG.html) 三类回调函数，onGameStateChange、onPlayerStateChange、onFoo；
+- `SudFSMMGListener` 用于处理游戏回调业务， 封装[ISudFSMMG](https://docs.sud.tech/zh-CN/app/Client/API/ISudFSMMG.html) 三类回调函数，onGameStateChange、onPlayerStateChange；
 - `SudFSMMGListener` 负责把游戏每一个状态封装成单独的回调函数；
     <details>
     <summary>代码框架 interface SudFSMMGListener</summary>
