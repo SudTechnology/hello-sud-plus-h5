@@ -154,7 +154,7 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
             })
           }
         },
-        onGameCustomerStateChange(handle, state, data) {
+        onGameStateChange(handle, state, data) {
           switch (state) {
             case 'mg_common_game_player_mic_state': {
               console.log('[ 可以开始推送麦克说话状态 ] >', data)
@@ -162,6 +162,7 @@ export const useLLMbot = (gameId: string, roomId: string, language: string, user
               break
             }
           }
+          return false
         },
         onGetGameViewInfo(handle, dataJson) {
           const width = root.clientWidth

@@ -1,6 +1,6 @@
 {
-  "name": "sudmgp-sdk-js-wrapper",
-  "version": "0.1.20",
+  "name": "sudgip-sdk-js-wrapper-test",
+  "version": "0.1.10",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,9 +11,9 @@
     "lint": "eslint --ext .js,.ts,.tsx src/"
   },
   "keywords": [
-    "sdk sudmgpwrapper"
+    "sdk sudgipwrapper"
   ],
-  "author": "SudMGP",
+  "author": "SudGIP",
   "license": "ISC",
   "eslintConfig": {
     "extends": [

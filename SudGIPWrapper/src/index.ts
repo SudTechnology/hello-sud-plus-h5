@@ -3,12 +3,12 @@ import { SudFSMMGDecorator } from "./decorator/SudFSMMGDecorator"
 import { SudFSMMGListener } from "./decorator/SudFSMMGListener"
 import { GameConfigModel } from "./model/GameConfigModel"
 import { GameViewInfoModel } from "./model/GameViewInfoModel"
-import { SudMGPMGState } from "./state/SudMGPMGState"
-import { SudMGPAPPState } from "./state/SudMGPAPPState"
+import { SudGIPMGState } from "./state/SudGIPMGState"
+import { SudGIPAPPState } from "./state/SudGIPAPPState"
 import { GameCommonStateUtils } from "./utils/GameCommonStateUtils"
 import { ISudFSMStateHandleUtils } from "./utils/ISudFSMStateHandleUtils"
 
-export const SudMGPWrapper = {
+export const SudGIPWrapper = {
   decorator: {
     SudFSTAPPDecorator, // 负责APP调用游戏
     SudFSMMGDecorator, // 负责游戏调用APP
@@ -19,8 +19,8 @@ export const SudMGPWrapper = {
     GameViewInfoModel // 游戏视图安全区
   },
   state: {
-    SudMGPMGState, //  游戏调用APP
-    SudMGPAPPState // APP调用游戏
+    SudGIPMGState,
+    SudGIPAPPState
   },
   utils: {
     ISudFSMStateHandleUtils,
@@ -34,8 +34,8 @@ export {
   SudFSMMGListener,
   GameConfigModel, // 游戏配置模型
   GameViewInfoModel, // 游戏视图安全区
-  SudMGPMGState, //  游戏调用APP
-  SudMGPAPPState, // APP调用游戏
+  SudGIPMGState,
+  SudGIPAPPState,
   ISudFSMStateHandleUtils,
   GameCommonStateUtils // 工具函数
 }

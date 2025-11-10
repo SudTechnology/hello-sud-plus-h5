@@ -6,7 +6,7 @@ const base = {
     filename: 'index.js',
     path: path.resolve(__dirname, 'lib'),
     library: {
-      name: 'SudMGPWrapper',
+      name: 'SudGIPWrapper',
       type: 'umd'
     },
     globalObject: 'this'
@@ -24,8 +24,7 @@ const base = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
     alias: {
-      SudMGP: path.resolve(__dirname, './src/SudMGP'),
-      SudMGPWrapper: path.resolve(__dirname, './src/SudMGPWrapper')
+      SudGIPWrapper: path.resolve(__dirname, './src/SudGIPWrapper')
     }
   }
 }

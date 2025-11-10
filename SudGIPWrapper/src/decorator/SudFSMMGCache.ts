@@ -3,7 +3,7 @@
  * https://sud.tech
  */
 
-import { IMGCommonGameState, IMGCommonKeyWordToHit, IMGCommonPlayerCaptain, IMGCommonPlayerIn, IMGCommonPlayerPlaying, IMGCommonPlayerReady, MGCommonGameStateValue } from "../state/ISudMGPMGState"
+import { IMGCommonGameState, IMGCommonKeyWordToHit, IMGCommonPlayerCaptain, IMGCommonPlayerIn, IMGCommonPlayerPlaying, IMGCommonPlayerReady, MGCommonGameStateValue } from "../state/ISudGIPMGState"
 
 /**
  * 游戏回调数据缓存
@@ -124,7 +124,7 @@ export class SudFSMMGCache {
   }
 
   /**
-     * 返回当前游戏的状态，数值参数{@link SudMGPMGState.MGCommonGameState}
+     * 返回当前游戏的状态，数值参数{@link SudGIPMGState.MGCommonGameState}
      */
   public getGameState(): number {
     if (this.mgCommonGameStateModel != null) {

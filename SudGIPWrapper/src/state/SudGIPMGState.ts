@@ -3,7 +3,7 @@
  * https://sud.tech
  */
 
-export class SudMGPMGState {
+export class SudGIPMGState {
   // region MG状态机-通用状态-游戏
   // 参考文档：https://docs.sud.tech/zh-CN/app/Client/MGFSM/CommonStateGame.html
   /**

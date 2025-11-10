@@ -4,7 +4,7 @@
  */
 
 import { ISudFSMMG, ISudFSMStateHandle } from '../type/core'
-import { SudMGPMGState } from '../state/SudMGPMGState'
+import { SudGIPMGState } from '../state/SudGIPMGState'
 import {
   IMGCommonAPPCommonSelfXResp,
   IMGCommonGameAddAIPlayers,
@@ -44,7 +44,7 @@ import {
   IMGDGSelecting,
   IMGDGTotalscore,
   IMGCommonPlayerRoleIdList
-} from '../state/ISudMGPMGState'
+} from '../state/ISudGIPMGState'
 import { ISudFSMStateHandleUtils } from '../utils/ISudFSMStateHandleUtils'
 import { SudFSMMGCache } from './SudFSMMGCache'
 import { SudFSMMGListener } from './SudFSMMGListener'
@@ -171,9 +171,11 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    */
   public onGameStateChange(handle: ISudFSMStateHandle, state: string, dataJson: string) {
     const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
-
+    if (listener != null && listener.onGameStateChange && listener.onGameStateChange(handle, state, dataJson)) {
+      return
+    }
     switch (state) {
-      case SudMGPMGState.MG_COMMON_PUBLIC_MESSAGE: { // 1. 公屏消息
+      case SudGIPMGState.MG_COMMON_PUBLIC_MESSAGE: { // 1. 公屏消息
         const res = parseJson<IMGCommonPublicMessage>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -182,7 +184,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_KEY_WORD_TO_HIT: { // 2. 关键词状态
+      case SudGIPMGState.MG_COMMON_KEY_WORD_TO_HIT: { // 2. 关键词状态
         const res = parseJson<IMGCommonKeyWordToHit>(dataJson)
 
         this.sudFSMMGCache.onGameMGCommonKeyWordToHit(res)
@@ -193,7 +195,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_GAME_SETTLE: { // 3. 游戏结算状态
+      case SudGIPMGState.MG_COMMON_GAME_SETTLE: { // 3. 游戏结算状态
         const res = parseJson<IMGCommonGameSettle>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -202,7 +204,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_CLICK_JOIN_BTN: { // 4. 加入游戏按钮点击状态
+      case SudGIPMGState.MG_COMMON_SELF_CLICK_JOIN_BTN: { // 4. 加入游戏按钮点击状态
         const res = parseJson<IMGCommonSelfClickJoinBtn>(dataJson)
 
         if (listener === null) {
@@ -212,7 +214,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_CLICK_CANCEL_JOIN_BTN: { // 5. 取消加入(退出)游戏按钮点击状态
+      case SudGIPMGState.MG_COMMON_SELF_CLICK_CANCEL_JOIN_BTN: { // 5. 取消加入(退出)游戏按钮点击状态
         const res = parseJson<IMGCommonSelfClickCancelJoinBtn>(dataJson)
 
         if (listener === null) {
@@ -222,7 +224,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_CLICK_READY_BTN: { // 6. 准备按钮点击状态
+      case SudGIPMGState.MG_COMMON_SELF_CLICK_READY_BTN: { // 6. 准备按钮点击状态
         const res = parseJson<IMGCommonSelfClickReadyBtn>(dataJson)
 
         if (listener === null) {
@@ -232,7 +234,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_CLICK_CANCEL_READY_BTN:{ // 7. 取消准备按钮点击状态
+      case SudGIPMGState.MG_COMMON_SELF_CLICK_CANCEL_READY_BTN:{ // 7. 取消准备按钮点击状态
         const res = parseJson<IMGCommonSelfClickCancelReadyBtn>(dataJson)
 
         if (listener === null) {
@@ -242,7 +244,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_CLICK_START_BTN: { // 8. 开始游戏按钮点击状态
+      case SudGIPMGState.MG_COMMON_SELF_CLICK_START_BTN: { // 8. 开始游戏按钮点击状态
         const res = parseJson<IMGCommonSelfClickCancelReadyBtn>(dataJson)
 
         if (listener === null) {
@@ -252,7 +254,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_CLICK_SHARE_BTN: { // 9. 分享按钮点击状态
+      case SudGIPMGState.MG_COMMON_SELF_CLICK_SHARE_BTN: { // 9. 分享按钮点击状态
         const mgCommonSelfClickShareBtn = parseJson<IMGCommonSelfClickShareBtn>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -261,7 +263,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_GAME_STATE: { // 10. 游戏状态
+      case SudGIPMGState.MG_COMMON_GAME_STATE: { // 10. 游戏状态
         const mgCommonGameState = parseJson<IMGCommonGameState>(dataJson)
         this.sudFSMMGCache.onGameMGCommonGameState(mgCommonGameState)
         if (listener === null) {
@@ -271,7 +273,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_CLICK_GAME_SETTLE_CLOSE_BTN: { // 11. 结算界面关闭按钮点击状态（2021-12-27新增）
+      case SudGIPMGState.MG_COMMON_SELF_CLICK_GAME_SETTLE_CLOSE_BTN: { // 11. 结算界面关闭按钮点击状态（2021-12-27新增）
         const mgCommonSelfClickGameSettleCloseBtn = parseJson<IMGCommonSelfClickGameSettleCloseBtn>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -280,7 +282,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_CLICK_GAME_SETTLE_AGAIN_BTN: { // 12. 结算界面再来一局按钮点击状态（2021-12-27新增）
+      case SudGIPMGState.MG_COMMON_SELF_CLICK_GAME_SETTLE_AGAIN_BTN: { // 12. 结算界面再来一局按钮点击状态（2021-12-27新增）
         const mgCommonSelfClickGameSettleAgainBtn = parseJson<IMGCommonSelfClickGameSettleAgainBtn>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -289,7 +291,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_GAME_SOUND_LIST: { // 13. 游戏上报游戏中的声音列表（2021-12-30新增，现在只支持碰碰我最强）
+      case SudGIPMGState.MG_COMMON_GAME_SOUND_LIST: { // 13. 游戏上报游戏中的声音列表（2021-12-30新增，现在只支持碰碰我最强）
         const mgCommonGameSoundList = parseJson<IMGCommonGameSoundList>(dataJson)
 
         if (listener === null) {
@@ -299,7 +301,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_GAME_SOUND:{ // 14. 游通知app层播放声音（2021-12-30新增，现在只支持碰碰我最强）
+      case SudGIPMGState.MG_COMMON_GAME_SOUND:{ // 14. 游通知app层播放声音（2021-12-30新增，现在只支持碰碰我最强）
         const mgCommonGameSound = parseJson<IMGCommonGameSound>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -308,7 +310,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_GAME_BG_MUSIC_STATE: { // 15. 游戏通知app层播放背景音乐状态（2022-01-07新增，现在只支持碰碰我最强）
+      case SudGIPMGState.MG_COMMON_GAME_BG_MUSIC_STATE: { // 15. 游戏通知app层播放背景音乐状态（2022-01-07新增，现在只支持碰碰我最强）
         const mgCommonGameBgMusicState = parseJson<IMGCommonGameBgMusicState>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -317,7 +319,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_GAME_SOUND_STATE: { // 16. 游戏通知app层播放音效的状态（2022-01-07新增，现在只支持碰碰我最强）
+      case SudGIPMGState.MG_COMMON_GAME_SOUND_STATE: { // 16. 游戏通知app层播放音效的状态（2022-01-07新增，现在只支持碰碰我最强）
         const mgCommonGameSoundState = parseJson<IMGCommonGameSoundState>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -326,7 +328,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_GAME_ASR: { // 17. ASR状态(开启和关闭语音识别状态，v1.1.45.xx 版本新增)
+      case SudGIPMGState.MG_COMMON_GAME_ASR: { // 17. ASR状态(开启和关闭语音识别状态，v1.1.45.xx 版本新增)
         const mgCommonGameASR = parseJson<IMGCommonGameASR>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -335,7 +337,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_MICROPHONE: { // 18. 麦克风状态（2022-02-08新增）
+      case SudGIPMGState.MG_COMMON_SELF_MICROPHONE: { // 18. 麦克风状态（2022-02-08新增）
         const mgCommonSelfMicrophone = parseJson<IMGCommonSelfMicrophone>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -344,7 +346,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_HEADPHONE:{ // 19. 耳机（听筒，扬声器）状态（2022-02-08新增）
+      case SudGIPMGState.MG_COMMON_SELF_HEADPHONE:{ // 19. 耳机（听筒，扬声器）状态（2022-02-08新增）
         const mgCommonSelfHeadphone = parseJson<IMGCommonSelfHeadphone>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -353,7 +355,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_APP_COMMON_SELF_X_RESP: { // 20. App通用状态操作结果错误码（2022-05-10新增）
+      case SudGIPMGState.MG_COMMON_APP_COMMON_SELF_X_RESP: { // 20. App通用状态操作结果错误码（2022-05-10新增）
         const mgCommonAPPCommonSelfXResp = parseJson<IMGCommonAPPCommonSelfXResp>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -362,7 +364,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_GAME_ADD_AI_PLAYERS: { // 21. 游戏通知app层添加陪玩机器人是否成功（2022-05-17新增）
+      case SudGIPMGState.MG_COMMON_GAME_ADD_AI_PLAYERS: { // 21. 游戏通知app层添加陪玩机器人是否成功（2022-05-17新增）
         const mgCommonGameAddAIPlayers = parseJson<IMGCommonGameAddAIPlayers>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -371,7 +373,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_BACK_LOBBY: { // 22. 游戏通知app层回到大厅（2022-08-10新增）
+      case SudGIPMGState.MG_COMMON_BACK_LOBBY: { // 22. 游戏通知app层回到大厅（2022-08-10新增）
         const mgCommonGameBackLobby = parseJson<IMGCommonGameBackLobby>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -403,8 +405,11 @@ export class SudFSMMGDecorator implements ISudFSMMG {
    */
   public onPlayerStateChange(handle: ISudFSMStateHandle, userId: string, state: string, dataJson: string) {
     const listener = this.sudFSMMGListener as Required<SudFSMMGListener>
+    if (listener != null && listener.onPlayerStateChange && listener.onPlayerStateChange(handle, userId, state, dataJson)) {
+      return
+    }
     switch (state) {
-      case SudMGPMGState.MG_COMMON_PLAYER_IN: { // 1.加入状态（已修改）
+      case SudGIPMGState.MG_COMMON_PLAYER_IN: { // 1.加入状态（已修改）
         const mgCommonPlayerIn = parseJson<IMGCommonPlayerIn>(dataJson)
         this.sudFSMMGCache.onPlayerMGCommonPlayerIn(userId, mgCommonPlayerIn)
         if (listener === null) {
@@ -414,7 +419,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_PLAYER_READY: { // 2.准备状态（已修改）
+      case SudGIPMGState.MG_COMMON_PLAYER_READY: { // 2.准备状态（已修改）
         const mgCommonPlayerReady = parseJson<IMGCommonPlayerReady>(dataJson)
         this.sudFSMMGCache.onPlayerMGCommonPlayerReady(userId, mgCommonPlayerReady)
         if (listener === null) {
@@ -424,7 +429,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_PLAYER_CAPTAIN: { // 3.队长状态（已修改）
+      case SudGIPMGState.MG_COMMON_PLAYER_CAPTAIN: { // 3.队长状态（已修改）
         const mgCommonPlayerCaptain = parseJson<IMGCommonPlayerCaptain>(dataJson)
         this.sudFSMMGCache.onPlayerMGCommonPlayerCaptain(userId, mgCommonPlayerCaptain)
         if (listener === null) {
@@ -434,7 +439,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_PLAYER_PLAYING: { // 4.游戏状态（已修改）
+      case SudGIPMGState.MG_COMMON_PLAYER_PLAYING: { // 4.游戏状态（已修改）
         const mgCommonPlayerPlaying = parseJson<IMGCommonPlayerPlaying>(dataJson)
         this.sudFSMMGCache.onPlayerMGCommonPlayerPlaying(userId, mgCommonPlayerPlaying)
         if (listener === null) {
@@ -444,7 +449,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_PLAYER_ONLINE: { // 5.玩家在线状态
+      case SudGIPMGState.MG_COMMON_PLAYER_ONLINE: { // 5.玩家在线状态
         const mgCommonPlayerOnline = parseJson<IMGCommonPlayerOnline>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -453,7 +458,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_PLAYER_CHANGE_SEAT: { // 6.玩家换游戏位状态
+      case SudGIPMGState.MG_COMMON_PLAYER_CHANGE_SEAT: { // 6.玩家换游戏位状态
         const mgCommonPlayerChangeSeat = parseJson<IMGCommonPlayerChangeSeat>(dataJson)
         if (listener == null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -462,7 +467,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_CLICK_GAME_PLAYER_ICON: { // 7. 游戏通知app点击玩家头像（2022-02-09新增，现在只支持飞行棋ludo，仅用于游戏场景中的玩家头像）
+      case SudGIPMGState.MG_COMMON_SELF_CLICK_GAME_PLAYER_ICON: { // 7. 游戏通知app点击玩家头像（2022-02-09新增，现在只支持飞行棋ludo，仅用于游戏场景中的玩家头像）
         const mgCommonSelfClickGamePlayerIcon = parseJson<IMGCommonSelfClickGamePlayerIcon>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -471,7 +476,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_DIE_STATUS: { // 8. 游戏通知app玩家死亡状态（2022-04-24新增）
+      case SudGIPMGState.MG_COMMON_SELF_DIE_STATUS: { // 8. 游戏通知app玩家死亡状态（2022-04-24新增）
         const mgCommonSelfDieStatus = parseJson<IMGCommonSelfDieStatus>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -480,7 +485,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_TURN_STATUS:{ // 9. 游戏通知app轮到玩家出手状态（2022-04-24新增）
+      case SudGIPMGState.MG_COMMON_SELF_TURN_STATUS:{ // 9. 游戏通知app轮到玩家出手状态（2022-04-24新增）
         const mgCommonSelfTurnStatus = parseJson<IMGCommonSelfTurnStatus>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -489,7 +494,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_SELF_SELECT_STATUS: { // 10. 游戏通知app玩家选择状态（2022-04-24新增）
+      case SudGIPMGState.MG_COMMON_SELF_SELECT_STATUS: { // 10. 游戏通知app玩家选择状态（2022-04-24新增）
         const mgCommonSelfSelectStatus = parseJson<IMGCommonSelfSelectStatus>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -498,7 +503,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_GAME_COUNTDOWN_TIME: { // 11. 游戏通知app层当前游戏剩余时间（2022-05-23新增，目前UMO生效）
+      case SudGIPMGState.MG_COMMON_GAME_COUNTDOWN_TIME: { // 11. 游戏通知app层当前游戏剩余时间（2022-05-23新增，目前UMO生效）
         const mgCommonGameCountdownTime = parseJson<IMGCommonGameCountdownTime>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -507,7 +512,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_DG_SELECTING:{ // 1. 选词中状态（已修改）
+      case SudGIPMGState.MG_DG_SELECTING:{ // 1. 选词中状态（已修改）
         const mgdgSelecting = parseJson<IMGDGSelecting>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -516,7 +521,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_DG_PAINTING: { // 2. 作画中状态（已修改）
+      case SudGIPMGState.MG_DG_PAINTING: { // 2. 作画中状态（已修改）
         const mgdgPainting = parseJson<IMGDGPainting>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -525,7 +530,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_DG_ERRORANSWER: { // 3. 显示错误答案状态（已修改）
+      case SudGIPMGState.MG_DG_ERRORANSWER: { // 3. 显示错误答案状态（已修改）
         const mgdgErroranswer = parseJson<IMGDGErroranswer>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -534,7 +539,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_DG_TOTALSCORE: { // 4. 显示总积分状态（已修改）
+      case SudGIPMGState.MG_DG_TOTALSCORE: { // 4. 显示总积分状态（已修改）
         const mgdgTotalscore = parseJson<IMGDGTotalscore>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -543,7 +548,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_DG_SCORE: { // 5. 本次获得积分状态（已修改）
+      case SudGIPMGState.MG_DG_SCORE: { // 5. 本次获得积分状态（已修改）
         const mgdgScore = parseJson<IMGDGScore>(dataJson)
         if (listener === null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -552,7 +557,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
         }
         break
       }
-      case SudMGPMGState.MG_COMMON_PLAYER_ROLE_ID: { // 26. 游戏通知app玩家角色(仅对狼人杀有效)
+      case SudGIPMGState.MG_COMMON_PLAYER_ROLE_ID: { // 26. 游戏通知app玩家角色(仅对狼人杀有效)
         const mgCommonPlayerRoleIdList = parseJson<IMGCommonPlayerRoleIdList>(dataJson)
         if (listener == null) {
           ISudFSMStateHandleUtils.handleSuccess(handle)
@@ -603,7 +608,7 @@ export class SudFSMMGDecorator implements ISudFSMMG {
   }
 
   /**
-   * 返回当前游戏的状态，数值参数{@link SudMGPMGState.MGCommonGameState}
+   * 返回当前游戏的状态，数值参数{@link SudGIPMGState.MGCommonGameState}
    */
   public getGameState(): number {
     return this.sudFSMMGCache.getGameState()

@@ -1,6 +1,4 @@
 
-// import java.util.List;
-
 /**
  * APP to MG 的通用状态定义
  * 参考文档：https://docs.sud.tech/zh-CN/app/Client/APPFST/
@@ -53,7 +51,7 @@ interface APPCommonSelfTextHitStateParams {
   numberList: Array<number>;
  }
 
-export class SudMGPAPPState {
+export class SudGIPAPPState {
   /**
    * 1. 加入状态
    * 最低版本: v1.1.30.xx

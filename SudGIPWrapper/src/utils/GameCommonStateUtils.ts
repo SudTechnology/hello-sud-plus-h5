@@ -3,7 +3,7 @@
  * https://sud.tech
  */
 
-import { IMGCommonPublicMessage, IMGCommonPublicMessageMsgText } from "../state/ISudMGPMGState"
+import { IMGCommonPublicMessage, IMGCommonPublicMessageMsgText } from "../state/ISudGIPMGState"
 
 /**
  * 游戏通用状态工具类

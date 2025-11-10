@@ -43,6 +43,21 @@ export class GameUi {
   public game_mvp = new GameMvp() // 游戏结算前的mvp动画
   public umo_icon = new UmoIcon() // 游戏中动画和头像右上角的UMO图标
   public logo = new Logo() // 大厅中的logo
+
+  public game_players = new GamePlayers() // 游戏中的游戏位
+  public bullet_screens_btn = new BulletScreensBtn() // 你画我猜，你说我猜『弹幕开关』按钮
+  public round_over_poop_btn = new RoundOverPoopBtn() // 你画我猜，小局结算界面点击扔大便按钮
+  public round_over_good_btn = new RoundOverGoodBtn() // 你画我猜，小局结算界面点击点赞按钮
+  public mask = new Mask() // 游戏中所有蒙版
+  public worst_teammate_tip = new WorstTeammateTip() // 友尽闯关中最坑队友的弹框
+  public game_over_tip = new GameOverTip() // 友尽闯关中玩家逃跑导致游戏结束弹框
+  public lobby_animation = new LobbyAnimation() // 碰碰我最强大厅动画
+  public game_effect = new GameEffect() // 消消乐中的特效
+  public game_burst_send_btn = new GameBurstSendBtn() // 谁是卧底发送爆词按钮
+  public player_pair_singular = new PlayerPairSignular() // okey101 玩家左上角单双牌
+  public game_rank_info = new GameRankInfo() // 怪物消消乐玩家左上角排名
+  public auxiliary = new Auxiliary() // 是否隐藏游戏中的辅助线（只支持桌球）
+  public ob_pnl = new ObPnl() // 是否隐藏OB玩家观看的提示（只支持ludo）
 }
 
 // 结算界面
@@ -160,7 +175,7 @@ class GameSettleAgainBtn {
 }
 
 // 是否隐藏背景图，包括大厅和战斗
-// ！！！这里只隐藏加载完成后的背景图，加载中背景图如需隐藏则调用：{SudMGP.getCfg().setShowLoadingGameBg(false); }
+// ！！！这里只隐藏加载完成后的背景图，加载中背景图如需隐藏则调用：{SudGIP.getCfg().setShowLoadingGameBg(false); }
 class GameBg {
   // （false: 显示； true: 隐藏，默认为false）
   public hide = false
@@ -232,10 +247,95 @@ class Logo {
   public hide = false
 }
 
+class GamePlayers {
+  // 是否隐藏游戏中的游戏位（false: 不隐藏； true: 隐藏，默认为false，暂时只支持你画我猜）
+  public hide = false
+}
+
+// 你画我猜，你说我猜『弹幕开关』按钮
+class BulletScreensBtn {
+  // 是否隐藏 你画我猜，你说我猜『弹幕开关』按钮（false: 显示； true: 隐藏；默认为true）
+  public hide = true
+}
+
+// 你画我猜，小局结算界面点击扔大便按钮
+class RoundOverPoopBtn {
+  public custom = false // 你画我猜，小局结算点击扔大便按钮抛事件（false: 正常点击； true: 游戏通知app按钮点击事件；默认为false）
+  public hide = false // 小局结算点击扔大便按钮隐藏（false: 显示； true: 隐藏；默认为false）
+}
+
+// 你画我猜，小局结算界面点击点赞按钮
+class RoundOverGoodBtn {
+  public custom = false // 你画我猜，小局结算点击点赞按钮抛事件（false: 正常点击； true: 游戏通知app按钮点击事件；默认为false）
+  public hide = false // 小局结算点击点赞按钮隐藏（false: 显示； true: 隐藏；默认为false）
+}
+
+// 游戏中所有蒙版
+class Mask {
+  // 游戏中的所有蒙版是否透明（false: 不透明，按默认显示； true: 完全透明，默认为false；暂时只支持部分游戏）
+  public transparent = false
+}
+
+// 友尽闯关中最坑队友的弹框
+class WorstTeammateTip {
+  // 是否隐藏最坑队友弹框（false: 显示； true: 隐藏，默认为false；）只支持友尽闯关
+  public hide = false
+}
+
+// 友尽闯关中玩家逃跑导致游戏结束弹框
+class GameOverTip {
+  // 是否隐藏玩家逃跑导致游戏结束弹框（false: 显示； true: 隐藏，默认为false；）只支持友尽闯关
+  public hide = false
+}
+
+// 碰碰我最强大厅动画
+class LobbyAnimation {
+  // 是否隐藏碰碰我最强大厅动画（false: 显示； true: 隐藏，默认为false；）只支持碰碰我最强
+  public hide = false
+}
+
+// 消消乐中的特效
+class GameEffect {
+  // 是否隐藏消消乐中的特效（false: 显示； true: 隐藏，默认为false；）只支持monstercrush(消消乐)
+  public hide = false
+}
+
+// 谁是卧底发送爆词按钮
+class GameBurstSendBtn {
+  // 是否接管发送爆词按钮事件（false: 正常点击； 游戏通知app按钮点击事件；默认为false）只支持谁是卧底
+  public custom = false
+}
+
+// okey101 玩家左上角单双牌
+class PlayerPairSignular {
+  // 是否隐藏玩家左上角单双牌（false: 显示， ture: 隐藏；默认为false）只支持okey101
+  public hide = false
+}
+
+// 怪物消消乐玩家左上角排名
+class GameRankInfo {
+  // 是否隐藏玩家左上角排名（false: 显示， ture: 隐藏；默认为false）只支持怪物消消乐
+  public hide = false
+}
+
+// 是否隐藏游戏中的辅助线（只支持桌球）
+class Auxiliary {
+  // 是否隐藏游戏中的辅助线（false: 显示， ture: 隐藏；默认为false）只支持桌球
+  public hide = false
+}
+
+// 是否隐藏OB玩家观看的提示（只支持ludo）
+class ObPnl {
+  // 是否隐藏OB玩家观看的提示（false: 显示， ture: 隐藏；默认为false）只支持ludo
+  public hide = false
+}
+
 export class GameConfigModel {
   public gameMode = 1 // 游戏模式（每个游戏默认模式是1，不填是1）
   public gameCPU = 0 // 游戏CPU（值为0和1；0：CPU正常功耗，1：CPU低功耗；默认是0，CPU正常功耗）
   public gameSoundControl = 0 // 游戏中声音的播放是否被app层接管（值为0和1；0：游戏播放声音，1：app层播放声音，游戏中不播放任何声音；默认是0）
   public gameSoundVolume = 100 // 游戏中音量的大小（值为0到100；默认是100）
+  public viewScale = 1 // 主动缩放游戏（比如0.8就是缩放到原始大小0.8倍，默认为1.0）
+  public autoScale = 0 // 自动根据安全区缩放游戏（默认0为不开启，设置为1就是开启自动适配缩放）
   public ui = new GameUi() // 对游戏ui界面的配置，可定制ui界面的显示与不显示
 }

@@ -7,9 +7,9 @@ module.exports = merge([webpackBase, {
   ],
   output: {
     filename: 'index.js',
-    path: path.resolve(__dirname, 'SudMGPWrapper'),
+    path: path.resolve(__dirname, 'SudGIPWrapper'),
     library: {
-      name: 'SudMGPWrapper',
+      name: 'SudGIPWrapper',
       type: 'umd'
     },
     globalObject: 'this'

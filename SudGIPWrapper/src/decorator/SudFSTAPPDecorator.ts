@@ -4,7 +4,7 @@
  */
 
 import { ISudFSTAPP, ISudListenerNotifyStateChange } from "../type/core"
-import { SudMGPAPPState, Ludo, AIPlayers } from "../state/SudMGPAPPState"
+import { SudGIPAPPState, Ludo, AIPlayers } from "../state/SudGIPAPPState"
 
 const notifyStateChangeFun = {
   onSuccess: () => {},
@@ -30,14 +30,30 @@ export class SudFSTAPPDecorator {
     this.iSudFSTAPP = iSudFSTAPP
   }
 
+  /**
+   *  @deprecated notifyAPPCommon is deprecated. Use notifyStateChange instead.
+   **/
   public notifyAPPCommon(...args: any) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
       const args = arguments
-      console.log(args, 'args')
 
       // @ts-ignore
       iSudFSTAPP.notifyStateChange(...args)
+    }
+  }
+
+  /**
+   * APP状态通知给小游戏
+   *
+   * @param state    状态标识
+   * @param dataJson 数据
+   * @param listener 回调监听
+   */
+  public notifyStateChange(state: string, dataJson: string, listener: ISudListenerNotifyStateChange) {
+    const iSudFSTAPP = this.iSudFSTAPP
+    if (iSudFSTAPP != null) {
+      iSudFSTAPP.notifyStateChange(state, dataJson, listener)
     }
   }
 
@@ -55,8 +71,8 @@ export class SudFSTAPPDecorator {
   public notifyAPPCommonSelfIn(isIn: boolean, seatIndex?: number, isSeatRandom?: boolean, teamId?: number) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonSelfIn({ isIn, seatIndex, isSeatRandom, teamId })
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_SELF_IN, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonSelfIn({ isIn, seatIndex, isSeatRandom, teamId })
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_SELF_IN, JSON.stringify(state), notifyStateChangeFun)
     }
   }
 
@@ -70,8 +86,8 @@ export class SudFSTAPPDecorator {
   public notifyAPPCommonSelfReady(isReady: boolean) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonSelfReady(isReady)
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_SELF_READY, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonSelfReady(isReady)
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_SELF_READY, JSON.stringify(state), notifyStateChangeFun)
     }
   }
 
@@ -93,8 +109,8 @@ export class SudFSTAPPDecorator {
   public notifyAPPCommonSelfPlaying(isPlaying: boolean, reportGameInfoExtras?: string, reportGameInfoKey?: string) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonSelfPlaying(isPlaying, reportGameInfoExtras, reportGameInfoKey)
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_SELF_PLAYING, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonSelfPlaying(isPlaying, reportGameInfoExtras, reportGameInfoKey)
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_SELF_PLAYING, JSON.stringify(state), notifyStateChangeFun)
     }
   }
 
@@ -108,8 +124,8 @@ export class SudFSTAPPDecorator {
   public notifyAPPCommonSelfCaptain(curCaptainUID: string) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonSelfCaptain(curCaptainUID)
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_SELF_CAPTAIN, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonSelfCaptain(curCaptainUID)
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_SELF_CAPTAIN, JSON.stringify(state), notifyStateChangeFun)
     }
   }
 
@@ -124,8 +140,8 @@ export class SudFSTAPPDecorator {
   public notifyAPPCommonSelfKick(kickedUID: string) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonSelfKick(kickedUID)
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_SELF_KICK, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonSelfKick(kickedUID)
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_SELF_KICK, JSON.stringify(state), notifyStateChangeFun)
     }
   }
 
@@ -137,8 +153,8 @@ export class SudFSTAPPDecorator {
   public notifyAPPCommonSelfEnd() {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonSelfEnd()
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_SELF_END, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonSelfEnd()
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_SELF_END, JSON.stringify(state), notifyStateChangeFun)
     }
   }
 
@@ -155,8 +171,8 @@ export class SudFSTAPPDecorator {
   public notifyAPPCommonSelfMicrophone(isOn: boolean, isDisabled: boolean) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonSelfMicrophone(isOn, isDisabled)
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_SELF_MICROPHONE, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonSelfMicrophone(isOn, isDisabled)
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_SELF_MICROPHONE, JSON.stringify(state), notifyStateChangeFun)
     }
   }
 
@@ -179,8 +195,8 @@ export class SudFSTAPPDecorator {
     wordType: string, keyWordList: string[], numberList: number[]) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonSelfTextHitState({ isHit, keyWord, text, wordType, keyWordList, numberList })
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_SELF_TEXT_HIT, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonSelfTextHitState({ isHit, keyWord, text, wordType, keyWordList, numberList })
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_SELF_TEXT_HIT, JSON.stringify(state), notifyStateChangeFun)
     }
   }
 
@@ -193,8 +209,8 @@ export class SudFSTAPPDecorator {
   public notifyAPPCommonOpenBgMusic(isOpen: boolean) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonOpenBgMusic(isOpen)
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_OPEN_BG_MUSIC, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonOpenBgMusic(isOpen)
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_OPEN_BG_MUSIC, JSON.stringify(state), notifyStateChangeFun)
     }
   }
 
@@ -207,8 +223,8 @@ export class SudFSTAPPDecorator {
   public notifyAPPCommonOpenSound(isOpen: boolean) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonOpenSound(isOpen)
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_OPEN_SOUND, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonOpenSound(isOpen)
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_OPEN_SOUND, JSON.stringify(state), notifyStateChangeFun)
     }
   }
 
@@ -221,8 +237,8 @@ export class SudFSTAPPDecorator {
   public notifyAPPCommonOpenVibrate(isOpen: boolean) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonOpenVibrate(isOpen)
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_OPEN_VIBRATE, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonOpenVibrate(isOpen)
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_OPEN_VIBRATE, JSON.stringify(state), notifyStateChangeFun)
     }
   }
 
@@ -235,8 +251,8 @@ export class SudFSTAPPDecorator {
   public notifyAPPCommonGameSoundVolume(volume: number) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonGameSoundVolume(volume)
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_GAME_SOUND_VOLUME, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonGameSoundVolume(volume)
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_GAME_SOUND_VOLUME, JSON.stringify(state), notifyStateChangeFun)
     }
   }
 
@@ -249,8 +265,8 @@ export class SudFSTAPPDecorator {
   public notifyAPPCommonGameSettingSelectInfo(ludo: Ludo) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonGameSettingSelectInfo(ludo)
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_GAME_SETTING_SELECT_INFO, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonGameSettingSelectInfo(ludo)
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_GAME_SETTING_SELECT_INFO, JSON.stringify(state), notifyStateChangeFun)
     }
   }
 
@@ -264,8 +280,8 @@ export class SudFSTAPPDecorator {
   public notifyAPPCommonGameAddAIPlayers(aiPlayers: AIPlayers[], isReady: number) {
     const iSudFSTAPP = this.iSudFSTAPP
     if (iSudFSTAPP != null) {
-      const state = SudMGPAPPState.APPCommonGameAddAIPlayers(aiPlayers, isReady)
-      iSudFSTAPP.notifyStateChange(SudMGPAPPState.APP_COMMON_GAME_ADD_AI_PLAYERS, JSON.stringify(state), notifyStateChangeFun)
+      const state = SudGIPAPPState.APPCommonGameAddAIPlayers(aiPlayers, isReady)
+      iSudFSTAPP.notifyStateChange(SudGIPAPPState.APP_COMMON_GAME_ADD_AI_PLAYERS, JSON.stringify(state), notifyStateChangeFun)
     }
   }
   // endregion 状态通知，ISudFSTAPP.notifyStateChange

@@ -44,7 +44,7 @@ import {
   IMGDGSelecting,
   IMGCommonPlayerRoleIdList,
   IMGDGTotalscore
-} from '../state/ISudMGPMGState'
+} from '../state/ISudGIPMGState'
 import { ISudFSMStateHandleUtils } from "../utils/ISudFSMStateHandleUtils"
 
 /**
@@ -75,9 +75,41 @@ export class SudFSMMGListener implements Partial<ISudFSMMGListener> {
     throw new Error("Method not implemented.")
   }
 
+  /**
+   * 游戏状态变化
+   * 透传游戏向App发送的游戏通用状态消息
+   * **********使用此方法可先看下此方法的使用逻辑*************
+   *
+   * @param handle   回调操作
+   * @param state    状态命令
+   * @param dataJson 状态值
+   * @return 返回true，表示由此方法接管该状态处理，此时需注意调用：ISudFSMStateHandleUtils.handleSuccess(handle);
+   */
+  onGameStateChange(handle: ISudFSMStateHandle, state: string, dataJson: string): boolean {
+    return false
+  }
+
   // 自定义处理游戏状态
+  /**
+   * @deprecated onGameCustomerStateChange is deprecated. Use onGameStateChange instead.
+   */
   onGameCustomerStateChange?(handle: ISudFSMStateHandle, state: string, dataJson: any):void {
     ISudFSMStateHandleUtils.handleSuccess(handle)
+  }
+
+  /**
+     * 游戏玩家状态变化
+     * 透传游戏向App发送的玩家状态变化
+     * **********使用此方法可先看下此方法的使用逻辑*************
+     *
+     * @param handle   回调操作
+     * @param userId   用户Id
+     * @param state    状态命令
+     * @param dataJson 状态值
+     * @return 返回true，表示由此方法接管该状态处理，此时需注意调用：ISudFSMStateHandleUtils.handleSuccess(handle);
+     */
+  onPlayerStateChange(handle: ISudFSMStateHandle, userId: string, state: string, dataJson: string) {
+    return false
   }
 
   /**

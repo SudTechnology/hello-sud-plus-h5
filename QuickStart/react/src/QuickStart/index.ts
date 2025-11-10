@@ -1,6 +1,7 @@
-import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudmgp-sdk-js-wrapper'
+// import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudmgp-sdk-js-wrapper'
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudmgp-sdk-js-wrapper-test'
-// import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from '../SudMGP/SudMGPWrapper/lib'
+import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudgip-sdk-js-wrapper-test'
+// import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from '../SudGIP/SudGIPWrapper/lib'
 // import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
 // import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
 
@@ -11,7 +12,7 @@ import { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
 // import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
 // import type { ISudMGP, ISudFSTAPP } from '../SudMGP/SudMGP/lib/type'
 import { getCode } from 'api/login' // 短期令牌code接口
-import { ISudFSMStateHandle } from 'sudmgp-sdk-js-wrapper/type/core'
+import { ISudFSMStateHandle } from 'sudgip-sdk-js-wrapper-test/type/core'
 import { appMap } from '../data/app'
 
 const SudMGPSDK = SudMGP as ISudMGP
@@ -172,26 +173,17 @@ export class SDKGameView {
     const self = this
     const customSudFSMMGListener = this.customSudFSMMGListener || {}
     this.sudFSMMGDecorator.setSudFSMMGListener({
-      // 默认监听事件
       onGameStarted() {
         console.log('game started')
         self.gameIsStarted = true
         self.customSudFSMMGListener && self.customSudFSMMGListener.onGameStarted && self.customSudFSMMGListener.onGameStarted()
       },
-      onGameCustomerStateChange(handle, state, data) {
-        // console.log('======onGameCustomerStateChange====', 'state', state, data)
-        switch (state) {
-          case 'mg_common_click_user_profile':
-            console.log('handle mg_common_click_user_profile')
-            break
-          case 'mg_avatar_get_avatar':
-            console.log('mg_avatar_get_avatar', 'zhixing')
-            // handle.success(JSON.stringify({ gender: "Male", avatar: "Role_Male_T19_Hair_01_M_Face_01_T_T19_UB_01_M_T19_LB_01_M_T19_Shoe_01_M" }))
-            handle.success(JSON.stringify({ gender: "Male", avatar: "" }))
+      // 自定义监听事件字符串回调
+      onGameStateChange(handle, state, dataJson) {
+        console.log('[ onGameStateChange ] >', state)
+        self.customSudFSMMGListener?.onGameStateChange && self.customSudFSMMGListener?.onGameStateChange(handle, state, dataJson)
 
-            break
-        }
-        self.customSudFSMMGListener?.onGameCustomerStateChange && self.customSudFSMMGListener?.onGameCustomerStateChange(handle, state, data)
+        return false
       },
       // 监听玩家状态改变
       onPlayerMGCommonPlayerIn(handle, userId, model) {
@@ -315,7 +307,7 @@ export class SDKGameView {
 
   /** 页面销毁的时候调用 */
   public onDestroy() {
-    this.sudFSTAPPDecorator.notifyAPPCommon('app_common_self_exit_game', JSON.stringify({}), {
+    this.sudFSTAPPDecorator.notifyStateChange('app_common_self_exit_game', JSON.stringify({}), {
       onSuccess() {
 
       },
