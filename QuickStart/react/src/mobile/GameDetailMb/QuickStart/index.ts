@@ -1,4 +1,4 @@
-import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudmgp-sdk-js-wrapper'
+import { SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudmgp-sdk-js-wrapper'
 import { SudMGP } from 'sudmgp-sdk-js'
 import { getCode } from 'api/login' // 短期令牌code接口
 import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
@@ -231,23 +231,15 @@ export class SDKGameView {
 
         handle.success(JSON.stringify(gameViewInfo))
       },
-      // 监听加入按钮事件
-      onGameMGCommonSelfClickJoinBtn(handle, res) {
-        console.log('[ onGameMGCommonSelfClickJoinBtn ] >', handle, res)
-        handle.success(JSON.stringify(res))
-        // 在此处可以根据业务方的需求进行逻辑处理，例如，加入游戏扣积分等等，在处理完成后，需要手动调用 self.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true) 用sdk来调用加入游戏
-        // sdk调用api，让玩家加入游戏
-        self.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true)
-      },
-      onGetGameCfg(handle, dataJson) {
-        // 游戏配置，ui相关事件监听 https://docs.sud.tech/zh-CN/app/Client/API/ISudFSMMG/onGetGameCfg.html
-        const config = new GameConfigModel()
-        // 如： 配置监听加入按钮（config.ui.join_btn），当监听配置后，游戏默认加入操作会无效，此时需要找到对应事件进行监听如这里onGameMGCommonSelfClickJoinBtn需要监听加入按钮事件
-        // config.ui.join_btn.custom = true
-        // config.ui.join_btn.hide = true // 配置隐藏加入按钮
+      // onGetGameCfg(handle, dataJson) {
+      //   // 游戏配置，ui相关事件监听 https://docs.sud.tech/zh-CN/app/Client/API/ISudFSMMG/onGetGameCfg.html
+      //   const config = new GameConfigModel()
+      //   // 如： 配置监听加入按钮（config.ui.join_btn），当监听配置后，游戏默认加入操作会无效，此时需要找到对应事件进行监听如这里onGameMGCommonSelfClickJoinBtn需要监听加入按钮事件
+      //   // config.ui.join_btn.custom = true
+      //   // config.ui.join_btn.hide = true // 配置隐藏加入按钮
 
-        handle.success(JSON.stringify(config))
-      },
+      //   handle.success(JSON.stringify(config))
+      // },
       /*
       * 《狼人杀》&《谁是卧底》RTC 接入部分
       */
