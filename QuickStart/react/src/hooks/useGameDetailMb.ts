@@ -64,6 +64,8 @@ export const useGameDetail = (props: IProps) => {
           // 游戏配置，ui相关事件监听 https://docs.sud.tech/zh-CN/app/Client/API/ISudFSMMG/onGetGameCfg.html
           const config = new GameConfigModel()
           config.ui.join_btn.custom = true
+          // 座位点击监听
+          config.ui.lobby_players.custom = true
           // config.ui.join_btn.hide = true // 配置隐藏加入按钮
 
           handle.success(JSON.stringify(config))
