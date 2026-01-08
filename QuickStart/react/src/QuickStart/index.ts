@@ -147,7 +147,7 @@ export class SDKGameView {
     console.log('[ isSupported ] >', isSupported)
 
     // 开启游戏debug上报
-    // SudMGPSDK.getSudCfg().getAdvancedConfigMap().set('enable_debug_game_log', true)
+    SudMGPSDK.getSudCfg().getAdvancedConfigMap().set('enable_debug_game_log', true)
 
     SudMGPSDK.initSDK(appId, appKey, bundleId, isTestEnv, {
       onSuccess() {

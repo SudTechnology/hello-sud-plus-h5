@@ -12,3 +12,10 @@ export const appMap = {
     appKey: 'plCg0dlpnckfZ2iJhyEPjq58nNvTETgP'
   }
 }
+
+export const requestUrlMap = {
+  1: 'https://prod-hellosud-base.s00.tech',
+  2: 'https://sim-hellosud-base.s00.tech',
+  3: 'https://fat-hellosud-base.s00.tech',
+  4: 'https://dev-hellosud-base.s00.tech'
+}
