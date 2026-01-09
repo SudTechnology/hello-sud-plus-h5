@@ -2,11 +2,11 @@
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudmgp-sdk-js-wrapper-test'
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudgip-sdk-js-wrapper-test'
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from '../SudGIP/SudGIPWrapper/lib'
-// import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
-// import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
+import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
+import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
 
-import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
-import { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
+// import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
+// import { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
 
 // @ts-ignore
 // import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
@@ -147,7 +147,7 @@ export class SDKGameView {
     console.log('[ isSupported ] >', isSupported)
 
     // 开启游戏debug上报
-    SudMGPSDK.getSudCfg().getAdvancedConfigMap().set('enable_debug_game_log', true)
+    // SudMGPSDK.getSudCfg().getAdvancedConfigMap().set('enable_debug_game_log', true)
 
     SudMGPSDK.initSDK(appId, appKey, bundleId, isTestEnv, {
       onSuccess() {
