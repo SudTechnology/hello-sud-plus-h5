@@ -90,7 +90,7 @@ export class SDKGameView {
    *
    */
   initSdk ({
-    userId,  // 必须string
+    userId, // 必须string
     appId, // 必须string
     code,
     appKey
