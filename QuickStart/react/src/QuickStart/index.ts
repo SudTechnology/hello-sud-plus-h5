@@ -2,20 +2,23 @@
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudmgp-sdk-js-wrapper-test'
 import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from 'sudgip-sdk-js-wrapper-test'
 // import { GameConfigModel, SudFSMMGDecorator, SudFSTAPPDecorator, SudFSMMGListener, ISudFSMStateHandleUtils } from '../SudGIP/SudGIPWrapper/lib'
-import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
-import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
+// import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js'
+// import type { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js/type'
 
 // import { SudMGP, ISudAPPD } from 'sudmgp-sdk-js-test'
 // import { ISudMGP, ISudFSTAPP } from 'sudmgp-sdk-js-test/type' // SudMGP类型
 
+import { SudGIP, ISudAPPD } from 'sudgip-sdk-js-test'
+import { ISudGIP, ISudFSTAPP } from 'sudgip-sdk-js-test/type' // SudMGP类型
+
 // @ts-ignore
-// import { SudMGP, ISudAPPD } from '../SudMGP/SudMGP/lib'
-// import type { ISudMGP, ISudFSTAPP } from '../SudMGP/SudMGP/lib/type'
+// import { SudGIP, ISudAPPD } from '../SudGIP/lib'
+// import type { ISudGIP, ISudFSTAPP } from '../SudGIP/lib/type'
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudgip-sdk-js-wrapper-test/type/core'
 import { appMap } from '../data/app'
 
-const SudMGPSDK = SudMGP as ISudMGP
+const SudMGPSDK = SudGIP as ISudGIP
 
 interface IInitSDKParam {
   userId: string,
@@ -97,7 +100,7 @@ export class SDKGameView {
         const code = res.data.code
         console.log(code)
         // @ts-ignore
-        await this.beforeInitSdk && this.beforeInitSdk(SudMGP)
+        await this.beforeInitSdk && this.beforeInitSdk(SudMGPSDK)
         const env = Number(localStorage.getItem('env')) || 3
         if (env === 1) { // 切换到生产环境
           this.GAME_IS_TEST_ENV = false
@@ -116,7 +119,7 @@ export class SDKGameView {
   }
 
   // before init生命周期
-  public beforeInitSdk(SudMGP: ISudMGP) {
+  public beforeInitSdk(SudGIP: ISudGIP) {
     return new Promise<void>((resolve) => {
       resolve()
     })
