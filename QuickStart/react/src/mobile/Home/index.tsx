@@ -75,6 +75,7 @@ const Home = () => {
         <label className={cx('form-item-lable')}>appId: </label>
         <select value={appId} onChange={(e) => changeAPP(e)}>
           <option value={'1461564080052506636'}>1461564080052506636</option>
+          <option value={'1473207032642564097'}>1473207032642564097</option>
           <option value={'1486637108889305089'}>1486637108889305089</option>
           <option value={'1658379102832939010'}>1658379102832939010</option>
           <option value={'1494278107449683969'}>1494278107449683969</option>
