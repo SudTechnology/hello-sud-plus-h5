@@ -4,6 +4,13 @@
 	"data": {
 		"sceneVOList": [
 			{
+				"gameName": "暴富矿工",
+				"mgId": "1947922061064572929",
+				"scenePic": "https://fat-sud-static-v.sudden.ltd/game/GoldMiner/60001742/332.jpg",
+				"orientation": 1,
+				"screenMode": 0
+			},
+			{
 				"gameName": "中国象棋",
 				"mgId": "1899434556918988802",
 				"scenePic": "https://fat-sud-static-v.sudden.ltd/game/cnchess/60001596/332.png",
