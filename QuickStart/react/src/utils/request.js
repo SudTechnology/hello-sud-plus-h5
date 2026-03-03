@@ -74,8 +74,12 @@ service.interceptors.response.use(
    */
   response => {
     const res = response.data
+    console.log('[ res ] >', res)
     // if the custom code is not 20000, it is judged as an error.
-    if (res.retCode !== 0) {
+    // eslint-disable-next-line no-prototype-builtins
+    const resCode = res.hasOwnProperty('retCode') ? res.retCode : res.ret_code
+    console.log('[ retCode ] >', resCode)
+    if (resCode !== 0) {
       Message.error(res.msg)
       return Promise.reject((res || 'Error'))
     } else {
