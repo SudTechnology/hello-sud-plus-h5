@@ -7,8 +7,9 @@ export const useHome = () => {
   useEffect(() => {
     getList().then(res => {
       console.log(res)
-      setList(res.data)
-      setLlmbotList(res.data.filter((item: any) => item.llmbot))
+      const resList = res.data.sceneVOList
+      setList(resList)
+      setLlmbotList(resList.filter((item: any) => item.llmbot))
     })
   }, [])
 
