@@ -22,6 +22,11 @@ export const useGameDetail = (gameId: string, roomId: string, language: string, 
               const gameView = document.getElementById('game')
               gameView?.classList.add('hd')
             }
+            if (gameConfData.ui.root_bg_color) {
+              const gameTopContainer = document.getElementById('game-top-container')
+              // @ts-ignore
+              gameTopContainer.style.backgroundColor = gameConfData.ui.root_bg_color
+            }
           }
         },
         onGameMGCommonGameBackLobby(handle, data) {

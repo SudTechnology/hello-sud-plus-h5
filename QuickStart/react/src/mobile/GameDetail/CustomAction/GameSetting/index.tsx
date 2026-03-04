@@ -1,5 +1,6 @@
 import React from 'react'
 import { Popup, Stepper, Form, Button, Radio, Switch } from 'antd-mobile'
+import { HexColorPicker } from 'react-colorful'
 import styles from './index.module.less'
 import classnames from 'classnames/bind'
 const cx = classnames.bind(styles)
@@ -180,6 +181,11 @@ const GameSetting: React.FC<IProp> = (props) => {
               <Form.Header>game_bg</Form.Header>
               <Form.Item name={['ui', 'game_bg', 'hide']} initialValue={false} label='hide'>
                 <Switch/>
+              </Form.Item>
+
+              <Form.Header>root_bg_color</Form.Header>
+              <Form.Item name={['ui', 'root_bg_color']} initialValue={'#000'} label='bg_color'>
+                <HexColorPicker />
               </Form.Item>
 
               <Form.Header>block_change_seat</Form.Header>

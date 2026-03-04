@@ -20,6 +20,7 @@
     "mockjs": "^1.1.0",
     "npm": "^8.13.2",
     "react": "^17.0.2",
+    "react-colorful": "^5.6.1",
     "react-dom": "^17.0.2",
     "react-error-overlay": "6.0.9",
     "react-router-dom": "^5.2.0",

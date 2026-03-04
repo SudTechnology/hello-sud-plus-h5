@@ -97,7 +97,7 @@ const GameDetail = (props: IProps) => {
   }
 
   return (
-    <div className={cx('container')}>
+    <div className={cx('container')} id="game-top-container">
       <div className={cx('game-container')}>
         {/* game 容器 */}
         <img src={Close} onClick={destory} alt="" className={cx('close')} />
