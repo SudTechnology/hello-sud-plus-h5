@@ -1,10 +1,10 @@
 import { SDKGameView } from '../QuickStart' // SudMGP类型
 
-const useCustomApi = (SudSDK: SDKGameView | undefined) => {
+const useCustomApi = (SudSDK: Pick<SDKGameView, 'sudFSTAPPDecorator'> | undefined) => {
   if (!SudSDK) {
     return {}
   }
-  const nSudSDK: SDKGameView = SudSDK
+  const nSudSDK = SudSDK
   // 加入游戏
   function joinGame() {
     nSudSDK.sudFSTAPPDecorator.notifyAPPCommonSelfIn(true, -1, true)
