@@ -23,7 +23,12 @@ export const requestUrlMap = {
   1: 'https://prod-hellosud-base.s00.tech',
   2: 'https://sim-hellosud-base.s00.tech',
   3: 'https://fat-hellosud-base.s00.tech',
-  4: 'https://dev-hellosud-base.s00.tech',
-  5: 'https://dev-hellosud-cp.s00.tech',
-  6: 'https://fat-hellosud-cp.s00.tech'
+  4: 'https://dev-hellosud-base.s00.tech'
+}
+
+export const cpRequestUrlMap = {
+  1: 'https://prod-hellosud-cp.s00.tech',
+  2: 'https://sim-hellosud-cp.s00.tech',
+  3: 'https://fat-hellosud-cp.s00.tech',
+  4: 'https://dev-hellosud-cp.s00.tech'
 }

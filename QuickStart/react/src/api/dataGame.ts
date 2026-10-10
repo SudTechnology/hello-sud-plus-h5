@@ -1,5 +1,5 @@
 import request from 'utils/request'
-import { requestUrlMap } from 'data/app'
+import { cpRequestUrlMap } from 'data/app'
 
 /* eslint-disable camelcase -- 接口字段与服务端协议保持一致 */
 interface GetAccountParams {
@@ -36,11 +36,10 @@ interface CreateOrderResponse {
 }
 /* eslint-enable camelcase */
 
-// 数值游戏接口的 DEV、FAT 环境使用对应的 CP 服务。
+// 数值游戏接口使用对应环境的 CP 服务。
 const getCpBaseUrl = () => {
   const env = Number(localStorage.getItem('env')) || 3
-  const accountEnv = env === 4 ? 5 : env === 3 ? 6 : env
-  return requestUrlMap[accountEnv as keyof typeof requestUrlMap]
+  return cpRequestUrlMap[env as keyof typeof cpRequestUrlMap]
 }
 
 // 查询用户积分余额
