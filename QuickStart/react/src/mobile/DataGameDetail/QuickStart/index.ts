@@ -15,6 +15,7 @@ import { ISudGIP, ISudFSTAPP } from 'sudgip-sdk-js-test/type' // SudMGP类型
 // import { SudGIP, ISudAPPD } from '../SudGIP/lib'
 // import type { ISudGIP, ISudFSTAPP } from '../SudGIP/lib/type'
 import { getCode } from 'api/dataGame' // 短期令牌code接口
+import { getCode as getNormalCode } from 'api/login'
 import { ISudFSMStateHandle } from 'sudgip-sdk-js-wrapper-test/type/core'
 import { appMap } from 'data/app'
 
@@ -98,8 +99,10 @@ export class SDKGameView {
     this.root = root
     language && (this.language = language)
 
-    if (localStorage.getItem('localAppId')) {
-      const localAppId = localStorage.getItem('localAppId') || '1461564080052506636'
+    const localAppId = Number(localStorage.getItem('env')) === 1
+      ? '1658379102832939010'
+      : localStorage.getItem('localAppId')
+    if (localAppId) {
       this.SudMGP_APP_ID = localAppId
       this.SudMGP_APP_KEY = appMap[localAppId as keyof typeof appMap].appKey
     }
@@ -114,17 +117,18 @@ export class SDKGameView {
    */
   public login(userId: string) {
     return new Promise<void>((resolve, reject) => {
+      const env = Number(localStorage.getItem('env')) || 3
       const data = {
         user_id: userId,
         app_id: this.SudMGP_APP_ID
       }
-      // 获取code
-      getCode(data).then(async (res) => {
+      // 该 appId 在 pro 环境使用普通登录接口。
+      const login = env === 1 && this.SudMGP_APP_ID === '1658379102832939010' ? getNormalCode : getCode
+      login(data).then(async (res) => {
         const code = res.data.code
         console.log(code)
         // @ts-ignore
         await this.beforeInitSdk && this.beforeInitSdk(SudMGPSDK)
-        const env = Number(localStorage.getItem('env')) || 3
         if (env === 1) { // 切换到生产环境
           this.GAME_IS_TEST_ENV = false
         }
@@ -137,8 +141,7 @@ export class SDKGameView {
           appKey: this.SudMGP_APP_KEY,
           isTestEnv: this.GAME_IS_TEST_ENV
         })
-        // /login/v1 返回 ret_code:0，服务端账户已创建，等价于安卓 CustomGameActivity 的 onLoginSuccess。
-        // 必须等这里 resolve 之后再调 /get-account/v1，否则服务端返回 1013 RET_ACCOUNT_NOT_EXIST。
+        // 登录完成后再查询账户；CP 的 /login/v1 会同时创建账户。
         resolve()
       }).catch(reject)
     })
