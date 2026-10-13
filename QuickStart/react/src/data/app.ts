@@ -14,8 +14,8 @@ export const appMap = {
   '1568135068418641921': {
     appKey: 'gLdQUWoefzz3MW0SDBOojkDl9gdicWMc'
   },
-  "1658379102832939010": {
-    appKey: "fjkP7ChkrwPQeRU2fJNBX2nynp0x0aik"
+  "2109931702132596738": {
+    appKey: "CEyXikNZ7FfHW7yKjrjo0ODKOJXJP3a1"
   }
 }
 

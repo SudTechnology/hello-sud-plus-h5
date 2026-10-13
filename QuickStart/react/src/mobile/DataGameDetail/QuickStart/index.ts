@@ -100,7 +100,7 @@ export class SDKGameView {
     language && (this.language = language)
 
     const localAppId = Number(localStorage.getItem('env')) === 1
-      ? '1658379102832939010'
+      ? '2109931702132596738'
       : localStorage.getItem('localAppId')
     if (localAppId) {
       this.SudMGP_APP_ID = localAppId
@@ -122,8 +122,8 @@ export class SDKGameView {
         user_id: userId,
         app_id: this.SudMGP_APP_ID
       }
-      // 该 appId 在 pro 环境使用普通登录接口。
-      const login = env === 1 && this.SudMGP_APP_ID === '1658379102832939010' ? getNormalCode : getCode
+      // 该 appId 使用生产环境 CP 的 /login/v1 接口。
+      const login = this.SudMGP_APP_ID === '2109931702132596738' ? getNormalCode : getCode
       login(data).then(async (res) => {
         const code = res.data.code
         console.log(code)
