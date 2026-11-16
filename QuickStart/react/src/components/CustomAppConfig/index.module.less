@@ -1,0 +1,27 @@
+.entry {
+  max-width: 640px;
+  margin: 16px auto;
+}
+
+.current {
+  margin-top: 8px;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.modal {
+  --adm-center-popup-min-width: ~"min(480px, calc(100vw - 32px))";
+  --adm-center-popup-max-width: calc(100vw - 32px);
+}
+
+.status {
+  margin: 0 0 16px;
+  color: #666;
+  font-size: 14px;
+}
+
+@media (max-width: 672px) {
+  .entry {
+    margin: 16px;
+  }
+}

@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './index.module.less'
 import classnames from 'classnames/bind'
 import { useHome } from 'hooks/useHome'
+import CustomAppConfig from 'components/CustomAppConfig'
 
 const cx = classnames.bind(styles)
 
@@ -11,6 +12,7 @@ const Home = () => {
   return (
     <div className={cx('container')}>
       {/* <div className={cx('title')}>Sud元宇宙互动升级</div> */}
+      <CustomAppConfig />
       {/* 游戏列表 */}
       <div className={cx('game-list')}>
         {

@@ -16,7 +16,7 @@ import { ISudGIP, ISudFSTAPP } from 'sudgip-sdk-js-test/type' // SudMGP类型
 // import type { ISudGIP, ISudFSTAPP } from '../SudGIP/lib/type'
 import { getCode } from 'api/login' // 短期令牌code接口
 import { ISudFSMStateHandle } from 'sudgip-sdk-js-wrapper-test/type/core'
-import { appMap } from '../data/app'
+import { getAppConfig } from 'utils/appConfig'
 
 const SudMGPSDK = SudGIP as ISudGIP
 
@@ -75,11 +75,9 @@ export class SDKGameView {
     this.root = root
     language && (this.language = language)
 
-    if (localStorage.getItem('localAppId')) {
-      const localAppId = localStorage.getItem('localAppId') || '1461564080052506636'
-      this.SudMGP_APP_ID = localAppId
-      this.SudMGP_APP_KEY = appMap[localAppId as keyof typeof appMap].appKey
-    }
+    const appConfig = getAppConfig()
+    this.SudMGP_APP_ID = appConfig.appId
+    this.SudMGP_APP_KEY = appConfig.appKey
   }
 
   /**

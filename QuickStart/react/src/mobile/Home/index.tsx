@@ -5,6 +5,7 @@ import { useHome } from 'hooks/useHome'
 import { Input, Form, Tabs } from 'antd-mobile'
 import LLMBotIcon from 'assets/llm.png'
 import { appMap } from 'data/app'
+import CustomAppConfig from 'components/CustomAppConfig'
 const cx = classnames.bind(styles)
 
 const Home = () => {
@@ -80,6 +81,7 @@ const Home = () => {
           ))}
         </select>
       </div>
+      <CustomAppConfig />
       {/* 游戏列表 */}
       <Tabs className={cx('tabs')} onChange={(key) => setCurTab(key)}>
         <Tabs.Tab title='全部' key='all'>
